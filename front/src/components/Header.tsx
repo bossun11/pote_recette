@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <nav className="bg-primary py-2 px-6">
       <div className="flex items-center justify-between">
@@ -22,6 +22,28 @@ const Header = () => {
             />
           </svg>
         </button>
+      </div>
+      <div
+        className={`${
+          isOpen ? "" : "hidden"
+        } absolute right-0 mt-2 w-48 py-2 bg-white rounded-lg shadow-xl`}
+      >
+        <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">
+          ショップ検索
+        </a>
+        <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">
+          ログイン
+        </a>
+        <div className="m-2 border border-base-200"></div>
+        <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">
+          利用規約
+        </a>
+        <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">
+          プライバシーポリシー
+        </a>
+        <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">
+          お問い合わせ
+        </a>
       </div>
     </nav>
   );
