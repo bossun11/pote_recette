@@ -23,7 +23,7 @@ const Register = () => {
             <input
               className="w-full px-3 py-2 border rounded-md outline-none"
               id="email"
-              type="text"
+              type="email"
             />
           </div>
           <div className="mb-2">
