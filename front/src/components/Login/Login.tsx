@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -31,9 +32,9 @@ const Login = () => {
           </div>
         </form>
       </div>
-      <a href="#" className="mt-6 link link-hover">
+      <Link to="/register" className="mt-6 link link-hover">
         アカウントをお持ちでない方はこちら
-      </a>
+      </Link>
     </div>
   );
 };
