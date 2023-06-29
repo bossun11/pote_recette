@@ -1,18 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginValidationSchema } from "../../utils/validationSchema";
 
-type LoginForm = {
-  email: string;
-  password: string;
-};
+type LoginForm = z.infer<typeof loginValidationSchema>;
 
 const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginForm>({ mode: "onChange" });
+  } = useForm<LoginForm>({ mode: "onChange", resolver: zodResolver(loginValidationSchema) });
 
   const onSubmit = (data: LoginForm) => {
     console.log(data);
@@ -31,10 +31,7 @@ const Login = () => {
               className="w-full px-3 py-2 border rounded-md outline-none"
               id="email"
               type="email"
-              {...register("email", {
-                required: "Emailが入力されていません。",
-                minLength: { value: 4, message: "4文字以上で入力してください。" },
-              })}
+              {...register("email")}
             />
             <p className="text-error">{errors.email?.message as React.ReactNode}</p>
           </div>
@@ -46,10 +43,7 @@ const Login = () => {
               className="w-full px-3 py-2 border rounded-md outline-none"
               id="password"
               type="password"
-              {...register("password", {
-                required: "パスワードが入力されていません。",
-                minLength: { value: 8, message: "8文字以上で入力してください。" },
-              })}
+              {...register("password")}
             />
             <p className="text-error">{errors.password?.message as React.ReactNode}</p>
           </div>
