@@ -33,7 +33,7 @@ const Login = () => {
               type="email"
               {...register("email")}
             />
-            <p className="text-error">{errors.email?.message as React.ReactNode}</p>
+            {errors.email && <span className="text-error">{errors.email.message}</span>}
           </div>
           <div className="mb-5">
             <label className="mb-2 text-sm" htmlFor="password">
@@ -45,7 +45,7 @@ const Login = () => {
               type="password"
               {...register("password")}
             />
-            <p className="text-error">{errors.password?.message as React.ReactNode}</p>
+            {errors.password && <span className="text-error">{errors.password.message}</span>}
           </div>
           <div className="flex justify-center">
             <button className="btn btn-active btn-primary">ログイン</button>
