@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,8 +14,11 @@ const Login = () => {
     formState: { errors },
   } = useForm<LoginForm>({ mode: "onChange", resolver: zodResolver(loginValidationSchema) });
 
+  const navigate = useNavigate();
+
   const onSubmit = (data: LoginForm) => {
     console.log(data);
+    navigate("/");
   };
 
   return (
