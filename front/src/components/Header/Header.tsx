@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -31,9 +32,18 @@ const Header = () => {
         <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">
           ショップ検索
         </a>
-        <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">
+        <Link
+          to="/login"
+          className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+        >
           ログイン
-        </a>
+        </Link>
+        <Link
+          to="/register"
+          className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+        >
+          ユーザー登録
+        </Link>
         <div className="m-2 border border-base-200"></div>
         <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">
           利用規約
