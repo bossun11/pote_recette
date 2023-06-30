@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const changeMenuState = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className="drawer drawer-end">
       <input
@@ -10,7 +15,7 @@ const Header = () => {
         id="my-drawer"
         className="drawer-toggle"
         checked={isOpen}
-        onChange={() => setIsOpen(!isOpen)}
+        onChange={changeMenuState}
       />
       <div className="flex flex-col drawer-content">
         <nav className="bg-primary py-2 px-6">
@@ -42,12 +47,20 @@ const Header = () => {
             </a>
           </li>
           <li>
-            <Link to="/login" className="text-gray-800 hover:bg-indigo-500 hover:text-white">
+            <Link
+              to="/login"
+              className="text-gray-800 hover:bg-indigo-500 hover:text-white"
+              onClick={changeMenuState}
+            >
               ログイン
             </Link>
           </li>
           <li>
-            <Link to="/register" className="text-gray-800 hover:bg-indigo-500 hover:text-white">
+            <Link
+              to="/register"
+              className="text-gray-800 hover:bg-indigo-500 hover:text-white"
+              onClick={changeMenuState}
+            >
               ユーザー登録
             </Link>
           </li>
