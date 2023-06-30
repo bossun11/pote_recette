@@ -4,58 +4,72 @@ import { Link } from "react-router-dom";
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
-    <nav className="bg-primary py-2 px-6">
-      <div className="flex items-center justify-between">
-        <div className="text-white text-2xl">Logo</div>
-        <button type="button" className="text-white" onClick={() => setIsOpen(!isOpen)}>
+    <div className="drawer drawer-end">
+      <input
+        type="checkbox"
+        id="my-drawer"
+        className="drawer-toggle"
+        checked={isOpen}
+        onChange={() => setIsOpen(!isOpen)}
+      />
+      <div className="flex flex-col drawer-content">
+        <nav className="bg-primary py-2 px-6">
+          <div className="flex items-center justify-between">
+            <div className="text-white text-2xl">Logo</div>
+          </div>
+        </nav>
+        <label
+          htmlFor="my-drawer"
+          className="absolute top-1/2 right-0 p-4 transform -translate-y-1/2"
+        >
           <svg
+            className="swap-off fill-current text-white"
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            className="h-6 w-6"
+            width="32"
+            height="32"
+            viewBox="0 0 512 512"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-            />
+            <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
           </svg>
-        </button>
+        </label>
       </div>
-      <div
-        className={`${
-          isOpen ? "" : "hidden"
-        } absolute right-0 mt-2 w-48 py-2 bg-white rounded-lg shadow-xl`}
-      >
-        <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">
-          ショップ検索
-        </a>
-        <Link
-          to="/login"
-          className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
-        >
-          ログイン
-        </Link>
-        <Link
-          to="/register"
-          className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
-        >
-          ユーザー登録
-        </Link>
-        <div className="m-2 border border-base-200"></div>
-        <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">
-          利用規約
-        </a>
-        <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">
-          プライバシーポリシー
-        </a>
-        <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">
-          お問い合わせ
-        </a>
+      <div className="drawer-side">
+        <label htmlFor="my-drawer" className="drawer-overlay"></label>
+        <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+          <li>
+            <a href="#" className="text-gray-800 hover:bg-indigo-500 hover:text-white">
+              ショップ検索
+            </a>
+          </li>
+          <li>
+            <Link to="/login" className="text-gray-800 hover:bg-indigo-500 hover:text-white">
+              ログイン
+            </Link>
+          </li>
+          <li>
+            <Link to="/register" className="text-gray-800 hover:bg-indigo-500 hover:text-white">
+              ユーザー登録
+            </Link>
+          </li>
+          <li className="m-2 border border-base-200"></li>
+          <li>
+            <a href="#" className="text-gray-800 hover:bg-indigo-500 hover:text-white">
+              利用規約
+            </a>
+          </li>
+          <li>
+            <a href="#" className="text-gray-800 hover:bg-indigo-500 hover:text-white">
+              プライバシーポリシー
+            </a>
+          </li>
+          <li>
+            <a href="#" className="text-gray-800 hover:bg-indigo-500 hover:text-white">
+              お問い合わせ
+            </a>
+          </li>
+        </ul>
       </div>
-    </nav>
+    </div>
   );
 };
 
