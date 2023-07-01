@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerValidationSchema } from "../../utils/validationSchema";
+import NeutralButton from "../Buttons/NeutralButton";
 
 type RegisterForm = z.infer<typeof registerValidationSchema>;
 
@@ -20,6 +21,8 @@ const Register = () => {
     console.log(data);
     navigate("/login");
   };
+
+  const BTNTEXT = "登録する";
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -77,7 +80,7 @@ const Register = () => {
             )}
           </div>
           <div className="flex justify-center">
-            <button className="btn btn-active btn-primary">登録する</button>
+            <NeutralButton BTNTEXT={BTNTEXT} />
           </div>
         </form>
       </div>

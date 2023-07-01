@@ -42,14 +42,14 @@ const Header = () => {
         <label htmlFor="my-drawer" className="drawer-overlay"></label>
         <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
           <li>
-            <a href="#" className="text-gray-800 hover:bg-indigo-500 hover:text-white">
+            <a href="#" className="text-gray-800 hover:bg-reddishBrown hover:text-white">
               ショップ検索
             </a>
           </li>
           <li>
             <Link
               to="/login"
-              className="text-gray-800 hover:bg-indigo-500 hover:text-white"
+              className="text-gray-800 hover:bg-reddishBrown hover:text-white"
               onClick={changeMenuState}
             >
               ログイン
@@ -58,7 +58,7 @@ const Header = () => {
           <li>
             <Link
               to="/register"
-              className="text-gray-800 hover:bg-indigo-500 hover:text-white"
+              className="text-gray-800 hover:bg-reddishBrown hover:text-white"
               onClick={changeMenuState}
             >
               ユーザー登録
@@ -66,17 +66,17 @@ const Header = () => {
           </li>
           <li className="m-2 border border-base-200"></li>
           <li>
-            <a href="#" className="text-gray-800 hover:bg-indigo-500 hover:text-white">
+            <a href="#" className="text-gray-800 hover:bg-reddishBrown hover:text-white">
               利用規約
             </a>
           </li>
           <li>
-            <a href="#" className="text-gray-800 hover:bg-indigo-500 hover:text-white">
+            <a href="#" className="text-gray-800 hover:bg-reddishBrown hover:text-white">
               プライバシーポリシー
             </a>
           </li>
           <li>
-            <a href="#" className="text-gray-800 hover:bg-indigo-500 hover:text-white">
+            <a href="#" className="text-gray-800 hover:bg-reddishBrown hover:text-white">
               お問い合わせ
             </a>
           </li>
