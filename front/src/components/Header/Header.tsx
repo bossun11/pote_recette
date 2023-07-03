@@ -9,7 +9,7 @@ const Header = () => {
   };
 
   return (
-    <div className="drawer drawer-end">
+    <div className="drawer drawer-end z-50">
       <input
         type="checkbox"
         id="my-drawer"
@@ -64,7 +64,7 @@ const Header = () => {
               ユーザー登録
             </Link>
           </li>
-          <li className="m-2 border border-base-200"></li>
+          <div className="divider my-0.5"></div>
           <li>
             <a href="#" className="text-gray-800 hover:bg-reddishBrown hover:text-white">
               利用規約
