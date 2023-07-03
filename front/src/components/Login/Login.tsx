@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginValidationSchema } from "../../utils/validationSchema";
+import NeutralButton from "../Buttons/NeutralButton";
 
 type LoginForm = z.infer<typeof loginValidationSchema>;
 
@@ -20,6 +21,8 @@ const Login = () => {
     console.log(data);
     navigate("/");
   };
+
+  const BTNTEXT = "ログイン";
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -51,7 +54,7 @@ const Login = () => {
             {errors.password && <span className="text-error">{errors.password.message}</span>}
           </div>
           <div className="flex justify-center">
-            <button className="btn btn-active btn-primary">ログイン</button>
+            <NeutralButton BTNTEXT={BTNTEXT} />
           </div>
         </form>
       </div>
