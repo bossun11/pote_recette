@@ -18,7 +18,7 @@ const Header = () => {
         onChange={changeMenuState}
       />
       <div className="flex flex-col drawer-content">
-        <nav className="bg-primary py-2 px-6">
+        <nav className="bg-deepRed py-2 px-6">
           <div className="flex items-center justify-between">
             <div className="text-white text-2xl">Logo</div>
           </div>
