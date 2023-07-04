@@ -18,9 +18,11 @@ const Header = () => {
         onChange={changeMenuState}
       />
       <div className="flex flex-col drawer-content">
-        <nav className="bg-deepRed py-2 px-6">
+        <nav className="bg-deepRed px-6">
           <div className="flex items-center justify-between">
-            <div className="text-white text-2xl">Logo</div>
+            <Link to="/">
+              <img className="w-72 py-1" src="/images/logo.png" alt="logo" />
+            </Link>
           </div>
         </nav>
         <label
