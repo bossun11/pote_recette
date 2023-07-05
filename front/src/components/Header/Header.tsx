@@ -9,7 +9,7 @@ const Header = () => {
   };
 
   return (
-    <div className="drawer drawer-end">
+    <div className="drawer drawer-end z-50">
       <input
         type="checkbox"
         id="my-drawer"
@@ -18,9 +18,11 @@ const Header = () => {
         onChange={changeMenuState}
       />
       <div className="flex flex-col drawer-content">
-        <nav className="bg-primary py-2 px-6">
+        <nav className="bg-deepRed px-6">
           <div className="flex items-center justify-between">
-            <div className="text-white text-2xl">Logo</div>
+            <Link to="/">
+              <img className="w-72 py-1" src="/images/logo.png" alt="logo" />
+            </Link>
           </div>
         </nav>
         <label
@@ -64,7 +66,7 @@ const Header = () => {
               ユーザー登録
             </Link>
           </li>
-          <li className="m-2 border border-base-200"></li>
+          <div className="divider my-0.5"></div>
           <li>
             <a href="#" className="text-gray-800 hover:bg-reddishBrown hover:text-white">
               利用規約
