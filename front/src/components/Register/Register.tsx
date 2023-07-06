@@ -1,23 +1,21 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerValidationSchema } from "../../utils/validationSchema";
 import NeutralButton from "../Buttons/NeutralButton";
-
-type RegisterForm = z.infer<typeof registerValidationSchema>;
+import { SignUpParams } from "../../types";
 
 const Register = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterForm>({ mode: "onChange", resolver: zodResolver(registerValidationSchema) });
+  } = useForm<SignUpParams>({ mode: "onChange", resolver: zodResolver(registerValidationSchema) });
 
   const navigate = useNavigate();
 
-  const onSubmit = (data: RegisterForm) => {
+  const onSubmit = (data: SignUpParams) => {
     console.log(data);
     navigate("/login");
   };
