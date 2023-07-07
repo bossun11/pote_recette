@@ -11,7 +11,7 @@ module.exports = {
   rules: {
     "no-unused-vars": "warn", //　未使用の変数があったら警告
     eqeqeq: "error", // '==='と'!=='を強制
-    curly: "error", // 制御文(if, while etc)のブロックを強制
+    curly: ["error", "multi"], // if文の{}を強制
     semi: ["error", "always"], // セミコロンを強制
   },
   settings: {
