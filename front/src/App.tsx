@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import "./App.css";
@@ -6,12 +6,14 @@ import Header from "./components/Header/Header";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import TopPage from "./components/TopPage/TopPage";
-import { AuthProvider } from "./context/AuthContext";
 import { getCurrentUser } from "./lib/api/auth";
+import { User } from "./types";
 import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  const { setLoading, setIsSignedIn, setCurrentUser } = useContext(AuthContext);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
+  const [currentUser, setCurrentUser] = useState<User | undefined>();
 
   // ログインしているユーザーの情報を取得
   const handleGetCurrentUser = async () => {
@@ -33,8 +35,20 @@ function App() {
     handleGetCurrentUser();
   }, [setCurrentUser]);
 
+  const AuthContextValue = useMemo(
+    () => ({
+      loading,
+      setLoading,
+      isSignedIn,
+      setIsSignedIn,
+      currentUser,
+      setCurrentUser,
+    }),
+    [loading, setLoading, isSignedIn, setIsSignedIn, currentUser, setCurrentUser],
+  );
+
   return (
-    <AuthProvider>
+    <AuthContext.Provider value={AuthContextValue}>
       <Router>
         <Header />
         <Routes>
@@ -43,7 +57,7 @@ function App() {
           <Route path="/register" element={<Register />} />
         </Routes>
       </Router>
-    </AuthProvider>
+    </AuthContext.Provider>
   );
 }
 
