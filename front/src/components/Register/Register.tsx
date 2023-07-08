@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { registerValidationSchema } from "../../utils/validationSchema";
 import NeutralButton from "../Buttons/NeutralButton";
 import { SignUpParams } from "../../types";
+import { signUp } from "../../lib/api/auth";
 
 const Register = () => {
   const {
@@ -15,9 +16,14 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit = (data: SignUpParams) => {
-    console.log(data);
-    navigate("/login");
+  const onSubmit = async (data: SignUpParams) => {
+    try {
+      const res = await signUp(data);
+      console.log(res);
+      navigate("/login");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const BTNTEXT = "登録する";
