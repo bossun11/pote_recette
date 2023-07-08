@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,6 +19,8 @@ const Login = () => {
 
   const navigate = useNavigate();
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState<string | null>("");
+  const [showToast, setShowToast] = useState<boolean>(false);
 
   const onSubmit = async (data: LoginParams) => {
     try {
@@ -34,9 +36,20 @@ const Login = () => {
         navigate("/");
       }
     } catch (e) {
-      console.log(e);
+      setErrorMessage("ログインに失敗しました。メールアドレスまたはパスワードが間違っています。");
+      setShowToast(true);
     }
   };
+
+  // トーストが表示されたら一定時間後に非表示にする
+  useEffect(() => {
+    if (showToast) {
+      const timer = setTimeout(() => {
+        setShowToast(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showToast]);
 
   const BTNTEXT = "ログイン";
 
@@ -77,6 +90,11 @@ const Login = () => {
       <Link to="/register" className="mt-6 link link-hover">
         アカウントをお持ちでない方はこちら
       </Link>
+      {showToast && (
+        <div className="toast toast-center">
+          <div className="alert alert-error">{errorMessage}</div>
+        </div>
+      )}
     </div>
   );
 };
