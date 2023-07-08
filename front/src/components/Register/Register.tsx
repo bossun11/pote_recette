@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Cookies from "js-cookie";
+
 import { registerValidationSchema } from "../../utils/validationSchema";
 import NeutralButton from "../Buttons/NeutralButton";
 import { SignUpParams } from "../../types";
 import { signUp } from "../../lib/api/auth";
+import { AuthContext } from "../../context/AuthContext";
 
 const Register = () => {
   const {
@@ -15,12 +18,20 @@ const Register = () => {
   } = useForm<SignUpParams>({ mode: "onChange", resolver: zodResolver(registerValidationSchema) });
 
   const navigate = useNavigate();
+  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
 
   const onSubmit = async (data: SignUpParams) => {
     try {
       const res = await signUp(data);
-      console.log(res);
-      navigate("/login");
+      if (res.status === 200) {
+        Cookies.set("_access_token", res.headers["access-token"]);
+        Cookies.set("_client", res.headers.client);
+        Cookies.set("_uid", res.headers.uid);
+
+        setIsSignedIn(true);
+        setCurrentUser(res.data.data);
+        navigate("/");
+      }
     } catch (e) {
       console.log(e);
     }
