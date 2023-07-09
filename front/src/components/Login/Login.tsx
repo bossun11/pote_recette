@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,7 +8,7 @@ import { loginValidationSchema } from "../../utils/validationSchema";
 import NeutralButton from "../Buttons/NeutralButton";
 import { LoginParams } from "../../types/index";
 import { login } from "../../lib/api/auth";
-import { AuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../context/AuthContext";
 import useToast from "../../hooks/useToast";
 import Toast from "../Toasts/Toast";
 
@@ -20,7 +20,7 @@ const Login: FC = () => {
   } = useForm<LoginParams>({ mode: "onChange", resolver: zodResolver(loginValidationSchema) });
 
   const navigate = useNavigate();
-  const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
+  const { setIsSignedIn, setCurrentUser } = useAuthContext();
   const { message, showToast, clearToast } = useToast();
 
   const onSubmit = async (data: LoginParams) => {

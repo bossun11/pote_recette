@@ -1,15 +1,15 @@
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../lib/api/auth";
 import Cookies from "js-cookie";
-import { AuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../context/AuthContext";
 
 type Props = {
   changeMenuState: () => void;
 };
 
 const AfterLoginMenu: FC<Props> = ({ changeMenuState }) => {
-  const { setIsSignedIn, currentUser } = useContext(AuthContext);
+  const { setIsSignedIn, currentUser } = useAuthContext();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
