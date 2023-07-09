@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { AuthContext } from "../../context/AuthContext";
 import BeforeLoginMenu from "./BeforeLoginMenu";
 import AfterLoginMenu from "./AfterLoginMenu";
 
-const Header = () => {
+const Header: FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { isSignedIn } = useContext(AuthContext);
 

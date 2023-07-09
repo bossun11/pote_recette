@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React, { FC, useContext } from "react";
 import NeutralButton from "../Buttons/NeutralButton";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
-const TopPage = () => {
+const TopPage: FC = () => {
   const BTNTEXT = "ログインして始める";
   const { isSignedIn } = useContext(AuthContext);
 

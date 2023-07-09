@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { FC, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,7 +12,7 @@ import { AuthContext } from "../../context/AuthContext";
 import useToast from "../../hooks/useToast";
 import Toast from "../Toasts/Toast";
 
-const Register = () => {
+const Register: FC = () => {
   const {
     register,
     handleSubmit,
