@@ -1,25 +1,44 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Cookies from "js-cookie";
+
 import { loginValidationSchema } from "../../utils/validationSchema";
 import NeutralButton from "../Buttons/NeutralButton";
+import { LoginParams } from "../../types/index";
+import { login } from "../../lib/api/auth";
+import { useAuthContext } from "../../context/AuthContext";
+import useToast from "../../hooks/useToast";
+import Toast from "../Toasts/Toast";
 
-type LoginForm = z.infer<typeof loginValidationSchema>;
-
-const Login = () => {
+const Login: FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginForm>({ mode: "onChange", resolver: zodResolver(loginValidationSchema) });
+  } = useForm<LoginParams>({ mode: "onChange", resolver: zodResolver(loginValidationSchema) });
 
   const navigate = useNavigate();
+  const { setIsSignedIn, setCurrentUser } = useAuthContext();
+  const { message, showToast, clearToast } = useToast();
 
-  const onSubmit = (data: LoginForm) => {
-    console.log(data);
-    navigate("/");
+  const onSubmit = async (data: LoginParams) => {
+    try {
+      const res = await login(data);
+      // ログイン成功時にはCookieに各種情報を格納する
+      if (res.status === 200) {
+        Cookies.set("_access_token", res.headers["access-token"]);
+        Cookies.set("_client", res.headers.client);
+        Cookies.set("_uid", res.headers.uid);
+
+        setIsSignedIn(true);
+        setCurrentUser(res.data.data);
+        navigate("/");
+      }
+    } catch (e) {
+      showToast("ログインに失敗しました。メールアドレスまたはパスワードが間違っています。");
+    }
   };
 
   const BTNTEXT = "ログイン";
@@ -61,6 +80,7 @@ const Login = () => {
       <Link to="/register" className="mt-6 link link-hover">
         アカウントをお持ちでない方はこちら
       </Link>
+      {message && <Toast message={message} clearToast={clearToast} />}
     </div>
   );
 };

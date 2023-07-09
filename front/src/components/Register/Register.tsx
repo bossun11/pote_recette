@@ -1,25 +1,43 @@
-import React from "react";
+import React, { FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Cookies from "js-cookie";
+
 import { registerValidationSchema } from "../../utils/validationSchema";
 import NeutralButton from "../Buttons/NeutralButton";
+import { SignUpParams } from "../../types";
+import { signUp } from "../../lib/api/auth";
+import { useAuthContext } from "../../context/AuthContext";
+import useToast from "../../hooks/useToast";
+import Toast from "../Toasts/Toast";
 
-type RegisterForm = z.infer<typeof registerValidationSchema>;
-
-const Register = () => {
+const Register: FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<RegisterForm>({ mode: "onChange", resolver: zodResolver(registerValidationSchema) });
+  } = useForm<SignUpParams>({ mode: "onChange", resolver: zodResolver(registerValidationSchema) });
 
   const navigate = useNavigate();
+  const { setIsSignedIn, setCurrentUser } = useAuthContext();
+  const { message, showToast, clearToast } = useToast();
 
-  const onSubmit = (data: RegisterForm) => {
-    console.log(data);
-    navigate("/login");
+  const onSubmit = async (data: SignUpParams) => {
+    try {
+      const res = await signUp(data);
+      if (res.status === 200) {
+        Cookies.set("_access_token", res.headers["access-token"]);
+        Cookies.set("_client", res.headers.client);
+        Cookies.set("_uid", res.headers.uid);
+
+        setIsSignedIn(true);
+        setCurrentUser(res.data.data);
+        navigate("/");
+      }
+    } catch (e) {
+      showToast("ユーザー登録に失敗しました。");
+    }
   };
 
   const BTNTEXT = "登録する";
@@ -87,6 +105,7 @@ const Register = () => {
       <Link to="/login" className="mt-6 link link-hover">
         すでにアカウントをお持ちの方はこちら
       </Link>
+      {message && <Toast message={message} clearToast={clearToast} />}
     </div>
   );
 };
