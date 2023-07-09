@@ -9,6 +9,8 @@ import NeutralButton from "../Buttons/NeutralButton";
 import { SignUpParams } from "../../types";
 import { signUp } from "../../lib/api/auth";
 import { AuthContext } from "../../context/AuthContext";
+import useToast from "../../hooks/useToast";
+import Toast from "../Toasts/Toast";
 
 const Register = () => {
   const {
@@ -19,6 +21,7 @@ const Register = () => {
 
   const navigate = useNavigate();
   const { setIsSignedIn, setCurrentUser } = useContext(AuthContext);
+  const { message, showToast, clearToast } = useToast();
 
   const onSubmit = async (data: SignUpParams) => {
     try {
@@ -33,7 +36,7 @@ const Register = () => {
         navigate("/");
       }
     } catch (e) {
-      console.log(e);
+      showToast("ユーザー登録に失敗しました。");
     }
   };
 
@@ -102,6 +105,7 @@ const Register = () => {
       <Link to="/login" className="mt-6 link link-hover">
         すでにアカウントをお持ちの方はこちら
       </Link>
+      {message && <Toast message={message} clearToast={clearToast} />}
     </div>
   );
 };

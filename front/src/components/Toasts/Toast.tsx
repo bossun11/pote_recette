@@ -2,7 +2,7 @@ import React, { FC } from "react";
 
 type ToastProps = {
   message: string;
-  clearToast?: () => void;
+  clearToast: () => void;
 };
 
 const Toast: FC<ToastProps> = ({ message, clearToast }) => {
