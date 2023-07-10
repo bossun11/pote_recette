@@ -8,6 +8,7 @@ import Register from "./components/Register/Register";
 import TopPage from "./components/TopPage/TopPage";
 import { getCurrentUser } from "./lib/api/auth";
 import { AuthProvider, useAuthContext } from "./context/AuthContext";
+import ShopSearch from "./components/ShopSearch/ShopSearch";
 
 const App = () => {
   return (
@@ -46,6 +47,7 @@ const AppContent = () => {
         <Route path="/" element={<TopPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/shop-search" element={<ShopSearch />} />
       </Routes>
     </Router>
   );
