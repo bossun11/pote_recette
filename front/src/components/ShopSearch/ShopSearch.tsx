@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import GoogleMap from "../GoogleMap/GoogleMap";
 
 const ShopSearch: FC = () => {
   return (
@@ -7,9 +8,8 @@ const ShopSearch: FC = () => {
         {/* 左側のコンテンツをここに配置します */}
         <p>左側のコンテンツ</p>
       </div>
-      <div className="w-2/3 bg-gray-300">
-        {/* Googleマップを表示するためのコンテンツをここに配置します */}
-        <p>Googleマップの表示領域</p>
+      <div className="w-2/3">
+        <GoogleMap />
       </div>
     </div>
   );
