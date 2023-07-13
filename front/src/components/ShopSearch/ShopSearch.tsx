@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -6,23 +6,32 @@ import { FiX } from "react-icons/fi";
 import axios from "axios";
 
 import GoogleMap from "../GoogleMap/GoogleMap";
-import { shopSearchValidationSchema } from "../../utils/validationSchema";
+import { inputSearchValidationSchema } from "../../utils/validationSchema";
 
-type ShopSearchParams = z.infer<typeof shopSearchValidationSchema>;
+type InputSearchParams = z.infer<typeof inputSearchValidationSchema>;
+
+type ShopType = {
+  place_id: string;
+  name: string;
+  formatted_address: string;
+};
 
 const ShopSearch: FC = () => {
-  const { register, handleSubmit, formState, reset } = useForm<ShopSearchParams>({
+  const { register, handleSubmit, formState, reset } = useForm<InputSearchParams>({
     mode: "onChange",
-    resolver: zodResolver(shopSearchValidationSchema),
+    resolver: zodResolver(inputSearchValidationSchema),
   });
 
-  const onSubmit = async (data: ShopSearchParams) => {
+  const [shops, setShops] = useState<ShopType[]>([]);
+
+  const onSubmit = async (data: InputSearchParams) => {
     try {
       const res = await axios.get(
         `${process.env.REACT_APP_BACKEND_API_URL}/shops/search?location=${data.search}`,
       );
       const results = res.data;
       console.log(results);
+      setShops(results.results);
     } catch (e) {
       console.log(e);
     }
@@ -63,12 +72,15 @@ const ShopSearch: FC = () => {
           </form>
           {/* Google Place APIから取得した店舗情報をここに表示する */}
           <div className="space-y-4 mt-4 w-full max-w-md overflow-auto">
-            <div className="card w-88 bg-base-100">
-              <div className="card-body ">
-                <h2 className="card-title">店舗名</h2>
-                <p>店舗の住所</p>
-              </div>
-            </div>
+            {shops.length > 0 &&
+              shops.map((shop: ShopType) => (
+                <div key={shop.place_id} className="card w-88 bg-base-100">
+                  <div className="card-body ">
+                    <h2 className="card-title">{shop.name}</h2>
+                    <p>{shop.formatted_address}</p>
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </div>

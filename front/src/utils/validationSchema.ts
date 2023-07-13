@@ -35,6 +35,6 @@ export const registerValidationSchema = z
     path: ["passwordConfirmation"],
   });
 
-export const shopSearchValidationSchema = z.object({
+export const inputSearchValidationSchema = z.object({
   search: z.string().nonempty("検索ワードを入力してください"),
 });
