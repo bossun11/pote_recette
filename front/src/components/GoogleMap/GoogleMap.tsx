@@ -16,7 +16,7 @@ const containerStyle: ContentStyleType = {
   height: "100%",
 };
 
-// とりあえず名古屋城を中心に表示
+// 最終的にShopSearchコンポーネントのonSubmit関数の引数に渡された値を使って中心座標を決めたい
 const center: CenterType = {
   lat: 35.182253007459444,
   lng: 136.90534328438358,

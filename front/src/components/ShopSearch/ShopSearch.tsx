@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { FiX } from "react-icons/fi";
+import axios from "axios";
 
 import GoogleMap from "../GoogleMap/GoogleMap";
 import { shopSearchValidationSchema } from "../../utils/validationSchema";
@@ -15,7 +16,17 @@ const ShopSearch: FC = () => {
     resolver: zodResolver(shopSearchValidationSchema),
   });
 
-  const onSubmit = (data: ShopSearchParams) => console.log(data);
+  const onSubmit = async (data: ShopSearchParams) => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_BACKEND_API_URL}/shops/search?location=${data.search}`,
+      );
+      const results = res.data;
+      console.log(results);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const handleReset = () => {
     reset();
@@ -52,18 +63,6 @@ const ShopSearch: FC = () => {
           </form>
           {/* Google Place APIから取得した店舗情報をここに表示する */}
           <div className="space-y-4 mt-4 w-full max-w-md overflow-auto">
-            <div className="card w-88 bg-base-100">
-              <div className="card-body ">
-                <h2 className="card-title">店舗名</h2>
-                <p>店舗の住所</p>
-              </div>
-            </div>
-            <div className="card w-88 bg-base-100">
-              <div className="card-body ">
-                <h2 className="card-title">店舗名</h2>
-                <p>店舗の住所</p>
-              </div>
-            </div>
             <div className="card w-88 bg-base-100">
               <div className="card-body ">
                 <h2 className="card-title">店舗名</h2>
