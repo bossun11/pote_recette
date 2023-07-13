@@ -41,6 +41,19 @@ const ShopSearch: FC = () => {
     reset();
   };
 
+  // ショップの情報をカードにして表示
+  const renderShopCard = (shop: ShopType) => {
+    const address = shop.formatted_address.replace(/日本、〒\d{3}-\d{4} /, "");
+    return (
+      <div key={shop.place_id} className="card w-88 bg-base-100">
+        <div className="card-body ">
+          <h2 className="card-title">{shop.name}</h2>
+          <p>{address}</p>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="flex h-screen">
       <div className="w-1/3 overflow-auto">
@@ -72,15 +85,7 @@ const ShopSearch: FC = () => {
           </form>
           {/* Google Place APIから取得した店舗情報をここに表示する */}
           <div className="space-y-4 mt-4 w-full max-w-md overflow-auto">
-            {shops.length > 0 &&
-              shops.map((shop: ShopType) => (
-                <div key={shop.place_id} className="card w-88 bg-base-100">
-                  <div className="card-body ">
-                    <h2 className="card-title">{shop.name}</h2>
-                    <p>{shop.formatted_address}</p>
-                  </div>
-                </div>
-              ))}
+            {shops.length > 0 && shops.map(renderShopCard)}
           </div>
         </div>
       </div>
