@@ -7,17 +7,9 @@ import axios from "axios";
 
 import GoogleMap from "../GoogleMap/GoogleMap";
 import { inputSearchValidationSchema } from "../../utils/validationSchema";
+import { GoogleMapCenterType, ShopType } from "../../types";
 
 type InputSearchParams = z.infer<typeof inputSearchValidationSchema>;
-
-type ShopType = {
-  place_id: string;
-  name: string;
-  formatted_address: string;
-  photos: {
-    photo_reference: string;
-  }[];
-};
 
 const ShopSearch: FC = () => {
   const { register, handleSubmit, formState, reset } = useForm<InputSearchParams>({
@@ -25,7 +17,14 @@ const ShopSearch: FC = () => {
     resolver: zodResolver(inputSearchValidationSchema),
   });
 
+  // 名古屋をデフォルトの中心に設定
+  const defaultCenter: GoogleMapCenterType = {
+    lat: 35.182253007459444,
+    lng: 136.90534328438358,
+  };
+
   const [shops, setShops] = useState<ShopType[]>([]);
+  const [center, setCenter] = useState<GoogleMapCenterType>(defaultCenter);
 
   const onSubmit = async (data: InputSearchParams) => {
     try {
@@ -34,6 +33,12 @@ const ShopSearch: FC = () => {
       );
       const results = res.data;
       console.log(results);
+      if (results.results.length > 0)
+        setCenter({
+          lat: results.results[0].geometry.location.lat,
+          lng: results.results[0].geometry.location.lng,
+        });
+
       setShops(results.results);
     } catch (e) {
       console.log(e);
@@ -100,7 +105,7 @@ const ShopSearch: FC = () => {
           </div>
         </div>
       </div>
-      <div className="w-2/3">{<GoogleMap />}</div>
+      <div className="w-2/3">{<GoogleMap center={center} shops={shops} />}</div>
     </div>
   );
 };

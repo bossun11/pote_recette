@@ -1,9 +1,11 @@
 import React, { FC } from "react";
 import { GoogleMap as GoogleMapComponent, Marker, useJsApiLoader } from "@react-google-maps/api";
 
-type CenterType = {
-  lat: number;
-  lng: number;
+import { GoogleMapCenterType, ShopType } from "../../types";
+
+type Props = {
+  center: GoogleMapCenterType;
+  shops: ShopType[];
 };
 
 type ContentStyleType = {
@@ -16,21 +18,17 @@ const containerStyle: ContentStyleType = {
   height: "100%",
 };
 
-// 最終的にShopSearchコンポーネントのonSubmit関数の引数に渡された値を使って中心座標を決めたい
-const center: CenterType = {
-  lat: 35.182253007459444,
-  lng: 136.90534328438358,
-};
-
-const GoogleMap: FC = () => {
+const GoogleMap: FC<Props> = ({ center, shops }) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY || "",
   });
 
   return isLoaded ? (
-    <GoogleMapComponent mapContainerStyle={containerStyle} center={center} zoom={15}>
-      <Marker position={center} />
+    <GoogleMapComponent mapContainerStyle={containerStyle} center={center} zoom={11}>
+      {shops.map((shop) => (
+        <Marker key={shop.place_id} position={shop.geometry.location} />
+      ))}
     </GoogleMapComponent>
   ) : (
     <></>
