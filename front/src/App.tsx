@@ -9,11 +9,14 @@ import TopPage from "./components/TopPage/TopPage";
 import { getCurrentUser } from "./lib/api/auth";
 import { AuthProvider, useAuthContext } from "./context/AuthContext";
 import ShopSearch from "./components/ShopSearch/ShopSearch";
+import { ShopProvider } from "./context/ShopContext";
 
 const App = () => {
   return (
     <AuthProvider>
-      <AppContent />
+      <ShopProvider>
+        <AppContent />
+      </ShopProvider>
     </AuthProvider>
   );
 };

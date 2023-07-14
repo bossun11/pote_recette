@@ -8,6 +8,7 @@ import axios from "axios";
 import GoogleMap from "../GoogleMap/GoogleMap";
 import { inputSearchValidationSchema } from "../../utils/validationSchema";
 import { GoogleMapCenterType, ShopType } from "../../types";
+import { useShopContext } from "../../context/ShopContext";
 
 type InputSearchParams = z.infer<typeof inputSearchValidationSchema>;
 
@@ -23,7 +24,7 @@ const ShopSearch: FC = () => {
     lng: 136.90534328438358,
   };
 
-  const [shops, setShops] = useState<ShopType[]>([]);
+  const { shops, setShops } = useShopContext();
   const [center, setCenter] = useState<GoogleMapCenterType>(defaultCenter);
 
   const onSubmit = async (data: InputSearchParams) => {
@@ -49,7 +50,7 @@ const ShopSearch: FC = () => {
     reset();
   };
 
-  // ショップの情報をカードにして表示
+  // ショップの情報をカードにして表示する関数
   const renderShopCard = (shop: ShopType) => {
     const address = shop.formatted_address.replace(/日本、〒\d{3}-\d{4} /, "");
     const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=${shop.photos[0].photo_reference}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`;
@@ -105,7 +106,7 @@ const ShopSearch: FC = () => {
           </div>
         </div>
       </div>
-      <div className="w-2/3">{<GoogleMap center={center} shops={shops} />}</div>
+      <div className="w-2/3">{<GoogleMap center={center} />}</div>
     </div>
   );
 };
