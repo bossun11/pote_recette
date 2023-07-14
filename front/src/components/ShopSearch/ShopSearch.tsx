@@ -1,24 +1,13 @@
 import React, { FC, useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { FiX } from "react-icons/fi";
 import axios from "axios";
 
 import GoogleMap from "../GoogleMap/GoogleMap";
-import { inputSearchValidationSchema } from "../../utils/validationSchema";
-import { GoogleMapCenterType } from "../../types";
+import { GoogleMapCenterType, InputSearchParams } from "../../types";
 import { useShopContext } from "../../context/ShopContext";
 import ShopCard from "./ShopCard";
-
-type InputSearchParams = z.infer<typeof inputSearchValidationSchema>;
+import SearchForm from "./SearchForm";
 
 const ShopSearch: FC = () => {
-  const { register, handleSubmit, formState, reset } = useForm<InputSearchParams>({
-    mode: "onChange",
-    resolver: zodResolver(inputSearchValidationSchema),
-  });
-
   // 名古屋をデフォルトの中心に設定
   const defaultCenter: GoogleMapCenterType = {
     lat: 35.182253007459444,
@@ -47,39 +36,11 @@ const ShopSearch: FC = () => {
     }
   };
 
-  const handleReset = () => {
-    reset();
-  };
-
   return (
     <div className="flex h-screen">
       <div className="w-1/3 overflow-auto">
         <div className="p-4 flex flex-col h-full">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="検索"
-                  className="input input-bordered w-full max-w-xs"
-                  {...register("search")}
-                />
-                {formState.isValid && (
-                  <FiX
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
-                    onClick={handleReset}
-                  />
-                )}
-              </div>
-              <input
-                data-theme="valentine"
-                className="btn btn-neutral ml-3"
-                type="submit"
-                value="検索"
-                disabled={!formState.isValid}
-              />
-            </div>
-          </form>
+          <SearchForm onSubmit={onSubmit} />
           {/* Google Place APIから取得した店舗情報をここに表示する */}
           <div className="space-y-4 mt-4 w-full max-w-md overflow-auto">
             {shops.length > 0 && shops.map((shop) => <ShopCard key={shop.place_id} shop={shop} />)}

@@ -1,9 +1,15 @@
 import { z } from "zod";
-import { loginValidationSchema, registerValidationSchema } from "../utils/validationSchema";
+import {
+  inputSearchValidationSchema,
+  loginValidationSchema,
+  registerValidationSchema,
+} from "../utils/validationSchema";
 
 export type SignUpParams = z.infer<typeof registerValidationSchema>;
 
 export type LoginParams = z.infer<typeof loginValidationSchema>;
+
+export type InputSearchParams = z.infer<typeof inputSearchValidationSchema>;
 
 export type User = {
   id: number;
