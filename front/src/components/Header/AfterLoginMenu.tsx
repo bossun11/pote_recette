@@ -41,9 +41,13 @@ const AfterLoginMenu: FC<Props> = ({ changeMenuState }) => {
         </div>
       </li>
       <li>
-        <a href="#" className="text-gray-800 hover:bg-reddishBrown hover:text-white">
+        <Link
+          to="shop-search"
+          className="text-gray-800 hover:bg-reddishBrown hover:text-white"
+          onClick={changeMenuState}
+        >
           ショップ検索
-        </a>
+        </Link>
       </li>
       <li>
         <Link

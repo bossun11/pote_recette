@@ -34,3 +34,7 @@ export const registerValidationSchema = z
     message: "パスワードと確認用パスワードが一致していません",
     path: ["passwordConfirmation"],
   });
+
+export const inputSearchValidationSchema = z.object({
+  search: z.string().nonempty("検索ワードを入力してください"),
+});

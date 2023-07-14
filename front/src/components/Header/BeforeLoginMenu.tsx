@@ -9,9 +9,13 @@ const BeforeLoginMenu: FC<Props> = ({ changeMenuState }) => {
   return (
     <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
       <li>
-        <a href="#" className="text-gray-800 hover:bg-reddishBrown hover:text-white">
+        <Link
+          to="shop-search"
+          className="text-gray-800 hover:bg-reddishBrown hover:text-white"
+          onClick={changeMenuState}
+        >
           ショップ検索
-        </a>
+        </Link>
       </li>
       <li>
         <Link

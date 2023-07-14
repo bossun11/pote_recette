@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       namespace :auth do
         resources :sessions, only: %i[index]
       end
+
+      get 'shops/search', to: 'shops#search'
     end
   end
 end
