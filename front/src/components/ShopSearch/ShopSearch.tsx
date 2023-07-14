@@ -7,8 +7,9 @@ import axios from "axios";
 
 import GoogleMap from "../GoogleMap/GoogleMap";
 import { inputSearchValidationSchema } from "../../utils/validationSchema";
-import { GoogleMapCenterType, ShopType } from "../../types";
+import { GoogleMapCenterType } from "../../types";
 import { useShopContext } from "../../context/ShopContext";
+import ShopCard from "./ShopCard";
 
 type InputSearchParams = z.infer<typeof inputSearchValidationSchema>;
 
@@ -50,27 +51,6 @@ const ShopSearch: FC = () => {
     reset();
   };
 
-  // ショップの情報をカードにして表示する関数
-  const renderShopCard = (shop: ShopType) => {
-    const address = shop.formatted_address.replace(/日本、〒\d{3}-\d{4} /, "");
-    const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=${shop.photos[0].photo_reference}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}`;
-    return (
-      <div key={shop.place_id} className="card w-88 bg-base-100 cursor-pointer">
-        <div className="card-body">
-          <div className="flex justify-between items-center">
-            <div className="flex-col ite">
-              <h2 className="card-title">{shop.name}</h2>
-              <p>{address}</p>
-            </div>
-            <div className="items-center">
-              <img src={photoUrl} alt="" className="w-20 h-20" />
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <div className="flex h-screen">
       <div className="w-1/3 overflow-auto">
@@ -102,7 +82,7 @@ const ShopSearch: FC = () => {
           </form>
           {/* Google Place APIから取得した店舗情報をここに表示する */}
           <div className="space-y-4 mt-4 w-full max-w-md overflow-auto">
-            {shops.length > 0 && shops.map(renderShopCard)}
+            {shops.length > 0 && shops.map((shop) => <ShopCard key={shop.place_id} shop={shop} />)}
           </div>
         </div>
       </div>
