@@ -4,8 +4,9 @@ import { GoogleMap as GoogleMapComponent, Marker, useJsApiLoader } from "@react-
 import { GoogleMapCenterType } from "../../types";
 import { useShopContext } from "../../context/ShopContext";
 
-type Props = {
+type GoogleMapProps = {
   center: GoogleMapCenterType;
+  zoom?: number;
 };
 
 type ContentStyleType = {
@@ -18,7 +19,7 @@ const containerStyle: ContentStyleType = {
   height: "100%",
 };
 
-const GoogleMap: FC<Props> = ({ center }) => {
+const GoogleMap: FC<GoogleMapProps> = ({ center, zoom }) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY || "",
@@ -27,7 +28,7 @@ const GoogleMap: FC<Props> = ({ center }) => {
   const { shops } = useShopContext();
 
   return isLoaded ? (
-    <GoogleMapComponent mapContainerStyle={containerStyle} center={center} zoom={11}>
+    <GoogleMapComponent mapContainerStyle={containerStyle} center={center} zoom={zoom}>
       {shops.map((shop) => (
         <Marker key={shop.place_id} position={shop.geometry.location} />
       ))}

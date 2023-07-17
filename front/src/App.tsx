@@ -10,6 +10,7 @@ import { getCurrentUser } from "./lib/api/auth";
 import { AuthProvider, useAuthContext } from "./context/AuthContext";
 import ShopSearch from "./components/ShopSearch/ShopSearch";
 import { ShopProvider } from "./context/ShopContext";
+import ShopDetail from "./components/ShopDetail/ShopDetail";
 
 const App = () => {
   return (
@@ -51,6 +52,7 @@ const AppContent = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/shop-search" element={<ShopSearch />} />
+        <Route path="/shop-search/:id" element={<ShopDetail />} />
       </Routes>
     </Router>
   );

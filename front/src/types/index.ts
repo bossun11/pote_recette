@@ -24,6 +24,7 @@ export type User = {
 };
 
 export type ShopType = {
+  business_status?: string;
   place_id: string;
   name: string;
   formatted_address: string;
@@ -36,6 +37,10 @@ export type ShopType = {
       lng: number;
     };
   };
+  current_opening_hours?: {
+    weekday_text: string[];
+  };
+  website?: string;
 };
 
 export type GoogleMapCenterType = {

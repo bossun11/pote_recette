@@ -8,7 +8,11 @@ Rails.application.routes.draw do
         resources :sessions, only: %i[index]
       end
 
-      get 'shops/search', to: 'shops#search'
+      resources :shops, only: %i[show] do
+        collection do
+          get :search
+        end
+      end
     end
   end
 end
