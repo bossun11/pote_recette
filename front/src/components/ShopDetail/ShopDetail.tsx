@@ -94,10 +94,17 @@ const ShopDetail: FC = () => {
                   </div>
                   <div className="flex flex-col items-center w-full mb-4">
                     <div className="font-bold text-lg">ホームページ</div>
-                    {shopDetail.website && (
-                      <a href={shopDetail.website} className="link link-hover">
+                    {shopDetail.website ? (
+                      <a
+                        href={shopDetail.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="link link-hover"
+                      >
                         ホームページを閲覧する
                       </a>
+                    ) : (
+                      <div>ホームページが見つかりませんでした</div>
                     )}
                   </div>
                 </div>
