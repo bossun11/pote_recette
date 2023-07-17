@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import axios from "axios";
 
 import GoogleMap from "../GoogleMap/GoogleMap";
@@ -16,6 +16,14 @@ const ShopSearch: FC = () => {
 
   const { shops, setShops } = useShopContext();
   const [center, setCenter] = useState<GoogleMapCenterType>(defaultCenter);
+
+  useEffect(() => {
+    if (shops.length > 0)
+      setCenter({
+        lat: shops[0].geometry.location.lat,
+        lng: shops[0].geometry.location.lng,
+      });
+  }, [shops]);
 
   const onSubmit = async (data: InputSearchParams) => {
     try {
