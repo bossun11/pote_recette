@@ -13,6 +13,8 @@ Rails.application.routes.draw do
           get :search
         end
       end
+
+      resources :bookmarks, only: %i[index create destroy]
     end
   end
 end
