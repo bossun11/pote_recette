@@ -3,14 +3,18 @@ import { Link, useParams } from "react-router-dom";
 import { MdOutlineArrowBackIos } from "react-icons/md";
 import axios from "axios";
 import { useJsApiLoader } from "@react-google-maps/api";
+import { FaStar, FaRegStar } from "react-icons/fa";
 
 import { GoogleMapCenterType, ShopType } from "../../types";
 import { formatAddress, getPhotoUrl } from "../../utils/utils";
 import GoogleMap from "../GoogleMap/GoogleMap";
+import { useAuthContext } from "../../context/AuthContext";
 
 const ShopDetail: FC = () => {
   const { id } = useParams();
   const [shopDetail, setShopDetail] = useState<ShopType>();
+  const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
+  const { isSignedIn } = useAuthContext();
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -83,17 +87,29 @@ const ShopDetail: FC = () => {
                     alt=""
                     className="artboard artboard-horizontal phone-1 mb-4 rounded-lg"
                   />
-                  <div className="flex flex-col items-center mb-4 w-full">
-                    <div className="font-bold text-lg mb-2">営業日時</div>
+                  {isSignedIn && (
+                    <div className="flex items-center justify-center mb-7 w-full">
+                      <div className="font-bold text-2xl text-reddishBrown">お気に入り　　</div>
+                      <div>
+                        {isBookmarked ? (
+                          <FaStar className="text-yellow-300 text-3xl" />
+                        ) : (
+                          <FaRegStar className="text-yellow-300 text-3xl" />
+                        )}
+                      </div>
+                    </div>
+                  )}
+                  <div className="flex flex-col items-center mb-7 w-full">
+                    <div className="font-bold text-lg mb-2 text-reddishBrown">営業日時</div>
                     {shopDetail.current_opening_hours &&
                       renderWeekdays(shopDetail.current_opening_hours.weekday_text)}
                   </div>
-                  <div className="flex flex-col items-center mb-4 w-full">
-                    <div className="font-bold text-lg mb-2">住所</div>
+                  <div className="flex flex-col items-center mb-7 w-full">
+                    <div className="font-bold text-lg mb-2 text-reddishBrown">住所</div>
                     <div>{address}</div>
                   </div>
-                  <div className="flex flex-col items-center w-full mb-4">
-                    <div className="font-bold text-lg">ホームページ</div>
+                  <div className="flex flex-col items-center w-full mb-7">
+                    <div className="font-bold text-lg text-reddishBrown">ホームページ</div>
                     {shopDetail.website ? (
                       <a
                         href={shopDetail.website}
