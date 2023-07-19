@@ -34,3 +34,6 @@
 # Ignore dotenv config.
 /.env
 /.env.development
+
+# uploader
+/public/uploads/
