@@ -93,7 +93,7 @@ const ShopDetail: FC = () => {
         place_id: shopDetail.place_id,
         name: shopDetail.name,
         formatted_address: shopDetail.formatted_address,
-        photos: shopDetail.photos[0].photo_reference,
+        photos: photoUrl,
         website: shopDetail.website,
       },
     };
@@ -166,7 +166,7 @@ const ShopDetail: FC = () => {
                     <div>{address}</div>
                   </div>
                   <div className="flex flex-col items-center w-full mb-7">
-                    <div className="font-bold text-lg text-reddishBrown">ホームページ</div>
+                    <div className="font-bold text-lg text-reddishBrown">公式HP</div>
                     {shopDetail.website ? (
                       <a
                         href={shopDetail.website}

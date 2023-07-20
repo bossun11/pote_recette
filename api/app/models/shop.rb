@@ -12,7 +12,7 @@ class Shop < ApplicationRecord
     find_or_create_by(place_id: params[:place_id]) do |shop|
       shop.name = params[:name]
       shop.formatted_address = params[:formatted_address]
-      shop.photos = params[:photos]
+      shop.remote_photos_url = params[:photos]
       shop.website = params[:website]
     end
   end
