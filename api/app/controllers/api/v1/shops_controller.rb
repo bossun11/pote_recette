@@ -4,7 +4,7 @@ class Api::V1::ShopsController < ApplicationController
   require "cgi"
 
   def search
-    query = CGI.escape("芋のお菓子専門店+in+#{params[:location]}")
+    query = CGI.escape("さつまいも菓子専門店+in+#{params[:location]}")
     fields = "formatted_address,name,geometry,place_id,photos"
     uri = URI.parse("#{ENV['GOOGLE_MAP_PLACE_URL']}/textsearch/json?query=#{query}&fields=#{fields}&key=#{ENV['GOOGLE_MAP_API_KEY']}&language=ja")
     res = Net::HTTP.get_response(uri)
