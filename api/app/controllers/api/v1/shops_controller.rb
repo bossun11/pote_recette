@@ -13,7 +13,7 @@ class Api::V1::ShopsController < ApplicationController
 
   def show
     plase_id = params[:id]
-    fields = "formatted_address,name,geometry,photos,current_opening_hours,website"
+    fields = "formatted_address,name,geometry,photos,current_opening_hours,website,place_id"
     uri = URI.parse("#{ENV['GOOGLE_MAP_PLACE_URL']}/details/json?place_id=#{plase_id}&fields=#{fields}&key=#{ENV['GOOGLE_MAP_API_KEY']}&language=ja")
     res = Net::HTTP.get_response(uri)
     render json: res.body
