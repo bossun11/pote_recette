@@ -6,7 +6,7 @@ import { useJsApiLoader } from "@react-google-maps/api";
 import { FaStar, FaRegStar } from "react-icons/fa";
 
 import { GoogleMapCenterType, ShopType } from "../../types";
-import { formatAddress, getPhotoUrl } from "../../utils/utils";
+import { formatAddress, getPhotoUrl, getAuthHeaders } from "../../utils/utils";
 import GoogleMap from "../GoogleMap/GoogleMap";
 import { useAuthContext } from "../../context/AuthContext";
 
@@ -21,6 +21,8 @@ const ShopDetail: FC = () => {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY || "",
   });
 
+  const headers = getAuthHeaders();
+
   const renderWeekdays = (weekday_text: string[]) => {
     return weekday_text.map((day) => {
       const [dayOfWeek, time] = day.split(": ");
@@ -34,6 +36,7 @@ const ShopDetail: FC = () => {
     });
   };
 
+  // ショップの詳細情報を取得
   useEffect(() => {
     const getShopDetail = async () => {
       try {
@@ -46,6 +49,26 @@ const ShopDetail: FC = () => {
 
     getShopDetail();
   }, []);
+
+  // ブックマークされているかどうかをチェック
+  useEffect(() => {
+    const checkBookmark = async () => {
+      if (isSignedIn)
+        try {
+          const res = await axios.get(`${process.env.REACT_APP_BACKEND_API_URL}/bookmarks`, {
+            headers,
+          });
+          const bookmarkedShops = res.data;
+          // ブックマークされているショップのリストから、現在表示しているショップが含まれているかどうかをチェック
+          const isShopBookmarked = bookmarkedShops.some((shop: ShopType) => shop.place_id === id);
+          setIsBookmarked(isShopBookmarked);
+        } catch (e) {
+          console.error(e);
+        }
+    };
+
+    checkBookmark();
+  }, [id, isSignedIn]);
 
   // ロード中の処理
   if (!shopDetail)
@@ -62,6 +85,37 @@ const ShopDetail: FC = () => {
   const center: GoogleMapCenterType = {
     lat: shopDetail.geometry.location.lat,
     lng: shopDetail.geometry.location.lng,
+  };
+
+  const handleBookmark = async () => {
+    const shopData = {
+      shop: {
+        place_id: shopDetail.place_id,
+        name: shopDetail.name,
+        formatted_address: shopDetail.formatted_address,
+        photos: shopDetail.photos[0].photo_reference,
+        website: shopDetail.website,
+      },
+    };
+    if (isBookmarked)
+      try {
+        await axios.delete(`${process.env.REACT_APP_BACKEND_API_URL}/bookmarks/${id}`, {
+          data: shopData,
+          headers: headers,
+        });
+        setIsBookmarked(false);
+      } catch (e) {
+        console.error(e);
+      }
+    else
+      try {
+        await axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/bookmarks`, shopData, {
+          headers,
+        });
+        setIsBookmarked(true);
+      } catch (e) {
+        console.error(e);
+      }
   };
 
   return isLoaded ? (
@@ -92,9 +146,12 @@ const ShopDetail: FC = () => {
                       <div className="font-bold text-2xl text-reddishBrown">お気に入り　　</div>
                       <div>
                         {isBookmarked ? (
-                          <FaStar className="text-yellow-300 text-3xl" />
+                          <FaStar className="text-yellow-300 text-3xl" onClick={handleBookmark} />
                         ) : (
-                          <FaRegStar className="text-yellow-300 text-3xl" />
+                          <FaRegStar
+                            className="text-yellow-300 text-3xl"
+                            onClick={handleBookmark}
+                          />
                         )}
                       </div>
                     </div>
