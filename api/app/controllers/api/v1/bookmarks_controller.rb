@@ -1,5 +1,5 @@
 class Api::V1::BookmarksController < ApplicationController
-  before_action :set_shop
+  before_action :set_shop, only: [:create, :destroy]
 
   def index
     bookmarks = current_api_v1_user.bookmarked_shops
