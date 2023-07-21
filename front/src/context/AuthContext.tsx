@@ -14,7 +14,7 @@ type AuthProviderProps = {
   children: React.ReactNode;
 };
 
-const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -36,4 +36,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   return <AuthContext.Provider value={AuthContextValue}>{children}</AuthContext.Provider>;
 };
 
-export const useAuthContext = () => useContext(AuthContext);
+export const useAuthContext = () => {
+  const context = useContext(AuthContext);
+  if (context === null) throw new Error("useAuthContextはAuthProvider内で使用してください");
+
+  return context;
+};
