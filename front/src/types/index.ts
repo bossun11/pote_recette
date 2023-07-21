@@ -23,6 +23,22 @@ export type User = {
   updated_at: Date;
 };
 
+export type RailsShopType = {
+  business_status?: string;
+  place_id: string;
+  name: string;
+  formatted_address: string;
+  photos: {
+    url: string;
+  };
+  geometry: {
+    location: {
+      lat: number;
+      lng: number;
+    };
+  };
+};
+
 export type ShopType = {
   business_status?: string;
   place_id: string;

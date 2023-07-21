@@ -1,21 +1,27 @@
 import React, { FC } from "react";
-import { ShopType } from "../../types";
+import { RailsShopType, ShopType } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { formatAddress, getPhotoUrl } from "../../utils/utils";
 
 type ShopCardProps = {
-  shop: ShopType;
+  shop: ShopType | RailsShopType;
 };
 
 const ShopCard: FC<ShopCardProps> = ({ shop }) => {
   // お店が営業していない場合は表示しない
-  if (shop.business_status !== "OPERATIONAL") return null;
+  if (shop.business_status && shop.business_status !== "OPERATIONAL") return null;
 
   const navigate = useNavigate();
 
   const address = formatAddress(shop.formatted_address);
 
-  const photoUrl = getPhotoUrl(shop.photos[0].photo_reference, 600);
+  // 画像URLを取得する
+  let photoUrl;
+  if ("url" in shop.photos)
+    // RailsAPIからのデータの場合
+    photoUrl = `${process.env.REACT_APP_BACKEND_HOST_URL}${shop.photos.url}`;
+  // Google Place APIからのデータの場合
+  else photoUrl = getPhotoUrl(shop.photos[0].photo_reference, 600);
 
   return (
     <div
