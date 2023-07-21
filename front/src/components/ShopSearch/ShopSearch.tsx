@@ -41,7 +41,6 @@ const ShopSearch: FC = () => {
         `${process.env.REACT_APP_BACKEND_API_URL}/shops/search?location=${data.search}`,
       );
       const results = res.data;
-      console.log(results);
       if (results.results.length > 0)
         setCenter({
           lat: results.results[0].geometry.location.lat,
