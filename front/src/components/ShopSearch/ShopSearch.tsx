@@ -61,7 +61,6 @@ const ShopSearch: FC = () => {
         headers,
       });
       setBookmarks(res.data);
-      console.log(res.data);
     } catch (e) {
       console.log(e);
     }
@@ -79,10 +78,16 @@ const ShopSearch: FC = () => {
           <SearchForm onSubmit={onSubmit} />
           {isSignedIn && (
             <div className="tabs justify-center items-center my-3">
-              <div className="tab tab-lg tab-bordered tab-active" onClick={() => setTab("all")}>
+              <div
+                className={`tab tab-lg tab-bordered ${tab === "all" ? "tab-active" : ""}`}
+                onClick={() => setTab("all")}
+              >
                 すべて
               </div>
-              <div className="tab tab-lg tab-bordered" onClick={() => setTab("bookmarks")}>
+              <div
+                className={`tab tab-lg tab-bordered ${tab === "bookmarks" ? "tab-active" : ""}`}
+                onClick={() => setTab("bookmarks")}
+              >
                 お気に入り
               </div>
             </div>
