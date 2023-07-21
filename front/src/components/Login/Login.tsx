@@ -41,7 +41,7 @@ const Login: FC = () => {
     }
   };
 
-  const BTNTEXT = "ログイン";
+  const buttonText = "ログイン";
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -73,7 +73,7 @@ const Login: FC = () => {
             {errors.password && <span className="text-error">{errors.password.message}</span>}
           </div>
           <div className="flex justify-center">
-            <NeutralButton BTNTEXT={BTNTEXT} />
+            <NeutralButton buttonText={buttonText} />
           </div>
         </form>
       </div>

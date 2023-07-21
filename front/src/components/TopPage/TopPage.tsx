@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 
 const TopPage: FC = () => {
-  const BTNTEXT = "ログインして始める";
+  const buttonText = "ログインして始める";
   const { isSignedIn } = useAuthContext();
 
   return (
@@ -16,7 +16,7 @@ const TopPage: FC = () => {
         <p className="text-white text-2xl pb-5">お芋専門店を気軽に探せるアプリです</p>
         {!isSignedIn && (
           <Link to="/login">
-            <NeutralButton BTNTEXT={BTNTEXT} />
+            <NeutralButton buttonText={buttonText} />
           </Link>
         )}
       </div>
