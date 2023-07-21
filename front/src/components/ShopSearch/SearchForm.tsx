@@ -21,7 +21,7 @@ const SearchForm: FC<SearchFormProps> = ({ onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex">
+      <div className="flex justify-center items-center">
         <div className="relative">
           <input
             type="text"

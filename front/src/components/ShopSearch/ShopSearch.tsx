@@ -6,6 +6,7 @@ import { GoogleMapCenterType, InputSearchParams } from "../../types";
 import { useShopContext } from "../../context/ShopContext";
 import ShopCard from "./ShopCard";
 import SearchForm from "./SearchForm";
+import { useAuthContext } from "../../context/AuthContext";
 
 const ShopSearch: FC = () => {
   // 名古屋をデフォルトの中心に設定
@@ -14,6 +15,7 @@ const ShopSearch: FC = () => {
     lng: 136.90534328438358,
   };
 
+  const { isSignedIn } = useAuthContext();
   const { shops, setShops } = useShopContext();
   const [center, setCenter] = useState<GoogleMapCenterType>(defaultCenter);
 
@@ -49,6 +51,12 @@ const ShopSearch: FC = () => {
       <div className="w-1/3 overflow-auto">
         <div className="p-4 flex flex-col h-full">
           <SearchForm onSubmit={onSubmit} />
+          {isSignedIn && (
+            <div className="tabs justify-center items-center my-3">
+              <div className="tab tab-lg tab-bordered tab-active">すべて</div>
+              <div className="tab tab-lg tab-bordered">お気に入り</div>
+            </div>
+          )}
           {/* Google Place APIから取得した店舗情報をここに表示する */}
           <div className="space-y-4 mt-4 w-full max-w-md overflow-auto">
             {shops.length > 0 && shops.map((shop) => <ShopCard key={shop.place_id} shop={shop} />)}
