@@ -10,6 +10,7 @@ import { useAuthContext } from "./context/AuthContext";
 import ShopSearch from "./components/ShopSearch/ShopSearch";
 import ShopDetail from "./components/ShopDetail/ShopDetail";
 import PublicRoute from "./components/routes/PublicRoute";
+import PageNotFound from "./components/routes/PageNotFound";
 
 const AppRoutes = () => {
   const { setIsSignedIn, setCurrentUser, setLoading } = useAuthContext();
@@ -56,6 +57,7 @@ const AppRoutes = () => {
         />
         <Route path="/shop-search" element={<ShopSearch />} />
         <Route path="/shop-search/:id" element={<ShopDetail />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>
   );
