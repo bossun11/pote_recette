@@ -8,6 +8,7 @@ import ShopCard from "./ShopCard";
 import SearchForm from "./SearchForm";
 import { useAuthContext } from "../../context/AuthContext";
 import { getAuthHeaders } from "../../utils/utils";
+import PageHelmet from "../PageHelmet";
 
 const ShopSearch: FC = () => {
   // 東京を初期値としてマップの中心に設定
@@ -71,36 +72,39 @@ const ShopSearch: FC = () => {
   }, [tab]);
 
   return (
-    <div className="flex h-screen">
-      <div className="w-1/3 overflow-auto">
-        <div className="p-4 flex flex-col h-full">
-          <SearchForm onSubmit={onSubmit} />
-          {isSignedIn && (
-            <div className="tabs justify-center items-center my-3">
-              <div
-                className={`tab tab-lg tab-bordered ${tab === "all" ? "tab-active" : ""}`}
-                onClick={() => setTab("all")}
-              >
-                すべて
+    <>
+      <PageHelmet title="店舗検索" />
+      <div className="flex h-screen">
+        <div className="w-1/3 overflow-auto">
+          <div className="p-4 flex flex-col h-full">
+            <SearchForm onSubmit={onSubmit} />
+            {isSignedIn && (
+              <div className="tabs justify-center items-center my-3">
+                <div
+                  className={`tab tab-lg tab-bordered ${tab === "all" ? "tab-active" : ""}`}
+                  onClick={() => setTab("all")}
+                >
+                  すべて
+                </div>
+                <div
+                  className={`tab tab-lg tab-bordered ${tab === "bookmarks" ? "tab-active" : ""}`}
+                  onClick={() => setTab("bookmarks")}
+                >
+                  お気に入り
+                </div>
               </div>
-              <div
-                className={`tab tab-lg tab-bordered ${tab === "bookmarks" ? "tab-active" : ""}`}
-                onClick={() => setTab("bookmarks")}
-              >
-                お気に入り
-              </div>
+            )}
+            {/* Google Place APIから取得した店舗情報をここに表示する */}
+            <div className="space-y-4 mt-4 w-full max-w-md overflow-auto">
+              {(tab === "all" ? shops : bookmarks).map((shop) => (
+                <ShopCard key={shop.place_id} shop={shop} />
+              ))}
             </div>
-          )}
-          {/* Google Place APIから取得した店舗情報をここに表示する */}
-          <div className="space-y-4 mt-4 w-full max-w-md overflow-auto">
-            {(tab === "all" ? shops : bookmarks).map((shop) => (
-              <ShopCard key={shop.place_id} shop={shop} />
-            ))}
           </div>
         </div>
+        <div className="w-2/3">{<GoogleMap center={center} zoom={11} />}</div>
       </div>
-      <div className="w-2/3">{<GoogleMap center={center} zoom={11} />}</div>
-    </div>
+    </>
   );
 };
 
