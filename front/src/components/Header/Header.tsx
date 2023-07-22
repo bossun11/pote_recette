@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, memo, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useAuthContext } from "../../context/AuthContext";
@@ -57,4 +57,4 @@ const Header: FC = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

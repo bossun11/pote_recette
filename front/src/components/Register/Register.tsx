@@ -40,7 +40,7 @@ const Register: FC = () => {
     }
   };
 
-  const BTNTEXT = "登録する";
+  const buttonText = "登録する";
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
@@ -98,7 +98,7 @@ const Register: FC = () => {
             )}
           </div>
           <div className="flex justify-center">
-            <NeutralButton BTNTEXT={BTNTEXT} />
+            <NeutralButton buttonText={buttonText} />
           </div>
         </form>
       </div>

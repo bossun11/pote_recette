@@ -10,7 +10,7 @@ type ShopProviderProps = {
   children: React.ReactNode;
 };
 
-const ShopContext = createContext<ShopContextType>({} as ShopContextType);
+const ShopContext = createContext<ShopContextType | null>(null);
 
 export const ShopProvider = ({ children }: ShopProviderProps) => {
   const [shops, setShops] = useState<ShopType[]>([]);
@@ -23,4 +23,9 @@ export const ShopProvider = ({ children }: ShopProviderProps) => {
   return <ShopContext.Provider value={ShopContextValue}>{children}</ShopContext.Provider>;
 };
 
-export const useShopContext = () => useContext(ShopContext);
+export const useShopContext = () => {
+  const context = useContext(ShopContext);
+  if (context === null) throw new Error("useShopContextはShopProvider内で使用してください");
+
+  return context;
+};

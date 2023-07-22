@@ -10,10 +10,10 @@ import { useAuthContext } from "../../context/AuthContext";
 import { getAuthHeaders } from "../../utils/utils";
 
 const ShopSearch: FC = () => {
-  // 名古屋をデフォルトの中心に設定
+  // 東京を初期値としてマップの中心に設定
   const defaultCenter: GoogleMapCenterType = {
-    lat: 35.182253007459444,
-    lng: 136.90534328438358,
+    lat: 35.681236,
+    lng: 139.767125,
   };
 
   const { isSignedIn } = useAuthContext();
@@ -41,7 +41,6 @@ const ShopSearch: FC = () => {
         `${process.env.REACT_APP_BACKEND_API_URL}/shops/search?location=${data.search}`,
       );
       const results = res.data;
-      console.log(results);
       if (results.results.length > 0)
         setCenter({
           lat: results.results[0].geometry.location.lat,

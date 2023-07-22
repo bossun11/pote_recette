@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { useAuthContext } from "../../context/AuthContext";
 
 const TopPage: FC = () => {
-  const BTNTEXT = "ログインして始める";
+  const beforeLoginButtonText = "ログインして始める";
+  const afterLoginButtonText = "お芋を探す";
   const { isSignedIn } = useAuthContext();
 
   return (
@@ -14,9 +15,13 @@ const TopPage: FC = () => {
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
         <img src="/images/logo.png" alt="" />
         <p className="text-white text-2xl pb-5">お芋専門店を気軽に探せるアプリです</p>
-        {!isSignedIn && (
-          <Link to="/login">
-            <NeutralButton BTNTEXT={BTNTEXT} />
+        {isSignedIn ? (
+          <Link to="shop-search">
+            <NeutralButton buttonText={afterLoginButtonText} />
+          </Link>
+        ) : (
+          <Link to="login">
+            <NeutralButton buttonText={beforeLoginButtonText} />
           </Link>
         )}
       </div>
