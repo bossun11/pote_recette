@@ -9,6 +9,7 @@ import SearchForm from "./SearchForm";
 import { useAuthContext } from "../../context/AuthContext";
 import { getAuthHeaders } from "../../utils/utils";
 import PageHelmet from "../PageHelmet";
+import { toast } from "react-toastify";
 
 const ShopSearch: FC = () => {
   // 東京を初期値としてマップの中心に設定
@@ -50,7 +51,7 @@ const ShopSearch: FC = () => {
 
       setShops(results.results);
     } catch (e) {
-      console.log(e);
+      toast.error("店舗情報の取得に失敗しました");
     }
   };
 
@@ -62,7 +63,7 @@ const ShopSearch: FC = () => {
       });
       setBookmarks(res.data);
     } catch (e) {
-      console.log(e);
+      toast.error("お気に入り情報の取得に失敗しました");
     }
   };
 

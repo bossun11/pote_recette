@@ -11,6 +11,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import ShopInfoCard from "./ShopInfoCard";
 import { useShopDetail } from "../../hooks/useShopDetail";
 import PageHelmet from "../PageHelmet";
+import { toast } from "react-toastify";
 
 const ShopDetail: FC = () => {
   const { id } = useParams();
@@ -40,7 +41,7 @@ const ShopDetail: FC = () => {
           const isShopBookmarked = bookmarkedShops.some((shop: ShopType) => shop.place_id === id);
           setIsBookmarked(isShopBookmarked);
         } catch (e) {
-          console.error(e);
+          toast.error("ブックマーク情報の取得に失敗しました");
         }
     };
 
@@ -81,8 +82,9 @@ const ShopDetail: FC = () => {
           headers: headers,
         });
         setIsBookmarked(false);
+        toast.success("お気に入りから削除しました");
       } catch (e) {
-        console.error(e);
+        toast.error("お気に入りの削除に失敗しました");
       }
     else
       try {
@@ -90,8 +92,9 @@ const ShopDetail: FC = () => {
           headers,
         });
         setIsBookmarked(true);
+        toast.success("お気に入りに追加しました");
       } catch (e) {
-        console.error(e);
+        toast.error("お気に入りの登録に失敗しました");
       }
   };
 
