@@ -10,6 +10,7 @@ import GoogleMap from "../GoogleMap/GoogleMap";
 import { useAuthContext } from "../../context/AuthContext";
 import ShopInfoCard from "./ShopInfoCard";
 import { useShopDetail } from "../../hooks/useShopDetail";
+import PageHelmet from "../PageHelmet";
 
 const ShopDetail: FC = () => {
   const { id } = useParams();
@@ -95,28 +96,31 @@ const ShopDetail: FC = () => {
   };
 
   return isLoaded ? (
-    <div className="flex h-screen">
-      <div className="w-1/3 overflow-auto">
-        <div className="p-4 flex flex-col h-full">
-          <div className="flex items-center justify-center">
-            <Link to="/shop-search">
-              <div className="flex flex-row cursor-pointer">
-                <MdOutlineArrowBackIos size={24} />
-                <button className="mr-2">戻る</button>
-              </div>
-            </Link>
-            <div className="text-2xl font-bold">{name}</div>
+    <>
+      <PageHelmet title={`${name}に関する詳細情報`} />
+      <div className="flex h-screen">
+        <div className="w-1/3 overflow-auto">
+          <div className="p-4 flex flex-col h-full">
+            <div className="flex items-center justify-center">
+              <Link to="/shop-search">
+                <div className="flex flex-row cursor-pointer">
+                  <MdOutlineArrowBackIos size={24} />
+                  <button className="mr-2">戻る</button>
+                </div>
+              </Link>
+              <div className="text-2xl font-bold">{name}</div>
+            </div>
+            {/* ここに店舗情報を表示 */}
+            <ShopInfoCard
+              shopDetail={shopDetail}
+              isBookmarked={isBookmarked}
+              handleBookmark={handleBookmark}
+            />
           </div>
-          {/* ここに店舗情報を表示 */}
-          <ShopInfoCard
-            shopDetail={shopDetail}
-            isBookmarked={isBookmarked}
-            handleBookmark={handleBookmark}
-          />
         </div>
+        <div className="w-2/3 bg-white">{<GoogleMap center={center} zoom={15} />}</div>
       </div>
-      <div className="w-2/3 bg-white">{<GoogleMap center={center} zoom={15} />}</div>
-    </div>
+    </>
   ) : (
     <></>
   );
