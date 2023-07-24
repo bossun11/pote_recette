@@ -9,9 +9,8 @@ import NeutralButton from "../Buttons/NeutralButton";
 import { LoginParams } from "../../types/index";
 import { login } from "../../lib/api/auth";
 import { useAuthContext } from "../../context/AuthContext";
-import useToast from "../../hooks/useToast";
-import Toast from "../Toasts/Toast";
 import PageHelmet from "../PageHelmet";
+import { toast } from "react-toastify";
 
 const Login: FC = () => {
   const {
@@ -22,7 +21,6 @@ const Login: FC = () => {
 
   const navigate = useNavigate();
   const { setIsSignedIn, setCurrentUser } = useAuthContext();
-  const { message, showToast, clearToast } = useToast();
 
   const onSubmit = async (data: LoginParams) => {
     try {
@@ -36,9 +34,10 @@ const Login: FC = () => {
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
         navigate("/");
+        toast.success("ログインしました。");
       }
     } catch (e) {
-      showToast("ログインに失敗しました。メールアドレスまたはパスワードが間違っています。");
+      toast.error("ログインに失敗しました。");
     }
   };
 
@@ -83,7 +82,6 @@ const Login: FC = () => {
         <Link to="/register" className="mt-6 link link-hover">
           アカウントをお持ちでない方はこちら
         </Link>
-        {message && <Toast message={message} clearToast={clearToast} />}
       </div>
     </>
   );

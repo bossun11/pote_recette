@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../lib/api/auth";
 import Cookies from "js-cookie";
 import { useAuthContext } from "../../context/AuthContext";
+import { toast } from "react-toastify";
 
 type Props = {
   changeMenuState: () => void;
@@ -22,9 +23,10 @@ const AfterLoginMenu: FC<Props> = ({ changeMenuState }) => {
 
         setIsSignedIn(false);
         navigate("/");
-      } else console.log("ログアウトに失敗しました");
+        toast.success("ログアウトしました");
+      }
     } catch (e) {
-      console.log(e);
+      toast.error("ログアウトに失敗しました");
     }
   };
 

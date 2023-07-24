@@ -9,9 +9,8 @@ import NeutralButton from "../Buttons/NeutralButton";
 import { SignUpParams } from "../../types";
 import { signUp } from "../../lib/api/auth";
 import { useAuthContext } from "../../context/AuthContext";
-import useToast from "../../hooks/useToast";
-import Toast from "../Toasts/Toast";
 import PageHelmet from "../PageHelmet";
+import { toast } from "react-toastify";
 
 const Register: FC = () => {
   const {
@@ -22,7 +21,6 @@ const Register: FC = () => {
 
   const navigate = useNavigate();
   const { setIsSignedIn, setCurrentUser } = useAuthContext();
-  const { message, showToast, clearToast } = useToast();
 
   const onSubmit = async (data: SignUpParams) => {
     try {
@@ -35,9 +33,10 @@ const Register: FC = () => {
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
         navigate("/");
+        toast.success("ユーザー登録が完了しました。");
       }
     } catch (e) {
-      showToast("ユーザー登録に失敗しました。");
+      toast.error("ユーザー登録に失敗しました。");
     }
   };
 
@@ -108,7 +107,6 @@ const Register: FC = () => {
         <Link to="/login" className="mt-6 link link-hover">
           すでにアカウントをお持ちの方はこちら
         </Link>
-        {message && <Toast message={message} clearToast={clearToast} />}
       </div>
     </>
   );
