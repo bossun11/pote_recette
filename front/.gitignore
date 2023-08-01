@@ -25,3 +25,4 @@ yarn-error.log*
 # 環境変数管理ファイル
 .env
 .env.development
+.env.production
