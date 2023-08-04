@@ -1,6 +1,5 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
-import { HelmetProvider } from "react-helmet-async";
 
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,19 +9,17 @@ import AppRoutes from "./AppRoutes";
 
 const App = () => {
   return (
-    <HelmetProvider>
-      <AuthProvider>
-        <ShopProvider>
-          <ToastContainer
-            position="bottom-center"
-            draggable={false}
-            pauseOnHover={false}
-            theme="colored"
-          />
-          <AppRoutes />
-        </ShopProvider>
-      </AuthProvider>
-    </HelmetProvider>
+    <AuthProvider>
+      <ShopProvider>
+        <ToastContainer
+          position="bottom-center"
+          draggable={false}
+          pauseOnHover={false}
+          theme="colored"
+        />
+        <AppRoutes />
+      </ShopProvider>
+    </AuthProvider>
   );
 };
 
