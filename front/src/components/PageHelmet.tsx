@@ -15,7 +15,8 @@ const PageHelmet: FC<PageHelmetProps> = ({ title = "", description = "" }) => {
       <meta name="description" content={description} />
       <meta property="og:title" content={appName} />
       <meta property="og:site_name" content={appName} />
-      <meta name="twitter:title" content="summary_large_image" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={appName} />
       <meta property="og:url" content={process.env.REACT_APP_HEROKU_FRONTEND_APP_URL} />
       <meta
         property="og:image"
