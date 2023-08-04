@@ -16,9 +16,11 @@ const PageHelmet: FC<PageHelmetProps> = ({ title = "", description = "" }) => {
       <meta property="og:title" content={title} />
       <meta property="og:site_name" content={appName} />
       <meta name="twitter:title" content="summary_large_image" />
-      {/* 下記はデプロイしていないので仮のURLを設定 */}
-      <meta property="og:url" content="http://localhost:3000/" />
-      <meta property="og:image" content="http://localhost:3000/images/ogp.png" />
+      <meta property="og:url" content={process.env.REACT_APP_HEROKU_FRONTEND_APP_URL} />
+      <meta
+        property="og:image"
+        content={`${process.env.REACT_APP_HEROKU_FRONTEND_APP_URL}/images/ogp.png`}
+      />
     </Helmet>
   );
 };
