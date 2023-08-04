@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "localhost:3000", "potarecette-front-a29fcf2f5b8d.herokuapp.com"
+    origins "localhost:3000", ENV["FRONTEND_URL"]
 
     resource "*",
       headers: :any,
