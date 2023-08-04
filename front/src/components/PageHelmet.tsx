@@ -8,7 +8,7 @@ type PageHelmetProps = {
 
 const appName = "PotaRecette";
 
-const PageHelmet: FC<PageHelmetProps> = ({ title = "", description = "" }) => {
+const PageHelmet: FC<PageHelmetProps> = ({ title = appName, description = "" }) => {
   return (
     <Helmet title={title ? `${title} | ${appName}` : undefined} defaultTitle={appName}>
       <link rel="icon" href="/images/favicon.ico" />
