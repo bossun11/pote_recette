@@ -13,10 +13,15 @@ const PageHelmet: FC<PageHelmetProps> = ({ title = "", description = "" }) => {
     <Helmet title={title ? `${title} | ${appName}` : undefined} defaultTitle={appName}>
       <link rel="icon" href="/images/favicon.ico" />
       <meta name="description" content={description} />
+      <meta property="og:type" content="website" />
       <meta property="og:title" content={appName} />
       <meta property="og:site_name" content={appName} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={appName} />
+      <meta
+        name="twitter:image"
+        content={`${process.env.REACT_APP_HEROKU_FRONTEND_APP_URL}/images/ogp.png`}
+      />
       <meta property="og:url" content={process.env.REACT_APP_HEROKU_FRONTEND_APP_URL} />
       <meta
         property="og:image"
