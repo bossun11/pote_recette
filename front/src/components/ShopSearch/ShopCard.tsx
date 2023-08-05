@@ -19,7 +19,7 @@ const ShopCard: FC<ShopCardProps> = ({ shop }) => {
   let photoUrl;
   if ("url" in shop.photos)
     // RailsAPIからのデータの場合
-    photoUrl = `${process.env.REACT_APP_BACKEND_HOST_URL}${shop.photos.url}`;
+    photoUrl = `${shop.photos.url}`;
   // Google Place APIからのデータの場合
   else photoUrl = getPhotoUrl(shop.photos[0].photo_reference, 600);
 

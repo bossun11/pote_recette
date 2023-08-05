@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@hookform/resolvers": "^3.1.1",
     "@react-google-maps/api": "^2.18.1",
     "@testing-library/jest-dom": "^5.16.5",
@@ -16,6 +17,7 @@
     "axios": "^1.4.0",
     "axios-case-converter": "^1.1.0",
     "daisyui": "^3.1.6",
+    "express": "^4.18.2",
     "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -30,12 +32,14 @@
     "zod": "^3.21.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server.js",
+    "open": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
-    "format": "prettier --write '*/**/*.{js,ts,tsx,json}'"
+    "format": "prettier --write '*/**/*.{js,ts,tsx,json}'",
+    "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -56,7 +60,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/js-cookie": "^3.0.3",
     "@types/react-toastify": "^4.1.0",
     "@typescript-eslint/eslint-plugin": "^5.60.0",
