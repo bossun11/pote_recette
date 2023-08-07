@@ -11,9 +11,11 @@ import ShopSearch from "./components/ShopSearch/ShopSearch";
 import ShopDetail from "./components/ShopDetail/ShopDetail";
 import PublicRoute from "./components/routes/PublicRoute";
 import PageNotFound from "./components/routes/PageNotFound";
+import Profile from "./components/Profile/Profile";
+import PrivateRoute from "./components/routes/PrivateRoute";
 
 const AppRoutes = () => {
-  const { setIsSignedIn, setCurrentUser, setLoading } = useAuthContext();
+  const { loading, setIsSignedIn, setCurrentUser, setLoading } = useAuthContext();
 
   // ログインしているユーザーの情報を取得
   const handleGetCurrentUser = async () => {
@@ -33,6 +35,8 @@ const AppRoutes = () => {
   useEffect(() => {
     handleGetCurrentUser();
   }, [setCurrentUser]);
+
+  if (loading) return null;
 
   return (
     <Router>
@@ -57,6 +61,14 @@ const AppRoutes = () => {
         />
         <Route path="/shop-search" element={<ShopSearch />} />
         <Route path="/shop-search/:id" element={<ShopDetail />} />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          }
+        />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>
