@@ -36,8 +36,30 @@ const Profile: FC = () => {
               </div>
             </div>
             <div className="flex justify-center">
-              <NeutralButton buttonText={buttonText} />
+              <NeutralButton
+                buttonText={buttonText}
+                onClick={() => {
+                  if (document)
+                    (document.getElementById("edit_profile") as HTMLFormElement).showModal();
+                }}
+              />
             </div>
+
+            {/* プロフィール編集モーダル */}
+            <dialog id="edit_profile" className="modal">
+              <form method="dialog" className="modal-box">
+                <div className="flex flex-col items-center">
+                  <div className="avatar flex justify-center">
+                    <div className="w-40 rounded-full">
+                      <img src={image || "/images/default_user_image.png"} />
+                    </div>
+                  </div>
+                </div>
+                <div className="modal-action">
+                  <NeutralButton buttonText="更新する" />
+                </div>
+              </form>
+            </dialog>
           </div>
         </div>
       </div>
