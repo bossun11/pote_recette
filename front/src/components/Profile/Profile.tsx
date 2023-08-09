@@ -109,9 +109,12 @@ const Profile: FC = () => {
                       <input
                         type="file"
                         id="image"
+                        accept="image/*"
+                        {...register("image")}
                         className="file-input file-input-bordered file-input-sm w-full max-w-xs"
                       />
                     </div>
+                    {errors.image && <span className="text-error">{errors.image.message}</span>}
                     <div className="avatar">
                       <div className="w-24 rounded-full mb-3">
                         <img src={image || "/images/default_user_image.png"} />
