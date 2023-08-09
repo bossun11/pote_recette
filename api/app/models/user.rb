@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  mount_uploader :image, AvatarUploader
+
   has_many :bookmarks, dependent: :destroy
   has_many :bookmarked_shops, through: :bookmarks, source: :shop
 
