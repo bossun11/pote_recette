@@ -33,14 +33,14 @@ const AfterLoginMenu: FC<Props> = ({ changeMenuState }) => {
   return (
     <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
       <li>
-        <div className="flex items-center hover:bg-reddishBrown hover:text-white">
-          <img
-            src={currentUser?.image || "/images/default_user_image.png"}
-            alt=""
-            className="w-12 rounded-full mr-2"
-          />
+        <Link
+          to="/profile"
+          className="flex items-center hover:bg-reddishBrown hover:text-white"
+          onClick={changeMenuState}
+        >
+          <img src={currentUser?.image?.url} alt="" className="w-12 rounded-full mr-2" />
           <span className="text-lg">{currentUser?.name}</span>
-        </div>
+        </Link>
       </li>
       <li>
         <Link

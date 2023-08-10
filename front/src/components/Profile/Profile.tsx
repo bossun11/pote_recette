@@ -40,7 +40,7 @@ const Profile: FC = () => {
           <div className="card-body mx-10">
             <div className="avatar flex justify-center">
               <div className="w-36 rounded-full">
-                <img src={image || "/images/default_user_image.png"} />
+                <img src={image?.url} />
               </div>
             </div>
             <div className="mb-5 flex flex-col items-center">
@@ -117,7 +117,7 @@ const Profile: FC = () => {
                     {errors.image && <span className="text-error">{errors.image.message}</span>}
                     <div className="avatar">
                       <div className="w-24 rounded-full mb-3">
-                        <img src={image || "/images/default_user_image.png"} />
+                        <img src={image?.url || "/images/default_user_image.png"} />
                       </div>
                     </div>
                   </div>

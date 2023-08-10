@@ -20,7 +20,9 @@ export type User = {
   provider: string;
   email: string;
   name: string;
-  image?: string;
+  image?: {
+    url: string;
+  };
   allowPasswordChange: boolean;
   created_at: Date;
   updated_at: Date;
