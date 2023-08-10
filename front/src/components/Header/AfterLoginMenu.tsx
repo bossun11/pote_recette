@@ -38,7 +38,11 @@ const AfterLoginMenu: FC<Props> = ({ changeMenuState }) => {
           className="flex items-center hover:bg-reddishBrown hover:text-white"
           onClick={changeMenuState}
         >
-          <img src={currentUser?.image?.url} alt="" className="w-12 rounded-full mr-2" />
+          <div className="avatar">
+            <div className="w-12 rounded-full mr-3">
+              <img src={currentUser?.image?.url} />
+            </div>
+          </div>
           <span className="text-lg">{currentUser?.name}</span>
         </Link>
       </li>
