@@ -1,18 +1,19 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaUserCircle } from "react-icons/fa";
 import { MdMail } from "react-icons/md";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import PageHelmet from "../PageHelmet";
 import { useAuthContext } from "../../context/AuthContext";
 import NeutralButton from "../Buttons/NeutralButton";
 import { profileValidationSchema } from "../../utils/validationSchema";
 import { ProfileParams } from "../../types/index";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 const Profile: FC = () => {
   const { currentUser } = useAuthContext();
   const { name, email, image } = currentUser || {};
+  const [previewImage, setPreviewImage] = useState<string | undefined>(image?.url);
 
   const {
     register,
@@ -30,6 +31,19 @@ const Profile: FC = () => {
     console.log(data);
 
     closeModal();
+  };
+
+  // 選択した画像をプレビュー表示する関数
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        // reader.resultの型をチェック
+        if (typeof reader.result === "string") setPreviewImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
@@ -112,12 +126,13 @@ const Profile: FC = () => {
                         accept="image/*"
                         {...register("image")}
                         className="file-input file-input-bordered file-input-sm w-full max-w-xs"
+                        onChange={handleImageChange}
                       />
                     </div>
                     {errors.image && <span className="text-error">{errors.image.message}</span>}
                     <div className="avatar">
                       <div className="w-24 rounded-full mb-3">
-                        <img src={image?.url || "/images/default_user_image.png"} />
+                        <img src={previewImage} />
                       </div>
                     </div>
                   </div>
