@@ -5,11 +5,7 @@ export const loginValidationSchema = z.object({
     .string()
     .nonempty("メールアドレスは必須です")
     .email("正しいメールアドレスを入力してください"),
-  password: z
-    .string()
-    .nonempty("パスワードは必須です")
-    .min(8, "8文字以上で入力してください")
-    .max(50, "50文字以下で入力してください"),
+  password: z.string().nonempty("パスワードは必須です"),
 });
 
 export const registerValidationSchema = z
