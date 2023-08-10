@@ -10,6 +10,7 @@ import axios from "axios";
 import PageHelmet from "../PageHelmet";
 import { useAuthContext } from "../../context/AuthContext";
 import NeutralButton from "../Buttons/NeutralButton";
+import DefaultButton from "../Buttons/DefaultButton";
 import { profileValidationSchema } from "../../utils/validationSchema";
 import { ProfileParams } from "../../types/index";
 import { getAuthHeaders } from "../../utils/utils";
@@ -162,7 +163,7 @@ const Profile: FC = () => {
                   </div>
                 </div>
                 <div className="modal-action">
-                  <button className="btn btn-active rounded-full">キャンセル</button>
+                  <DefaultButton buttonText="キャンセル" />
                   <NeutralButton buttonText="更新する" onClick={handleSubmit(onSubmit)} />
                 </div>
               </form>
