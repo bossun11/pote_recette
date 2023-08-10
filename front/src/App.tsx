@@ -14,6 +14,8 @@ const App = () => {
         <ShopProvider>
           <ToastContainer
             position="bottom-center"
+            autoClose={3000}
+            pauseOnFocusLoss={false}
             draggable={false}
             pauseOnHover={false}
             theme="colored"
