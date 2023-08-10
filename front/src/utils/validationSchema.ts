@@ -48,15 +48,14 @@ export const profileValidationSchema = z.object({
     .nonempty("メールアドレスは必須です")
     .email("正しいメールアドレスを入力してください"),
   image: z
-    .object({
-      0: z
-        .object({
-          size: z.number().max(5000000, "ファイルサイズは最大5MBです"),
-          type: z
-            .string()
-            .refine((type) => IMAGE_TYPES.includes(type), ".jpgもしくは.pngのみ可能です"),
-        })
-        .optional(),
-    })
-    .transform((image) => (image instanceof FileList && image.length > 0 ? image[0] : undefined)),
+    .any()
+    .refine((value) => {
+      if (!(value instanceof FileList)) return true;
+      const file = value[0];
+      if (!file) return true;
+      if (file.size > 5000000) return false;
+      if (!IMAGE_TYPES.includes(file.type)) return false;
+      return true;
+    }, "画像は5MB以下の.jpgまたは.pngファイルである必要があります")
+    .transform((value) => (value instanceof FileList ? value[0] : undefined)),
 });
