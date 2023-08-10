@@ -3,15 +3,19 @@ import { useForm } from "react-hook-form";
 import { FaUserCircle } from "react-icons/fa";
 import { MdMail } from "react-icons/md";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 import PageHelmet from "../PageHelmet";
 import { useAuthContext } from "../../context/AuthContext";
 import NeutralButton from "../Buttons/NeutralButton";
 import { profileValidationSchema } from "../../utils/validationSchema";
 import { ProfileParams } from "../../types/index";
+import { getAuthHeaders } from "../../utils/utils";
 
 const Profile: FC = () => {
-  const { currentUser } = useAuthContext();
+  const { currentUser, setCurrentUser } = useAuthContext();
   const { name, email, image } = currentUser || {};
   const [previewImage, setPreviewImage] = useState<string | undefined>(image?.url);
 
@@ -27,8 +31,28 @@ const Profile: FC = () => {
     modal.close();
   };
 
-  const onSubmit = (data: ProfileParams) => {
-    console.log(data);
+  const onSubmit = async (data: ProfileParams) => {
+    const headers = getAuthHeaders();
+
+    const profileData = new FormData();
+    profileData.append("user[name]", data.name);
+    profileData.append("user[email]", data.email);
+    if (data.image) profileData.append("user[image]", data.image);
+
+    try {
+      const res = await axios.put(`${process.env.REACT_APP_BACKEND_API_URL}/profile`, profileData, {
+        headers,
+      });
+      if (res.status === 200) {
+        Cookies.set("_access_token", res.headers["access-token"]);
+        Cookies.set("_client", res.headers.client);
+        Cookies.set("_uid", res.headers.uid);
+        toast.success("プロフィールを更新しました");
+        setCurrentUser(res.data.data);
+      }
+    } catch (e) {
+      toast.error("プロフィールの更新に失敗しました");
+    }
 
     closeModal();
   };
