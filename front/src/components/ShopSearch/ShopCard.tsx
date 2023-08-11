@@ -11,17 +11,20 @@ const ShopCard: FC<ShopCardProps> = ({ shop }) => {
   // お店が営業していない場合は表示しない
   if (shop.business_status && shop.business_status !== "OPERATIONAL") return null;
 
+  // ショップ情報が取得できない場合は表示しない
+  if (!shop) return null;
+
   const navigate = useNavigate();
 
   const address = formatAddress(shop.formatted_address);
 
   // 画像URLを取得する
   let photoUrl;
-  if ("url" in shop.photos)
-    // RailsAPIからのデータの場合
-    photoUrl = `${shop.photos.url}`;
-  // Google Place APIからのデータの場合
-  else photoUrl = getPhotoUrl(shop.photos[0].photo_reference, 600);
+  if (Array.isArray(shop.photos))
+    // Google Place APIからのデータの場合
+    photoUrl = getPhotoUrl(shop.photos[0].photo_reference, 600);
+  // RailsAPIからのデータの場合
+  else photoUrl = `${shop.photos.url}`;
 
   return (
     <div
