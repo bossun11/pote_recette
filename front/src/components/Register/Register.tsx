@@ -17,7 +17,7 @@ const Register: FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpParams>({ mode: "onChange", resolver: zodResolver(registerValidationSchema) });
+  } = useForm<SignUpParams>({ resolver: zodResolver(registerValidationSchema) });
 
   const navigate = useNavigate();
   const { setIsSignedIn, setCurrentUser } = useAuthContext();
@@ -81,6 +81,7 @@ const Register: FC = () => {
                 className="w-full px-3 py-2 border rounded-md outline-none"
                 id="password"
                 type="password"
+                placeholder="8文字以上で入力してください"
                 {...register("password")}
               />
               {errors.password && <span className="text-error">{errors.password.message}</span>}
@@ -93,6 +94,7 @@ const Register: FC = () => {
                 className="w-full px-3 py-2 border rounded-md outline-none"
                 id="passwordConfirmation"
                 type="password"
+                placeholder="8文字以上で入力してください"
                 {...register("passwordConfirmation")}
               />
               {errors.passwordConfirmation && (

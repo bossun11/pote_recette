@@ -17,7 +17,7 @@ const Login: FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginParams>({ mode: "onChange", resolver: zodResolver(loginValidationSchema) });
+  } = useForm<LoginParams>({ resolver: zodResolver(loginValidationSchema) });
 
   const navigate = useNavigate();
   const { setIsSignedIn, setCurrentUser } = useAuthContext();
