@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         deepRed: "#BA4B4D",
         reddishBrown: "#8a1f4a",
+        creamLight: "#f6f1e6",
       },
     },
   },

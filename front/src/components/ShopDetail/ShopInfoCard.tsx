@@ -112,7 +112,7 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
               />
               {/* 口コミを閲覧できるモーダル */}
               <dialog id="shop_reviews" className="modal">
-                <form method="dialog" className="modal-box">
+                <form method="dialog" className="modal-box bg-creamLight">
                   <div className="flex justify-end mb-2">
                     <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                       ✕
