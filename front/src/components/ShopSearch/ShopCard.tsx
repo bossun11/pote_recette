@@ -11,8 +11,8 @@ const ShopCard: FC<ShopCardProps> = ({ shop }) => {
   // お店が営業していない場合は表示しない
   if (shop.business_status && shop.business_status !== "OPERATIONAL") return null;
 
-  // ショップ情報が取得できない場合は表示しない
-  if (!shop) return null;
+  // ショップの写真が取得できない場合は表示しない
+  if (!shop.photos) return null;
 
   const navigate = useNavigate();
 
