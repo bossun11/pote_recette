@@ -57,6 +57,28 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
     });
   };
 
+  const shopRating = (rating: number) => {
+    const fullStars = Math.floor(rating);
+    const halfStar = rating - fullStars >= 0.5;
+
+    return (
+      <div className="rating rating-md rating-half pointer-events-none">
+        <input type="radio" className="rating-hidden" defaultChecked={rating < 0.5} />
+        {[...Array(10)].map((_, i) => (
+          <input
+            key={i}
+            type="radio"
+            name="rating-10"
+            className={`bg-amber-300 mask mask-star-2 ${
+              i % 2 === 0 ? "mask-half-1" : "mask-half-2"
+            }`}
+            defaultChecked={i < fullStars * 2 || (i === fullStars * 2 && halfStar)}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-4 mt-4 w-full max-w-md overflow-auto">
       <div className="card bg-base-100">
@@ -120,6 +142,7 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
                   </div>
                   <div className="flex items-center justify-start">
                     <div className="text-xl ">平均評価：{rating}</div>
+                    {shopRating(rating)}
                     <div className="text-xl ml-4">総評価数：{user_ratings_total}</div>
                   </div>
                   <div className="divider"></div>
