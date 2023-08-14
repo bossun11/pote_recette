@@ -46,11 +46,12 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
       return <div className="flex items-start justify-center text-lg">口コミはありません</div>;
 
     return reviews.map((review) => {
-      const { text, time } = review;
+      const { text, time, relative_time_description } = review;
       return (
         <div className="card w-auto bg-base-100 shadow-xl card-bordered mb-5" key={time}>
           <div className="card-body">
             <p className="">{text}</p>
+            <p className="text-deepRed text-sm mt-2">{`${relative_time_description}の口コミ`}</p>
           </div>
         </div>
       );

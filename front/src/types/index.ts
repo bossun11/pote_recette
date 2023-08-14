@@ -67,6 +67,7 @@ export type ShopType = {
   reviews?: {
     text: string;
     time: number;
+    relative_time_description: string;
   }[];
 };
 
