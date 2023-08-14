@@ -86,21 +86,23 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
                 <div>ホームページが見つかりませんでした</div>
               )}
             </div>
-            <div className="flex flex-col items-center mb-7">
-              <NeutralButton
-                buttonText="口コミを見る"
-                onClick={() => {
-                  if (document)
-                    (document.getElementById("shop_reviews") as HTMLFormElement).showModal();
-                }}
-              />
-              {/* 口コミを閲覧できるモーダル */}
-              <ShopReviewsModal
-                rating={rating}
-                user_ratings_total={user_ratings_total}
-                reviews={reviews}
-              />
-            </div>
+            {isSignedIn && (
+              <div className="flex flex-col items-center mb-7">
+                <NeutralButton
+                  buttonText="口コミを見る"
+                  onClick={() => {
+                    if (document)
+                      (document.getElementById("shop_reviews") as HTMLFormElement).showModal();
+                  }}
+                />
+                {/* 口コミを閲覧できるモーダル */}
+                <ShopReviewsModal
+                  rating={rating}
+                  user_ratings_total={user_ratings_total}
+                  reviews={reviews}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
