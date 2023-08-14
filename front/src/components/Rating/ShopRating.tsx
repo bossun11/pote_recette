@@ -6,13 +6,16 @@ type ShopRatingProps = {
 };
 
 const ShopRating: FC<ShopRatingProps> = ({ rating, size = "md" }) => {
+  const totalStars = 5;
+  const totalHalfStars = totalStars * 2;
+
   const fullStars = Math.floor(rating);
   const halfStar = rating - fullStars >= 0.5;
 
   return (
     <div className={`rating rating-${size} rating-half pointer-events-none`}>
       <input type="radio" className="rating-hidden" defaultChecked={rating < 0.5} />
-      {[...Array(10)].map((_, i) => (
+      {[...Array(totalHalfStars)].map((_, i) => (
         <input
           key={i}
           type="radio"
