@@ -62,6 +62,13 @@ export type ShopType = {
     weekday_text: string[];
   };
   website?: string;
+  rating: number;
+  user_ratings_total: number;
+  reviews?: {
+    text: string;
+    time: number;
+    relative_time_description: string;
+  }[];
 };
 
 export type GoogleMapCenterType = {

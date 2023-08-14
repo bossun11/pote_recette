@@ -1,8 +1,11 @@
 import React, { FC } from "react";
 import { FaStar, FaRegStar } from "react-icons/fa";
+
 import { ShopType } from "../../types";
 import { formatAddress, getPhotoUrl } from "../../utils/utils";
 import { useAuthContext } from "../../context/AuthContext";
+import NeutralButton from "../Buttons/NeutralButton";
+import ShopReviewsModal from "./ShopReviewsModal";
 
 type ShopInfoCardProps = {
   shopDetail: ShopType;
@@ -11,7 +14,16 @@ type ShopInfoCardProps = {
 };
 
 const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleBookmark }) => {
-  const { formatted_address, website, photos, current_opening_hours } = shopDetail;
+  const {
+    formatted_address,
+    website,
+    photos,
+    current_opening_hours,
+    rating,
+    user_ratings_total,
+    reviews,
+  } = shopDetail;
+
   const { isSignedIn } = useAuthContext();
   const address = formatAddress(formatted_address);
   const photoUrl = getPhotoUrl(photos[0].photo_reference, 400);
@@ -74,6 +86,23 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
                 <div>ホームページが見つかりませんでした</div>
               )}
             </div>
+            {isSignedIn && (
+              <div className="flex flex-col items-center mb-7">
+                <NeutralButton
+                  buttonText="口コミを見る"
+                  onClick={() => {
+                    if (document)
+                      (document.getElementById("shop_reviews") as HTMLFormElement).showModal();
+                  }}
+                />
+                {/* 口コミを閲覧できるモーダル */}
+                <ShopReviewsModal
+                  rating={rating}
+                  user_ratings_total={user_ratings_total}
+                  reviews={reviews}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

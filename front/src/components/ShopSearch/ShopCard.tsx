@@ -8,34 +8,36 @@ type ShopCardProps = {
 };
 
 const ShopCard: FC<ShopCardProps> = ({ shop }) => {
-  // お店が営業していない場合は表示しない
-  if (shop.business_status && shop.business_status !== "OPERATIONAL") return null;
+  const { business_status, formatted_address, name, photos, place_id } = shop;
 
-  // ショップ情報が取得できない場合は表示しない
-  if (!shop) return null;
+  // お店が営業していない場合は表示しない
+  if (business_status && business_status !== "OPERATIONAL") return null;
+
+  // ショップの写真が取得できない場合は表示しない
+  if (!photos) return null;
 
   const navigate = useNavigate();
 
-  const address = formatAddress(shop.formatted_address);
+  const address = formatAddress(formatted_address);
 
   // 画像URLを取得する
   let photoUrl;
-  if (Array.isArray(shop.photos))
+  if (Array.isArray(photos))
     // Google Place APIからのデータの場合
-    photoUrl = getPhotoUrl(shop.photos[0].photo_reference, 600);
+    photoUrl = getPhotoUrl(photos[0].photo_reference, 600);
   // RailsAPIからのデータの場合
-  else photoUrl = `${shop.photos.url}`;
+  else photoUrl = `${photos.url}`;
 
   return (
     <div
       key={shop.place_id}
       className="card w-88 bg-base-100 cursor-pointer"
-      onClick={() => navigate(`/shop-search/${shop.place_id}`)}
+      onClick={() => navigate(`/shop-search/${place_id}`)}
     >
       <div className="card-body">
         <div className="flex justify-between items-center">
-          <div className="flex-col ite">
-            <h2 className="card-title">{shop.name}</h2>
+          <div className="flex-col">
+            <h2 className="card-title">{name}</h2>
             <p>{address}</p>
           </div>
           <div className="items-center">

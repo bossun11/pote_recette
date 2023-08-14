@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_18_080716) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_14_122516) do
   create_table "bookmarks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "shop_id", null: false
@@ -29,6 +29,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_18_080716) do
     t.string "website"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "latitude"
+    t.float "longitude"
+    t.float "rating"
+    t.integer "user_ratings_total"
     t.index ["place_id"], name: "index_shops_on_place_id", unique: true
   end
 

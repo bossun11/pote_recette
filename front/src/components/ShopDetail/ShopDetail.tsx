@@ -56,7 +56,16 @@ const ShopDetail: FC = () => {
       </div>
     );
 
-  const { place_id, name, formatted_address, website, photos, geometry } = shopDetail;
+  const {
+    place_id,
+    name,
+    formatted_address,
+    website,
+    photos,
+    geometry,
+    rating,
+    user_ratings_total,
+  } = shopDetail;
   const photoUrl = getPhotoUrl(photos[0].photo_reference, 400);
 
   const center: GoogleMapCenterType = {
@@ -73,6 +82,10 @@ const ShopDetail: FC = () => {
         formatted_address: formatted_address,
         photos: photoUrl,
         website: website,
+        latitude: geometry.location.lat,
+        longitude: geometry.location.lng,
+        rating: rating,
+        user_ratings_total: user_ratings_total,
       },
     };
     if (isBookmarked)
