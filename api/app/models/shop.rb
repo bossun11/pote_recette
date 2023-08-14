@@ -14,6 +14,10 @@ class Shop < ApplicationRecord
       shop.formatted_address = params[:formatted_address]
       shop.remote_photos_url = params[:photos]
       shop.website = params[:website]
+      shop.latitude = params[:latitude]
+      shop.longitude = params[:longitude]
+      shop.rating = params[:rating]
+      shop.user_ratings_total = params[:user_ratings_total]
     end
   end
 end
