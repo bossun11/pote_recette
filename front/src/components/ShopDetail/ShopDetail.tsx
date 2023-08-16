@@ -135,7 +135,7 @@ const ShopDetail: FC = () => {
           </div>
         </div>
         <div className="w-2/3 bg-white">
-          {<GoogleMap center={center} zoom={15} markers={shopDetail} />}
+          {<GoogleMap center={center} zoom={15} markers={shopDetail} infoWindow={true} />}
         </div>
       </div>
     </>
