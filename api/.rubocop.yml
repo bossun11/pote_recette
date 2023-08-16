@@ -19,8 +19,7 @@ AllCops:
     - "tmp/**/*"
     - "vendor/**/*"
     - "lib/tasks/auto_annotate_models.rake"
-    - "config/environments/*"
-    - "config/puma.rb"
+    - "config/**/*"
 
 ### ルールのカスタマイズ
 
@@ -67,6 +66,10 @@ Style/SymbolArray:
 
 # 文字列による配列の%記法のチェック
 Style/WordArray:
+  Enabled: false
+
+#　ENV.fetch の使用を強制
+Style/FetchEnvVar:
   Enabled: false
 
 # 変数名に数字を許可
