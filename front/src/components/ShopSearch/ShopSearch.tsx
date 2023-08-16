@@ -103,7 +103,7 @@ const ShopSearch: FC = () => {
             </div>
           </div>
         </div>
-        <div className="w-2/3">{<GoogleMap center={center} zoom={11} />}</div>
+        <div className="w-2/3">{<GoogleMap center={center} zoom={11} markers={shops} />}</div>
       </div>
     </>
   );

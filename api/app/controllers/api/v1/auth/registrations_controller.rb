@@ -1,9 +1,7 @@
 class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
   def create
     super do |resource|
-      if resource.persisted?
-        sign_in(resource)
-      end
+      sign_in(resource) if resource.persisted?
     end
   end
 
