@@ -7,6 +7,9 @@ class Shop < ApplicationRecord
   validates :name, :formatted_address, :place_id, presence: true
   validates :place_id, uniqueness: true
 
+  # Google Places APIの検索結果から必要な情報を取得するための定数
+  GOOGLE_MAP_FIELDS = "formatted_address,name,geometry,photos,current_opening_hours,website,place_id,reviews,rating,user_ratings_total".freeze
+
   # 与えられたplace_idで店舗を検索し、存在しなければ新たに作成。
   def self.find_or_create_by_place(params)
     find_or_create_by(place_id: params[:place_id]) do |shop|
