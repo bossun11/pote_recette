@@ -82,13 +82,16 @@ const GoogleMap: FC<GoogleMapProps> = ({ center, zoom, markers, infoWindow = fal
   return isLoaded ? (
     <GoogleMapComponent mapContainerStyle={containerStyle} center={center} zoom={zoom}>
       {Array.isArray(markers) ? (
-        markers.map((shop) => (
-          <Marker
-            key={shop.place_id}
-            position={shop.geometry.location}
-            onClick={() => setSelectedShop(shop)}
-          />
-        ))
+        markers.map((shop) => {
+          if (shop.business_status === "OPERATIONAL")
+            return (
+              <Marker
+                key={shop.place_id}
+                position={shop.geometry.location}
+                onClick={() => setSelectedShop(shop)}
+              />
+            );
+        })
       ) : (
         <Marker
           key={markers.place_id}
