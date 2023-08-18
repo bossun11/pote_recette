@@ -19,6 +19,7 @@ const ShopReviewsModal: FC<ShopReviewsModalProps> = ({ rating, user_ratings_tota
 
     return reviews.map((review) => {
       const { text, time, relative_time_description } = review;
+      if (text === "") return;
       return (
         <div className="card w-auto bg-base-100 shadow-xl card-bordered mb-5" key={time}>
           <div className="card-body">
