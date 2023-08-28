@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FiX } from "react-icons/fi";
@@ -10,14 +10,34 @@ type SearchFormProps = {
 };
 
 const SearchForm: FC<SearchFormProps> = ({ onSubmit }) => {
-  const { register, handleSubmit, formState, reset } = useForm<InputSearchParams>({
+  const { register, handleSubmit, formState, reset, setValue } = useForm<InputSearchParams>({
     mode: "onChange",
     resolver: zodResolver(inputSearchValidationSchema),
   });
 
+  const { ref, ...inputProps } = register("search");
+
   const handleReset = () => {
     reset();
   };
+
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (!searchInputRef.current) return;
+
+    const autocomplete = new window.google.maps.places.Autocomplete(searchInputRef.current);
+
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+      setValue("search", place.name || "");
+    });
+
+    return () => {
+      if (searchInputRef.current)
+        window.google.maps.event.clearInstanceListeners(searchInputRef.current);
+    };
+  }, [setValue]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -25,9 +45,13 @@ const SearchForm: FC<SearchFormProps> = ({ onSubmit }) => {
         <div className="relative">
           <input
             type="text"
+            ref={(e) => {
+              ref(e);
+              searchInputRef.current = e;
+            }}
             placeholder="検索"
             className="input input-bordered w-full max-w-xs"
-            {...register("search")}
+            {...inputProps}
           />
           {formState.isValid && (
             <FiX
