@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { MdOutlineArrowBackIos } from "react-icons/md";
 import axios from "axios";
-import { useJsApiLoader } from "@react-google-maps/api";
 
 import { GoogleMapCenterType, ShopType } from "../../types";
 import { getPhotoUrl, getAuthHeaders } from "../../utils/utils";
@@ -17,11 +16,6 @@ const ShopDetail: FC = () => {
   const { id } = useParams();
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
   const { isSignedIn } = useAuthContext();
-
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAP_API_KEY || "",
-  });
 
   const headers = getAuthHeaders();
 
@@ -111,7 +105,7 @@ const ShopDetail: FC = () => {
       }
   };
 
-  return isLoaded ? (
+  return (
     <>
       <PageHelmet title={`${name}に関する詳細情報`} />
       <div className="flex h-screen">
@@ -139,8 +133,6 @@ const ShopDetail: FC = () => {
         </div>
       </div>
     </>
-  ) : (
-    <></>
   );
 };
 
