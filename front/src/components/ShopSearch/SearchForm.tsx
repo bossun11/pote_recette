@@ -1,9 +1,10 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FiX } from "react-icons/fi";
 import { inputSearchValidationSchema } from "../../utils/validationSchema";
 import { InputSearchParams } from "../../types";
+import Autocomplete from "react-google-autocomplete";
 
 type SearchFormProps = {
   onSubmit: (_data: InputSearchParams) => void; // eslint-disable-line no-unused-vars
@@ -21,34 +22,21 @@ const SearchForm: FC<SearchFormProps> = ({ onSubmit }) => {
     reset();
   };
 
-  const searchInputRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    if (!searchInputRef.current) return;
-
-    const autocomplete = new window.google.maps.places.Autocomplete(searchInputRef.current);
-
-    autocomplete.addListener("place_changed", () => {
-      const place = autocomplete.getPlace();
-      setValue("search", place.name || "");
-    });
-
-    return () => {
-      if (searchInputRef.current)
-        window.google.maps.event.clearInstanceListeners(searchInputRef.current);
-    };
-  }, [setValue]);
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex justify-center items-center">
         <div className="relative">
-          <input
-            type="text"
-            ref={(e) => {
-              ref(e);
-              searchInputRef.current = e;
+          <Autocomplete
+            apiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY}
+            onPlaceSelected={(place) => {
+              setValue("search", place.name || "");
             }}
+            options={{
+              types: ["establishment"],
+              fields: ["name"],
+              componentRestrictions: { country: "jp" },
+            }}
+            ref={ref}
             placeholder="検索"
             className="input input-bordered w-full max-w-xs"
             {...inputProps}
