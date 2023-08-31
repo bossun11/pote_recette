@@ -106,7 +106,8 @@ const ShopSearch: FC = () => {
         <div className="w-1/3 overflow-auto">
           <div className="p-4 flex flex-col h-full">
             <SearchForm onSubmit={onSubmit} />
-            <div className="flex items-center justify-center mt-4">
+            <div className="divider px-16">OR</div>
+            <div className="flex items-center justify-center mb-2">
               <NeutralButton buttonText="現在地から検索" onClick={searchFromCurrentLocation} />
             </div>
             {isSignedIn && (
