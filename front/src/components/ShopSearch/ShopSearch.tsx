@@ -10,6 +10,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import { getAuthHeaders } from "../../utils/utils";
 import PageHelmet from "../PageHelmet";
 import { toast } from "react-toastify";
+import NeutralButton from "../Buttons/NeutralButton";
 
 const ShopSearch: FC = () => {
   // 東京を初期値としてマップの中心に設定
@@ -55,6 +56,32 @@ const ShopSearch: FC = () => {
     }
   };
 
+  // 現在地からショップを検索する関数
+  const searchFromCurrentLocation = async () => {
+    if (navigator.geolocation)
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        try {
+          const res = await axios.get(
+            `${process.env.REACT_APP_BACKEND_API_URL}/shops/search?location=${latitude},${longitude}`,
+          );
+          const results = res.data;
+          if (results.results.length > 0)
+            setCenter({
+              lat: results.results[0].geometry.location.lat,
+              lng: results.results[0].geometry.location.lng,
+            });
+
+          setShops(results.results);
+        } catch (e) {
+          toast.error("店舗情報の取得に失敗しました");
+        }
+      });
+    else toast.error("位置情報の取得に失敗しました。");
+  };
+
   // お気に入りのショップ情報を取得する関数
   const getBookmarks = async () => {
     try {
@@ -79,6 +106,10 @@ const ShopSearch: FC = () => {
         <div className="w-1/3 overflow-auto">
           <div className="p-4 flex flex-col h-full">
             <SearchForm onSubmit={onSubmit} />
+            <div className="divider px-16">OR</div>
+            <div className="flex items-center justify-center mb-2">
+              <NeutralButton buttonText="現在地から検索" onClick={searchFromCurrentLocation} />
+            </div>
             {isSignedIn && (
               <div className="tabs justify-center items-center my-3">
                 <div

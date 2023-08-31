@@ -4,8 +4,9 @@ class Api::V1::ShopsController < ApplicationController
   require "cgi"
 
   def search
-    query = CGI.escape("さつまいも菓子専門店+in+#{params[:location]}")
-    uri = URI.parse("#{ENV['GOOGLE_MAP_PLACE_URL']}/textsearch/json?query=#{query}&key=#{ENV['GOOGLE_MAP_API_KEY']}&language=ja")
+    query = Shop.generate_search_query(params[:location])
+    radius = params[:radius] || Shop::DEFAULT_RADIUS
+    uri = URI.parse("#{ENV['GOOGLE_MAP_PLACE_URL']}/textsearch/json?query=#{query}&key=#{ENV['GOOGLE_MAP_API_KEY']}&language=ja&radius=#{radius}")
     res = Net::HTTP.get_response(uri)
     render json: res.body
   end
