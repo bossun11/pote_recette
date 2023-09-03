@@ -2,7 +2,7 @@ import Cookies from "js-cookie";
 
 // Places APIから取得した写真の参照を使用して画像のURLを作成する関数
 export const getPhotoUrl = (photoReference: string, maxWidth: number) => {
-  const baseUrl = process.env.REACT_APP_GOOGLE_PLACE_PHOTO_URL;
+  const baseUrl = `${process.env.REACT_APP_GOOGLE_MAP_BASE_URL}/place/photo`;
   const apiKey = process.env.REACT_APP_GOOGLE_MAP_API_KEY;
   return `${baseUrl}?maxwidth=${maxWidth}&photoreference=${photoReference}&key=${apiKey}`;
 };
