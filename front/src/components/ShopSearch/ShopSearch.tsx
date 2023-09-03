@@ -38,22 +38,27 @@ const ShopSearch: FC = () => {
       });
   }, [shops]);
 
-  const onSubmit = async (data: InputSearchParams) => {
+  // 与えられた位置情報を基に、APIから店舗情報を取得し、マップの中心とステートの店舗リストを更新する関数
+  const getShopsByLocation = async (location: string) => {
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_BACKEND_API_URL}/shops/search?location=${data.search}`,
+        `${process.env.REACT_APP_BACKEND_API_URL}/shops/search?location=${location}`,
       );
       const results = res.data;
-      if (results.results.length > 0)
+      if (results.results.length > 0) {
         setCenter({
           lat: results.results[0].geometry.location.lat,
           lng: results.results[0].geometry.location.lng,
         });
-
-      setShops(results.results);
+        setShops(results.results);
+      }
     } catch (e) {
       toast.error("店舗情報の取得に失敗しました");
     }
+  };
+
+  const onSubmit = async (data: InputSearchParams) => {
+    getShopsByLocation(data.search);
   };
 
   // 緯度経度から住所を取得する関数
@@ -62,7 +67,6 @@ const ShopSearch: FC = () => {
       const res = await axios.get(
         `${process.env.REACT_APP_GOOGLE_MAP_BASE_URL}/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}&language=ja`,
       );
-      console.log(res.data);
       return res.data.plus_code.compound_code;
     } catch (e) {
       toast.error("住所の取得に失敗しました");
@@ -77,21 +81,7 @@ const ShopSearch: FC = () => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
         const locationName = await reverseGeocoding(latitude, longitude);
-
-        try {
-          const res = await axios.get(
-            `${process.env.REACT_APP_BACKEND_API_URL}/shops/search?location=${locationName}`,
-          );
-          const results = res.data;
-          if (results.results.length > 0)
-            setCenter({
-              lat: results.results[0].geometry.location.lat,
-              lng: results.results[0].geometry.location.lng,
-            });
-          setShops(results.results);
-        } catch (e) {
-          toast.error("店舗情報の取得に失敗しました");
-        }
+        if (locationName) getShopsByLocation(locationName);
       });
     else toast.error("位置情報の取得に失敗しました。");
   };
