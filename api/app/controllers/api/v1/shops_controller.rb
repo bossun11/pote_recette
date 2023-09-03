@@ -5,8 +5,7 @@ class Api::V1::ShopsController < ApplicationController
 
   def search
     query = Shop.generate_search_query(params[:location])
-    radius = params[:radius] || Shop::DEFAULT_RADIUS
-    uri = URI.parse("#{ENV['GOOGLE_MAP_PLACE_URL']}/textsearch/json?query=#{query}&key=#{ENV['GOOGLE_MAP_API_KEY']}&language=ja&radius=#{radius}")
+    uri = URI.parse("#{ENV['GOOGLE_MAP_PLACE_URL']}/textsearch/json?query=#{query}&key=#{ENV['GOOGLE_MAP_API_KEY']}&language=ja")
     res = Net::HTTP.get_response(uri)
     render json: res.body
   end

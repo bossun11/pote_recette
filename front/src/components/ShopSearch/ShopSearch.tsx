@@ -56,16 +56,31 @@ const ShopSearch: FC = () => {
     }
   };
 
+  // 緯度経度から住所を取得する関数
+  const reverseGeocoding = async (latitude: number, longitude: number): Promise<string | null> => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_GOOGLE_MAP_BASE_URL}/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}&language=ja`,
+      );
+      console.log(res.data);
+      return res.data.plus_code.compound_code;
+    } catch (e) {
+      toast.error("住所の取得に失敗しました");
+      return null;
+    }
+  };
+
   // 現在地からショップを検索する関数
   const searchFromCurrentLocation = async () => {
     if (navigator.geolocation)
       navigator.geolocation.getCurrentPosition(async (position) => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
+        const locationName = await reverseGeocoding(latitude, longitude);
 
         try {
           const res = await axios.get(
-            `${process.env.REACT_APP_BACKEND_API_URL}/shops/search?location=${latitude},${longitude}`,
+            `${process.env.REACT_APP_BACKEND_API_URL}/shops/search?location=${locationName}`,
           );
           const results = res.data;
           if (results.results.length > 0)
@@ -73,7 +88,6 @@ const ShopSearch: FC = () => {
               lat: results.results[0].geometry.location.lat,
               lng: results.results[0].geometry.location.lng,
             });
-
           setShops(results.results);
         } catch (e) {
           toast.error("店舗情報の取得に失敗しました");
@@ -83,7 +97,7 @@ const ShopSearch: FC = () => {
   };
 
   // お気に入りのショップ情報を取得する関数
-  const getBookmarks = async () => {
+  const getBookmarks = async (): Promise<void> => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_BACKEND_API_URL}/bookmarks`, {
         headers,
