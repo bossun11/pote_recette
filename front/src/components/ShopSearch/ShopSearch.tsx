@@ -81,6 +81,7 @@ const ShopSearch: FC = () => {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
         const locationName = await reverseGeocoding(latitude, longitude);
+        console.log("Returned Location Name:", locationName);
         if (locationName) getShopsByLocation(locationName);
       });
     else toast.error("位置情報の取得に失敗しました。");
