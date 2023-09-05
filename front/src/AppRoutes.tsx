@@ -13,6 +13,7 @@ import PublicRoute from "./components/routes/PublicRoute";
 import PageNotFound from "./components/routes/PageNotFound";
 import Profile from "./components/Profile/Profile";
 import PrivateRoute from "./components/routes/PrivateRoute";
+import TermsOfService from "./components/Header/TermsOfService";
 
 const AppRoutes = () => {
   const { loading, setIsSignedIn, setCurrentUser, setLoading } = useAuthContext();
@@ -69,6 +70,7 @@ const AppRoutes = () => {
             </PrivateRoute>
           }
         />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>

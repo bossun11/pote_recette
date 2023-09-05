@@ -70,9 +70,13 @@ const AfterLoginMenu: FC<Props> = ({ changeMenuState }) => {
       </li>
       <div className="divider my-0.5"></div>
       <li>
-        <a href="#" className="text-gray-800 hover:bg-reddishBrown hover:text-white">
+        <Link
+          to="/terms-of-service"
+          className="text-gray-800 hover:bg-reddishBrown hover:text-white"
+          onClick={changeMenuState}
+        >
           利用規約
-        </a>
+        </Link>
       </li>
       <li>
         <a href="#" className="text-gray-800 hover:bg-reddishBrown hover:text-white">
