@@ -46,9 +46,13 @@ const BeforeLoginMenu: FC<Props> = ({ changeMenuState }) => {
         </Link>
       </li>
       <li>
-        <a href="#" className="text-gray-800 hover:bg-reddishBrown hover:text-white">
+        <Link
+          to="/privacy-policy"
+          className="text-gray-800 hover:bg-reddishBrown hover:text-white"
+          onClick={changeMenuState}
+        >
           プライバシーポリシー
-        </a>
+        </Link>
       </li>
       <li>
         <a href="#" className="text-gray-800 hover:bg-reddishBrown hover:text-white">

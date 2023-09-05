@@ -14,6 +14,7 @@ import PageNotFound from "./components/routes/PageNotFound";
 import Profile from "./components/Profile/Profile";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import TermsOfService from "./components/Header/TermsOfService";
+import PrivacyPolicy from "./components/Header/PrivacyPolicy";
 
 const AppRoutes = () => {
   const { loading, setIsSignedIn, setCurrentUser, setLoading } = useAuthContext();
@@ -71,6 +72,7 @@ const AppRoutes = () => {
           }
         />
         <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </Router>
