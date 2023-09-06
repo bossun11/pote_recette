@@ -17,4 +17,9 @@ class Api::V1::ShopsController < ApplicationController
     res = Net::HTTP.get_response(uri)
     render json: res.body
   end
+
+  def rankings
+    shops = Shop.ranked_by_bookmarks
+    render json: shops
+  end
 end
