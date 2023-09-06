@@ -88,7 +88,12 @@ const AfterLoginMenu: FC<Props> = ({ changeMenuState }) => {
         </Link>
       </li>
       <li>
-        <a href="#" className="text-gray-800 hover:bg-reddishBrown hover:text-white">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-800 hover:bg-reddishBrown hover:text-white"
+          href="https://forms.gle/F8aQEdmfZJz6YtKTA"
+        >
           お問い合わせ
         </a>
       </li>
