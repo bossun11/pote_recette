@@ -18,7 +18,6 @@ const ShopRankings: FC = () => {
       try {
         const res = await axios.get(`${process.env.REACT_APP_BACKEND_API_URL}/shops/rankings`);
         setShopRankings(res.data);
-        console.log(res.data);
       } catch (e) {
         toast.error("ランキングの取得に失敗しました。");
       }
@@ -33,10 +32,10 @@ const ShopRankings: FC = () => {
       <h1 className="text-4xl font-bold text-center mt-10">Bestショップ TOP3</h1>
       <div className="card w-auto">
         <div className="card-body">
-          <div className="flex justify-center items-start">
+          <div className="flex flex-col justify-center items-center xl:flex-row">
             {shopRankings.map((shop, i) => (
               <div
-                className="card card-compact w-96 bg-base-100 shadow-xl mx-4 flex flex-col items-center justify-center"
+                className="card card-compact w-full bg-base-100 shadow-xl mx-4 my-4 flex flex-col items-center justify-center xl:w-auto xl:my-0"
                 key={shop.place_id}
               >
                 <div className="card-title">
