@@ -57,6 +57,15 @@ const AfterLoginMenu: FC<Props> = ({ changeMenuState }) => {
       </li>
       <li>
         <Link
+          to="shop-rankings"
+          className="text-gray-800 hover:bg-reddishBrown hover:text-white"
+          onClick={changeMenuState}
+        >
+          ショップランキング
+        </Link>
+      </li>
+      <li>
+        <Link
           to="/"
           className="text-gray-800 hover:bg-reddishBrown hover:text-white"
           onClick={(e) => {

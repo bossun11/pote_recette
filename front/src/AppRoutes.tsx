@@ -15,6 +15,7 @@ import Profile from "./components/Profile/Profile";
 import PrivateRoute from "./components/routes/PrivateRoute";
 import TermsOfService from "./components/Header/TermsOfService";
 import PrivacyPolicy from "./components/Header/PrivacyPolicy";
+import ShopRankings from "./components/ShopRankings/ShopRankings";
 
 const AppRoutes = () => {
   const { loading, setIsSignedIn, setCurrentUser, setLoading } = useAuthContext();
@@ -68,6 +69,14 @@ const AppRoutes = () => {
           element={
             <PrivateRoute>
               <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/shop-rankings"
+          element={
+            <PrivateRoute>
+              <ShopRankings />
             </PrivateRoute>
           }
         />
