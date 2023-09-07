@@ -61,7 +61,7 @@ const AfterLoginMenu: FC<Props> = ({ changeMenuState }) => {
           className="text-gray-800 hover:bg-reddishBrown hover:text-white"
           onClick={changeMenuState}
         >
-          ショップランキング
+          人気ショップ
         </Link>
       </li>
       <li>
