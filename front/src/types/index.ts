@@ -42,6 +42,9 @@ export type RailsShopType = {
       lng: number;
     };
   };
+  website?: string;
+  rating: number;
+  user_ratings_total: number;
 };
 
 export type ShopType = {

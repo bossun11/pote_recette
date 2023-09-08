@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :shops, only: %i[show] do
         collection do
           get :search
+          get :rankings
         end
       end
 
