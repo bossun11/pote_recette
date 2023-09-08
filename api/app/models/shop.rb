@@ -14,6 +14,7 @@ class Shop < ApplicationRecord
   scope :ranked_by_bookmarks, -> {
     select("shops.*, COUNT(bookmarks.id) AS bookmarks_count")
     .joins(:bookmarks)
+    .where("shops.rating >= ?", 3.5)
     .group("shops.id")
     .order("bookmarks_count DESC")
     .limit(3)
