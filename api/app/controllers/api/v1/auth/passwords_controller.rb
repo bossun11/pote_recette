@@ -19,4 +19,14 @@ class Api::V1::Auth::PasswordsController < Devise::PasswordsController
   def reset_password_failed
     render json: { errors: resource.errors.full_messages }, status: :unprocessable_entity
   end
+
+  # パスワード再設定用のメールを送信するためのメソッドをオーバーライド
+  def resource_params
+    params.permit(:email, :redirect_url)
+  end
+
+  # 空のハッシュを返すflashメソッドを定義し、Deviseのデフォルトの行動をオーバーライド
+  def flash
+    {}
+  end
 end
