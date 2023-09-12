@@ -79,7 +79,10 @@ const Login: FC = () => {
             </div>
           </form>
         </div>
-        <Link to="/register" className="mt-6 link link-hover">
+        <Link to="/password-reset-request" className="mt-6 link link-hover">
+          パスワードをお忘れの方はこちら
+        </Link>
+        <Link to="/register" className="mt-1 link link-hover">
           アカウントをお持ちでない方はこちら
         </Link>
       </div>
