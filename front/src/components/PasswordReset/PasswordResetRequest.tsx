@@ -31,7 +31,7 @@ const PasswordResetRequest: FC = () => {
         `${process.env.REACT_APP_BACKEND_API_URL}/auth/password`,
         {
           email: data.email,
-          redirectUrl: `${process.env.REACT_APP_HEROKU_FRONTEND_APP_URL}/password/edit`,
+          redirectUrl: `${process.env.REACT_APP_HEROKU_FRONTEND_APP_URL}/password-reset`,
         },
         {
           headers: {
