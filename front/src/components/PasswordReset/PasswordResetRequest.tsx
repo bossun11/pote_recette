@@ -7,13 +7,11 @@ import { toast } from "react-toastify";
 
 import PageHelmet from "../PageHelmet";
 import NeutralButton from "../Buttons/NeutralButton";
+import { email } from "../../utils/validationSchema";
 
 const PasswordResetRequest: FC = () => {
   const passwordResetRequestValidationSchema = z.object({
-    email: z
-      .string()
-      .nonempty("メールアドレスは必須です")
-      .email("正しいメールアドレスを入力してください"),
+    email,
   });
 
   type PasswordResetRequestParams = z.infer<typeof passwordResetRequestValidationSchema>;

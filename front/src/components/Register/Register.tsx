@@ -94,7 +94,6 @@ const Register: FC = () => {
                 className="w-full px-3 py-2 border rounded-md outline-none"
                 id="passwordConfirmation"
                 type="password"
-                placeholder="8文字以上で入力してください"
                 {...register("passwordConfirmation")}
               />
               {errors.passwordConfirmation && (
