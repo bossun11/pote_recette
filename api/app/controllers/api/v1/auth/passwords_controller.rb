@@ -22,7 +22,7 @@ class Api::V1::Auth::PasswordsController < Devise::PasswordsController
 
   # パスワード再設定用のメールを送信するためのメソッドをオーバーライド
   def resource_params
-    params.permit(:email, :redirect_url)
+    params.permit(:email, :redirect_url, :password, :password_confirmation, :reset_password_token)
   end
 
   # 空のハッシュを返すflashメソッドを定義し、Deviseのデフォルトの行動をオーバーライド
