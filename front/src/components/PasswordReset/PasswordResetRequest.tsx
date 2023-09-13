@@ -1,11 +1,12 @@
 import React, { FC } from "react";
-import PageHelmet from "../PageHelmet";
-import NeutralButton from "../Buttons/NeutralButton";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { toast } from "react-toastify";
+
+import PageHelmet from "../PageHelmet";
+import NeutralButton from "../Buttons/NeutralButton";
 
 const PasswordResetRequest: FC = () => {
   const passwordResetRequestValidationSchema = z.object({
@@ -39,9 +40,9 @@ const PasswordResetRequest: FC = () => {
           },
         },
       );
-      toast.success("パスワード再設定用のメールを送信しました。");
+      toast.success("メールを送信しました。");
     } catch (e) {
-      toast.error("パスワード再設定用のメールの送信に失敗しました。");
+      toast.error("メールの送信に失敗しました。");
     }
   };
 

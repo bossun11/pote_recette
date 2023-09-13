@@ -1,12 +1,13 @@
 import React, { FC } from "react";
-import PageHelmet from "../PageHelmet";
-import NeutralButton from "../Buttons/NeutralButton";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+
+import PageHelmet from "../PageHelmet";
+import NeutralButton from "../Buttons/NeutralButton";
 
 const PasswordReset: FC = () => {
   const passwordResetValidationSchema = z.object({
