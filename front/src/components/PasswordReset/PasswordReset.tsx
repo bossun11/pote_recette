@@ -10,16 +10,23 @@ import PageHelmet from "../PageHelmet";
 import NeutralButton from "../Buttons/NeutralButton";
 
 const PasswordReset: FC = () => {
-  const passwordResetValidationSchema = z.object({
-    password: z
-      .string()
-      .nonempty("パスワードは必須です")
-      .min(8, "パスワードは8文字以上で入力してください"),
-    passwordConfirmation: z
-      .string()
-      .nonempty("パスワード（確認用）は必須です")
-      .min(8, "パスワード（確認用）は8文字以上で入力してください"),
-  });
+  const passwordResetValidationSchema = z
+    .object({
+      password: z
+        .string()
+        .nonempty("パスワードは必須です")
+        .min(8, "パスワードは8文字以上で入力してください")
+        .max(50, "50文字以下で入力してください"),
+      passwordConfirmation: z
+        .string()
+        .nonempty("パスワード（確認用）は必須です")
+        .min(8, "パスワード（確認用）は8文字以上で入力してください")
+        .max(50, "50文字以下で入力してください"),
+    })
+    .refine((data) => data.password === data.passwordConfirmation, {
+      message: "パスワードと確認用パスワードが一致していません",
+      path: ["passwordConfirmation"],
+    });
 
   type PasswordResetParams = z.infer<typeof passwordResetValidationSchema>;
 
