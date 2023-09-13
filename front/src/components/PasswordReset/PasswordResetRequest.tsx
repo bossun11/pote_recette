@@ -47,7 +47,7 @@ const PasswordResetRequest: FC = () => {
 
   return (
     <>
-      <PageHelmet title="パスワードリセット" />
+      <PageHelmet title="パスワードリセットリクエスト" />
       <div className="flex items-start justify-center mt-24">
         <div className="card w-96 bg-white">
           <div className="card-body">
