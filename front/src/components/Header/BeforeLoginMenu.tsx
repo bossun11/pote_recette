@@ -59,7 +59,7 @@ const BeforeLoginMenu: FC<Props> = ({ changeMenuState }) => {
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-800 hover:bg-reddishBrown hover:text-white"
-          href="https://forms.gle/F8aQEdmfZJz6YtKTA"
+          href={`${process.env.REACT_APP_CONTACT_US_URL}`}
         >
           お問い合わせ
         </a>
