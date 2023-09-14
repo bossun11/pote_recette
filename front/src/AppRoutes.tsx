@@ -16,6 +16,8 @@ import PrivateRoute from "./components/routes/PrivateRoute";
 import TermsOfService from "./components/Header/TermsOfService";
 import PrivacyPolicy from "./components/Header/PrivacyPolicy";
 import ShopRankings from "./components/ShopRankings/ShopRankings";
+import PasswordResetRequest from "./components/PasswordReset/PasswordResetRequest";
+import PasswordReset from "./components/PasswordReset/PasswordReset";
 
 const AppRoutes = () => {
   const { loading, setIsSignedIn, setCurrentUser, setLoading } = useAuthContext();
@@ -78,6 +80,22 @@ const AppRoutes = () => {
             <PrivateRoute>
               <ShopRankings />
             </PrivateRoute>
+          }
+        />
+        <Route
+          path="/password-reset-request"
+          element={
+            <PublicRoute>
+              <PasswordResetRequest />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/password-reset"
+          element={
+            <PublicRoute>
+              <PasswordReset />
+            </PublicRoute>
           }
         />
         <Route path="/terms-of-service" element={<TermsOfService />} />
