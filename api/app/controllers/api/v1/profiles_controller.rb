@@ -6,7 +6,7 @@ class Api::V1::ProfilesController < ApplicationController
     if user.update(user_params)
       render json: { status: 200, data: user }
     else
-      render json: { status: 500, errors: user.errors.full_messages }
+      render json: { status: 400, errors: user.errors.full_messages }, status: 400
     end
   end
 
