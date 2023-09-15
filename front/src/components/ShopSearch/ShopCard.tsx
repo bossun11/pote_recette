@@ -31,7 +31,7 @@ const ShopCard: FC<ShopCardProps> = ({ shop }) => {
   return (
     <div
       key={shop.place_id}
-      className="card w-88 bg-base-100 cursor-pointer"
+      className="card w-96 bg-base-100 cursor-pointer"
       onClick={() => navigate(`/shop-search/${place_id}`)}
     >
       <div className="card-body">
@@ -41,7 +41,9 @@ const ShopCard: FC<ShopCardProps> = ({ shop }) => {
             <p>{address}</p>
           </div>
           <div className="items-center">
-            <img src={photoUrl} alt="" className="w-20 h-20" />
+            <div className="w-20 h-20 flex-shrink-0">
+              <img src={photoUrl} alt="" className="w-full h-full object-cover" />
+            </div>
           </div>
         </div>
       </div>
