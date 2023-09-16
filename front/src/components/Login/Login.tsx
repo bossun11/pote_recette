@@ -46,7 +46,7 @@ const Login: FC = () => {
   return (
     <>
       <PageHelmet title="ログイン" />
-      <div className="flex flex-col items-center justify-center h-screen">
+      <div className="flex flex-col items-center h-screen mt-20">
         <div className="w-96 bg-white rounded p-6 shadow-xl">
           <h2 className="text-2xl text-center font-bold mb-5 text-gray-800">ログイン画面</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
