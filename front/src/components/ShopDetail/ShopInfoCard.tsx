@@ -42,7 +42,7 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
   };
 
   return (
-    <div className="space-y-4 mt-4 w-full max-w-md overflow-auto">
+    <div className="space-y-4 mt-4 w-full max-w-md">
       <div className="card bg-base-100">
         <div className="card-body">
           <div className="flex flex-col">
@@ -87,21 +87,44 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
               )}
             </div>
             {isSignedIn && (
-              <div className="flex flex-col items-center mb-7">
-                <NeutralButton
-                  buttonText="口コミを見る"
-                  onClick={() => {
-                    if (document)
-                      (document.getElementById("shop_reviews") as HTMLFormElement).showModal();
-                  }}
-                />
-                {/* 口コミを閲覧できるモーダル */}
-                <ShopReviewsModal
-                  rating={rating}
-                  user_ratings_total={user_ratings_total}
-                  reviews={reviews}
-                />
-              </div>
+              <>
+                <div className="flex flex-col items-center mb-3">
+                  <NeutralButton
+                    buttonText="口コミを見る"
+                    onClick={() => {
+                      if (document)
+                        (document.getElementById("shop_reviews") as HTMLFormElement).showModal();
+                    }}
+                  />
+                  <ShopReviewsModal
+                    rating={rating}
+                    user_ratings_total={user_ratings_total}
+                    reviews={reviews}
+                  />
+                </div>
+
+                {/* 以下はSNSシェア機能 */}
+                <div className="flex items-center justify-center">
+                  <details className="dropdown mb-7">
+                    <summary className="m-1 btn">SNSでシェア</summary>
+                    <ul className="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+                      <li>
+                        <div className="text-gray-400 pointer-events-none">次でシェア：</div>
+                      </li>
+                      <li>
+                        <a
+                          href={`https://twitter.com/intent/tweet?text=${address}&url=${website}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="link link-hover"
+                        >
+                          X（Twitter）
+                        </a>
+                      </li>
+                    </ul>
+                  </details>
+                </div>
+              </>
             )}
           </div>
         </div>
