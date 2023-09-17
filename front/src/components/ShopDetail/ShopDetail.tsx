@@ -108,19 +108,17 @@ const ShopDetail: FC = () => {
   return (
     <>
       <PageHelmet title={`${name}に関する詳細情報`} />
-      <div className="flex h-screen">
-        <div className="w-1/3 overflow-auto">
-          <div className="p-4 flex flex-col h-full">
-            <div className="flex items-center justify-center">
-              <Link to="/shop-search">
-                <div className="flex flex-row cursor-pointer">
-                  <MdOutlineArrowBackIos size={24} />
-                  <button className="mr-2">戻る</button>
-                </div>
-              </Link>
-              <div className="text-2xl font-bold">{name}</div>
-            </div>
-            {/* ここに店舗情報を表示 */}
+      <div className="flex flex-col overflow-auto lg:flex-row">
+        <div className="flex flex-col p-4 w-full lg:w-1/3">
+          <div className="flex items-center justify-between px-4">
+            <Link to="/shop-search" className="flex items-center">
+              <MdOutlineArrowBackIos size={24} />
+              <button className="ml-2">戻る</button>
+            </Link>
+            <div className="text-2xl font-bold text-center flex-grow">{name}</div>
+            <div className="w-[40px]"></div>
+          </div>
+          <div className="flex items-center justify-center flex-col lg:flex-row">
             <ShopInfoCard
               shopDetail={shopDetail}
               isBookmarked={isBookmarked}
@@ -128,7 +126,7 @@ const ShopDetail: FC = () => {
             />
           </div>
         </div>
-        <div className="w-2/3 bg-white">
+        <div className="p-4 h-[50vh] md:w-[80vh] md:mx-auto lg:p-0 lg:h-auto lg:w-2/3">
           {<GoogleMap center={center} zoom={15} markers={shopDetail} infoWindow={true} />}
         </div>
       </div>

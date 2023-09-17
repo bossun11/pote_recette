@@ -54,14 +54,14 @@ const PasswordReset: FC = () => {
   return (
     <>
       <PageHelmet title="パスワードリセット" />
-      <div className="flex items-start justify-center mt-24">
+      <div className="flex items-start justify-center mt-20">
         <div className="card w-96 bg-white">
           <div className="card-body">
             <h2 className="card-title text-2xl mb-5 flex items-center justify-center">
               パスワード変更
             </h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="mb-3">
+              <div className="mb-2">
                 <label className="mb-2 text-sm" htmlFor="password">
                   パスワード
                 </label>
@@ -72,9 +72,9 @@ const PasswordReset: FC = () => {
                   placeholder="8文字以上で入力してください"
                   {...register("password")}
                 />
+                {errors.password && <span className="text-error">{errors.password.message}</span>}
               </div>
-              {errors.password && <span className="text-error">{errors.password.message}</span>}
-              <div className="mb-3">
+              <div className="mb-2">
                 <label className="mb-2 text-sm" htmlFor="passwordConfirmation">
                   パスワード（確認用）
                 </label>
@@ -84,10 +84,10 @@ const PasswordReset: FC = () => {
                   type="password"
                   {...register("passwordConfirmation")}
                 />
+                {errors.passwordConfirmation && (
+                  <span className="text-error">{errors.passwordConfirmation.message}</span>
+                )}
               </div>
-              {errors.passwordConfirmation && (
-                <span className="text-error">{errors.passwordConfirmation.message}</span>
-              )}
               <div className="card-actions justify-center">
                 <NeutralButton buttonText="パスワードを変更する" />
               </div>

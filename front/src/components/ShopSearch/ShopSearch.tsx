@@ -106,39 +106,38 @@ const ShopSearch: FC = () => {
   return (
     <>
       <PageHelmet title="店舗検索" />
-      <div className="flex h-screen">
-        <div className="w-1/3 overflow-auto">
-          <div className="p-4 flex flex-col h-full">
+      <div className="flex flex-col h-screen lg:flex-row">
+        <div className="flex flex-col p-4 overflow-auto w-full lg:w-1/3">
+          <div className="flex items-center justify-center mb-3 lg:flex-col">
             <SearchForm onSubmit={onSubmit} />
-            <div className="divider px-16">OR</div>
-            <div className="flex items-center justify-center mb-2">
-              <NeutralButton buttonText="現在地から検索" onClick={searchFromCurrentLocation} />
-            </div>
-            {isSignedIn && (
-              <div className="tabs justify-center items-center my-3">
-                <div
-                  className={`tab tab-lg tab-bordered ${tab === "all" ? "tab-active" : ""}`}
-                  onClick={() => setTab("all")}
-                >
-                  すべて
-                </div>
-                <div
-                  className={`tab tab-lg tab-bordered ${tab === "bookmarks" ? "tab-active" : ""}`}
-                  onClick={() => setTab("bookmarks")}
-                >
-                  お気に入り
-                </div>
+            <div className="divider">OR</div>
+            <NeutralButton buttonText="現在地から検索" onClick={searchFromCurrentLocation} />
+          </div>
+          {isSignedIn && (
+            <div className="tabs justify-center items-center mb-3 flex">
+              <div
+                className={`tab tab-lg tab-bordered ${tab === "all" ? "tab-active" : ""}`}
+                onClick={() => setTab("all")}
+              >
+                すべて
               </div>
-            )}
-            {/* Google Place APIから取得した店舗情報をここに表示する */}
-            <div className="space-y-4 mt-4 w-full max-w-md overflow-auto">
-              {(tab === "all" ? shops : bookmarks).map((shop) => (
-                <ShopCard key={shop.place_id} shop={shop} />
-              ))}
+              <div
+                className={`tab tab-lg tab-bordered ${tab === "bookmarks" ? "tab-active" : ""}`}
+                onClick={() => setTab("bookmarks")}
+              >
+                お気に入り
+              </div>
             </div>
+          )}
+          <div className="flex flex-col items-center space-y-4 mt-4 overflow-auto h-[50vh] lg:h-auto">
+            {(tab === "all" ? shops : bookmarks).map((shop) => (
+              <ShopCard key={shop.place_id} shop={shop} />
+            ))}
           </div>
         </div>
-        <div className="w-2/3">{<GoogleMap center={center} zoom={11} markers={shops} />}</div>
+        <div className="h-[40%] w-[84%] px-4 pb-4 mx-auto lg:h-auto xl:w-2/3 lg:pb-0 lg:px-0 md:w-[60%]">
+          {<GoogleMap center={center} zoom={10} markers={shops} />}
+        </div>
       </div>
     </>
   );
