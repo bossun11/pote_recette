@@ -17,6 +17,7 @@ const PageHelmet: FC<PageHelmetProps> = ({ title = "", description = "", photoUr
       <meta name="description" content={description} />
       <meta property="og:image" content={photoUrl} />
       <meta property="og:url" content={url} />
+      <meta name="twitter:image" content={url} />
     </Helmet>
   );
 };
