@@ -36,7 +36,7 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
       const [dayOfWeek, time] = day.split(": ");
       return (
         <div key={day} className="flex w-full">
-          <div className="ml-16">
+          <div className="ml-10 sm:ml-16">
             {dayOfWeek}：{time}
           </div>
         </div>
@@ -107,7 +107,7 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
                 </div>
 
                 <div className="flex items-center justify-center">
-                  <details className="dropdown mb-7">
+                  <details className="dropdown mb-7 z-10">
                     <summary className="m-1 btn">SNSでシェア</summary>
                     <ul className="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
                       <li>
