@@ -29,7 +29,7 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
   const address = formatAddress(formatted_address);
   const photoUrl = getPhotoUrl(photos[0].photo_reference, 400);
 
-  const snsShareText = `美味しいお芋を見つけたよ！「${name}」`;
+  const twitterShareText = `美味しいお芋を見つけたよ！\n「${name}」\n#PotaRecette #さつまいも`;
 
   const renderWeekdays = (weekday_text: string[]) => {
     return weekday_text.map((day) => {
@@ -115,7 +115,9 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
                       </li>
                       <li>
                         <a
-                          href={`https://twitter.com/intent/tweet?text=${snsShareText}&url=${window.location.href}`}
+                          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                            twitterShareText,
+                          )}&url=${window.location.href}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="link link-hover"
