@@ -37,7 +37,7 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
       return (
         <div key={day} className="flex w-full">
           <div className="ml-16">
-            {dayOfWeek}:　{time}
+            {dayOfWeek}：{time}
           </div>
         </div>
       );
@@ -116,7 +116,7 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
                       </li>
                       <li>
                         <a
-                          href={`https://twitter.com/intent/tweet?text=${snsShareText}`}
+                          href={`https://twitter.com/intent/tweet?text=${snsShareText}&url=${window.location.href}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="link link-hover"
