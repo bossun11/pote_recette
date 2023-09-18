@@ -106,7 +106,6 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
                   />
                 </div>
 
-                {/* 以下はSNSシェア機能 */}
                 <div className="flex items-center justify-center">
                   <details className="dropdown mb-7">
                     <summary className="m-1 btn">SNSでシェア</summary>
@@ -122,6 +121,18 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
                           className="link link-hover"
                         >
                           X（Twitter）
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(
+                            window.location.href,
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="link link-hover"
+                        >
+                          LINE
                         </a>
                       </li>
                     </ul>
