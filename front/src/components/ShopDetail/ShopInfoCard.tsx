@@ -113,7 +113,7 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
                       </li>
                       <li>
                         <a
-                          href={`https://twitter.com/intent/tweet?text=${address}&url=${website}`}
+                          href={`https://twitter.com/intent/tweet?text=${address}&url=${window.location.href}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="link link-hover"

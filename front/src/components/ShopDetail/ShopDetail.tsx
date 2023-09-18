@@ -107,7 +107,11 @@ const ShopDetail: FC = () => {
 
   return (
     <>
-      <PageHelmet title={`${name}に関する詳細情報`} />
+      <PageHelmet
+        title={`${name}に関する詳細情報`}
+        photoUrl={photoUrl}
+        url={window.location.href}
+      />
       <div className="flex flex-col overflow-auto lg:flex-row">
         <div className="flex flex-col p-4 w-full lg:w-1/3">
           <div className="flex items-center justify-between px-4">
