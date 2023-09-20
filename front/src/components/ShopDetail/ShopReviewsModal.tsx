@@ -21,9 +21,9 @@ const ShopReviewsModal: FC<ShopReviewsModalProps> = ({ rating, user_ratings_tota
       const { text, time, relative_time_description } = review;
       if (text === "") return;
       return (
-        <div className="card w-auto bg-base-100 shadow-xl card-bordered mb-5" key={time}>
+        <div className="card w-full bg-base-100 shadow-xl card-bordered mb-5" key={time}>
           <div className="card-body">
-            <p className="">{text}</p>
+            <p className="break-words">{text}</p>
             <p className="text-deepRed text-sm mt-2">{`${relative_time_description}の口コミ`}</p>
           </div>
         </div>
