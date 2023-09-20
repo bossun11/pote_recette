@@ -25,7 +25,7 @@ const SearchForm: FC<SearchFormProps> = ({ onSubmit }) => {
         <div className="relative">
           <input
             type="text"
-            placeholder="店舗名・住所で検索"
+            placeholder="地名・店舗名で検索"
             className="input input-bordered w-full max-w-xs"
             {...register("search")}
           />
