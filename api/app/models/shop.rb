@@ -11,13 +11,13 @@ class Shop < ApplicationRecord
   GOOGLE_MAP_FIELDS = "formatted_address,name,geometry,photos,current_opening_hours,website,place_id,reviews,rating,user_ratings_total".freeze
 
   # ブックマーク数の多い順にショップを3件取得
-  scope :ranked_by_bookmarks, -> {
+  scope :ranked_by_bookmarks, lambda {
     select("shops.*, COUNT(bookmarks.id) AS bookmarks_count")
-    .joins(:bookmarks)
-    .where("shops.rating >= ?", 3.5)
-    .group("shops.id")
-    .order("bookmarks_count DESC")
-    .limit(3)
+      .joins(:bookmarks)
+      .where("shops.rating >= ?", 3.5)
+      .group("shops.id")
+      .order("bookmarks_count DESC")
+      .limit(3)
   }
 
   # 与えられたplace_idで店舗を検索し、存在しなければ新たに作成。
@@ -36,7 +36,7 @@ class Shop < ApplicationRecord
 
   # 緯度経度または地名・店名を基にGoogle Places APIの検索クエリを生成
   def self.generate_search_query(location)
-    if location =~ /^\d+\.\d+,\d+\.\d+$/
+    if location.match?(/^\d+\.\d+,\d+\.\d+$/)
       CGI.escape("さつまいも菓子専門店")
     else
       CGI.escape("さつまいも菓子専門店+in+#{location}")
