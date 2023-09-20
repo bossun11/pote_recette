@@ -37,10 +37,12 @@ const ShopReviewsModal: FC<ShopReviewsModalProps> = ({ rating, user_ratings_tota
         <div className="flex justify-end mb-2">
           <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </div>
-        <div className="flex items-center justify-start">
-          <div className="text-xl ">平均評価：{rating}</div>
-          <ShopRating rating={rating} />
-          <div className="text-xl ml-4">総評価数：{user_ratings_total}</div>
+        <div className="sm:flex items-center justify-center">
+          <div className="flex items-center">
+            <div className="text-xl ">平均評価：{rating}</div>
+            <ShopRating rating={rating} />
+          </div>
+          <div className="text-xl sm:ml-4">総評価数：{user_ratings_total}件</div>
         </div>
         <div className="divider"></div>
         <div className="flex flex-col items-center justify-center">{reviewCards()}</div>

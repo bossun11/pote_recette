@@ -37,7 +37,7 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
       return (
         <div key={day} className="flex w-full">
           <div className="ml-10 sm:ml-16">
-            {dayOfWeek}：{time}
+            {dayOfWeek}:　{time}
           </div>
         </div>
       );
