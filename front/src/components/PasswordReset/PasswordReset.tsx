@@ -39,7 +39,7 @@ const PasswordReset: FC = () => {
 
   const onSubmit = async (data: PasswordResetParams) => {
     try {
-      axios.put(`${process.env.REACT_APP_BACKEND_API_URL}/auth/password`, {
+      await axios.put(`${process.env.REACT_APP_BACKEND_API_URL}/auth/password`, {
         password: data.password,
         password_confirmation: data.passwordConfirmation,
         reset_password_token: resetPasswordToken,

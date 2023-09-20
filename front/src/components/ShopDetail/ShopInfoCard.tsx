@@ -15,6 +15,7 @@ type ShopInfoCardProps = {
 
 const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleBookmark }) => {
   const {
+    name,
     formatted_address,
     website,
     photos,
@@ -28,12 +29,14 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
   const address = formatAddress(formatted_address);
   const photoUrl = getPhotoUrl(photos[0].photo_reference, 400);
 
+  const twitterShareText = `美味しいお芋を見つけたよ！\n「${name}」\n#PotaRecette #さつまいも`;
+
   const renderWeekdays = (weekday_text: string[]) => {
     return weekday_text.map((day) => {
       const [dayOfWeek, time] = day.split(": ");
       return (
         <div key={day} className="flex w-full">
-          <div className="ml-16">
+          <div className="ml-10 sm:ml-16">
             {dayOfWeek}:　{time}
           </div>
         </div>
@@ -42,7 +45,7 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
   };
 
   return (
-    <div className="space-y-4 mt-4 w-full max-w-md overflow-auto">
+    <div className="space-y-4 mt-4 w-full max-w-md">
       <div className="card bg-base-100">
         <div className="card-body">
           <div className="flex flex-col">
@@ -87,21 +90,57 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
               )}
             </div>
             {isSignedIn && (
-              <div className="flex flex-col items-center mb-7">
-                <NeutralButton
-                  buttonText="口コミを見る"
-                  onClick={() => {
-                    if (document)
-                      (document.getElementById("shop_reviews") as HTMLFormElement).showModal();
-                  }}
-                />
-                {/* 口コミを閲覧できるモーダル */}
-                <ShopReviewsModal
-                  rating={rating}
-                  user_ratings_total={user_ratings_total}
-                  reviews={reviews}
-                />
-              </div>
+              <>
+                <div className="flex flex-col items-center mb-3">
+                  <NeutralButton
+                    buttonText="口コミを見る"
+                    onClick={() => {
+                      if (document)
+                        (document.getElementById("shop_reviews") as HTMLFormElement).showModal();
+                    }}
+                  />
+                  <ShopReviewsModal
+                    rating={rating}
+                    user_ratings_total={user_ratings_total}
+                    reviews={reviews}
+                  />
+                </div>
+
+                <div className="flex items-center justify-center">
+                  <details className="dropdown mb-7 z-10">
+                    <summary className="m-1 btn">SNSでシェア</summary>
+                    <ul className="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+                      <li>
+                        <div className="text-gray-400 pointer-events-none">次でシェア：</div>
+                      </li>
+                      <li>
+                        <a
+                          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                            twitterShareText,
+                          )}&url=${window.location.href}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="link link-hover"
+                        >
+                          X（Twitter）
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(
+                            window.location.href,
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="link link-hover"
+                        >
+                          LINE
+                        </a>
+                      </li>
+                    </ul>
+                  </details>
+                </div>
+              </>
             )}
           </div>
         </div>
