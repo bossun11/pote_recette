@@ -40,7 +40,7 @@ export const inputSearchValidationSchema = z.object({
   search: z.string().nonempty("検索ワードを入力してください"),
 });
 
-const IMAGE_TYPES = ["image/jpeg", "image/png"];
+const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
 
 export const profileValidationSchema = z.object({
   name,

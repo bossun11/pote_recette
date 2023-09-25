@@ -14,7 +14,7 @@ const TopPage: FC = () => {
       <PageHelmet />
       <div className="relative">
         <div className="absolute inset-0 bg-neutral-content opacity-20"></div>
-        <img className="w-full h-screen object-cover" src="/images/top_image.jpg" alt="" />
+        <img className="w-full h-screen object-cover" src="/images/top_image.webp" alt="" />
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
           <img src="/images/logo.png" alt="" />
           <p className="text-white text-2xl pb-5">お芋専門店を気軽に探せるアプリです</p>
