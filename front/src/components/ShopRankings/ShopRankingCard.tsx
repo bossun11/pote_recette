@@ -39,7 +39,7 @@ const ShopRankingCard: FC<ShopRankingCardProps> = ({ shop, index }) => {
       <div className="card-body items-center text-center mb-3">
         <div className="font-bold text-2xl mb-5">{name}</div>
         <div className="text-xl mb-2">{formatAddress(formatted_address)}</div>
-        <div className="flex items-center justify-start mb-3">
+        <div className="mb-3 sm:flex sm:items-center sm:justify-start">
           <div className="text-xl ">平均評価：{rating}</div>
           <div className="text-xl ml-4">総評価数：{user_ratings_total}件</div>
         </div>
