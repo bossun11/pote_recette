@@ -1,10 +1,10 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
-import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
+import { HelmetProvider } from "react-helmet-async";
+
 import { AuthProvider } from "./context/AuthContext";
 import { ShopProvider } from "./context/ShopContext";
-import { HelmetProvider } from "react-helmet-async";
 import AppRoutes from "./AppRoutes";
 
 const App = () => {
