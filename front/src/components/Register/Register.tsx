@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +11,7 @@ import { signUp } from "../../lib/api/auth";
 import { useAuthContext } from "../../context/AuthContext";
 import PageHelmet from "../PageHelmet";
 import { toast } from "react-toastify";
+import LoadingSpinner from "../Loadings/LoadingSpinner";
 
 const Register: FC = () => {
   const {
@@ -19,10 +20,12 @@ const Register: FC = () => {
     formState: { errors },
   } = useForm<SignUpParams>({ resolver: zodResolver(registerValidationSchema) });
 
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const { setIsSignedIn, setCurrentUser } = useAuthContext();
 
   const onSubmit = async (data: SignUpParams) => {
+    setLoading(true);
     try {
       const res = await signUp(data);
       if (res.status === 200) {
@@ -38,6 +41,7 @@ const Register: FC = () => {
     } catch (e) {
       toast.error("ユーザー登録に失敗しました。");
     }
+    setLoading(false);
   };
 
   const buttonText = "登録する";
@@ -45,6 +49,7 @@ const Register: FC = () => {
   return (
     <>
       <PageHelmet title="ユーザー登録" />
+      {loading && <LoadingSpinner />}
       <div className="flex flex-col items-center mt-20">
         <div className="w-96 bg-white rounded p-6 shadow-xl">
           <h2 className="text-2xl text-center font-bold mb-5 text-gray-800">ユーザー登録画面</h2>

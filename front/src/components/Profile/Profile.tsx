@@ -11,8 +11,10 @@ import NeutralButton from "../Buttons/NeutralButton";
 import { ProfileParams } from "../../types/index";
 import { getAuthHeaders } from "../../utils/utils";
 import ProfileEditModal from "./ProfileEditModal";
+import LoadingSpinner from "../Loadings/LoadingSpinner";
 
 const Profile: FC = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const { currentUser, setCurrentUser } = useAuthContext();
   const { name, email, image } = currentUser || {};
   const [previewImage, setPreviewImage] = useState<string | undefined>(image?.url);
@@ -25,12 +27,12 @@ const Profile: FC = () => {
 
   const onSubmit = async (data: ProfileParams) => {
     const headers = getAuthHeaders();
-
     const profileData = new FormData();
     profileData.append("user[name]", data.name);
     profileData.append("user[email]", data.email);
     if (data.image) profileData.append("user[image]", data.image);
-
+    closeModal();
+    setLoading(true);
     try {
       const res = await axios.put(`${process.env.REACT_APP_BACKEND_API_URL}/profile`, profileData, {
         headers,
@@ -45,8 +47,7 @@ const Profile: FC = () => {
     } catch (e) {
       toast.error("プロフィールの更新に失敗しました");
     }
-
-    closeModal();
+    setLoading(false);
   };
 
   // 選択した画像をプレビュー表示する関数
@@ -65,6 +66,7 @@ const Profile: FC = () => {
   return (
     <>
       <PageHelmet title={`${name}さんのプロフィール`} />
+      {loading && <LoadingSpinner />}
       <div className="flex items-center justify-center h-screen">
         <div className="card bg-base-100 shadow-xl">
           <div className="card-body mx-10">
@@ -97,7 +99,6 @@ const Profile: FC = () => {
               />
             </div>
 
-            {/* プロフィール編集モーダル */}
             <ProfileEditModal
               previewImage={previewImage}
               onSubmit={onSubmit}

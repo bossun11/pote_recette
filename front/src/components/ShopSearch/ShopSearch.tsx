@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 import GoogleMap from "../GoogleMap/GoogleMap";
 import { GoogleMapCenterType, InputSearchParams, ShopType } from "../../types";
@@ -9,8 +10,8 @@ import SearchForm from "./SearchForm";
 import { useAuthContext } from "../../context/AuthContext";
 import { getAuthHeaders } from "../../utils/utils";
 import PageHelmet from "../PageHelmet";
-import { toast } from "react-toastify";
 import NeutralButton from "../Buttons/NeutralButton";
+import LoadingSpinner from "../Loadings/LoadingSpinner";
 
 const ShopSearch: FC = () => {
   // 東京を初期値としてマップの中心に設定
@@ -22,10 +23,8 @@ const ShopSearch: FC = () => {
   const { isSignedIn } = useAuthContext();
   const { shops, setShops } = useShopContext();
   const [center, setCenter] = useState<GoogleMapCenterType>(defaultCenter);
-
-  // タブの状態を管理するステート
+  const [loading, setLoading] = useState<boolean>(false);
   const [tab, setTab] = useState<"all" | "bookmarks">("all");
-  // お気に入りのショップ情報を管理するステート
   const [bookmarks, setBookmarks] = useState<ShopType[]>([]);
 
   const headers = getAuthHeaders();
@@ -40,6 +39,7 @@ const ShopSearch: FC = () => {
 
   // 与えられた位置情報を基に、APIから店舗情報を取得し、マップの中心とステートの店舗リストを更新する関数
   const getShopsByLocation = async (location: string) => {
+    setLoading(true);
     try {
       const res = await axios.get(
         `${process.env.REACT_APP_BACKEND_API_URL}/shops/search?location=${location}`,
@@ -55,6 +55,7 @@ const ShopSearch: FC = () => {
     } catch (e) {
       toast.error("店舗情報の取得に失敗しました");
     }
+    setLoading(false);
   };
 
   const onSubmit = async (data: InputSearchParams) => {
@@ -75,7 +76,7 @@ const ShopSearch: FC = () => {
   };
 
   // 現在地からショップを検索する関数
-  const searchFromCurrentLocation = async () => {
+  const searchFromCurrentLocation = async (): Promise<void> => {
     if (navigator.geolocation)
       navigator.geolocation.getCurrentPosition(async (position) => {
         const latitude = position.coords.latitude;
@@ -86,7 +87,6 @@ const ShopSearch: FC = () => {
     else toast.error("位置情報の取得に失敗しました。");
   };
 
-  // お気に入りのショップ情報を取得する関数
   const getBookmarks = async (): Promise<void> => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_BACKEND_API_URL}/bookmarks`, {
@@ -106,12 +106,19 @@ const ShopSearch: FC = () => {
   return (
     <>
       <PageHelmet title="店舗検索" />
-      <div className="flex flex-col h-screen lg:flex-row">
+      {loading && <LoadingSpinner />}
+      <div className="flex flex-col lg:h-screen lg:flex-row">
         <div className="flex flex-col p-4 overflow-auto w-full lg:w-1/3">
-          <div className="flex items-center justify-center mb-3 lg:flex-col">
+          <div className="flex flex-col items-center justify-center mb-3">
             <SearchForm onSubmit={onSubmit} />
-            <div className="divider">OR</div>
-            <NeutralButton buttonText="現在地から検索" onClick={searchFromCurrentLocation} />
+            <div className="divider px-5 sm:px-20 md:px-28 lg:px-12">OR</div>
+            <NeutralButton
+              buttonText="現在地から検索"
+              onClick={() => {
+                searchFromCurrentLocation();
+                setLoading(true);
+              }}
+            />
           </div>
           {isSignedIn && (
             <div className="tabs justify-center items-center mb-3 flex">
@@ -135,7 +142,7 @@ const ShopSearch: FC = () => {
             ))}
           </div>
         </div>
-        <div className="h-[40%] w-[84%] px-4 pb-4 mx-auto lg:h-auto xl:w-2/3 lg:pb-0 lg:px-0 md:w-[60%]">
+        <div className="p-4 h-[50vh] md:w-[100vh] md:mx-auto lg:p-0 lg:h-auto lg:w-2/3">
           {<GoogleMap center={center} zoom={10} markers={shops} />}
         </div>
       </div>

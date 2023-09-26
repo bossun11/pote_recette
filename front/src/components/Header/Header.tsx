@@ -14,7 +14,7 @@ const Header: FC = () => {
   };
 
   return (
-    <div className="drawer drawer-end z-50">
+    <div className="drawer drawer-end z-20">
       <input
         type="checkbox"
         id="my-drawer"

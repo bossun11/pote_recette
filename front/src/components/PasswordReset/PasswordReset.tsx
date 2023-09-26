@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,6 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import PageHelmet from "../PageHelmet";
 import NeutralButton from "../Buttons/NeutralButton";
 import { password, passwordConfirmation } from "../../utils/validationSchema";
+import LoadingSpinner from "../Loadings/LoadingSpinner";
 
 const PasswordReset: FC = () => {
   const passwordResetValidationSchema = z
@@ -23,6 +24,7 @@ const PasswordReset: FC = () => {
 
   type PasswordResetParams = z.infer<typeof passwordResetValidationSchema>;
 
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -38,6 +40,7 @@ const PasswordReset: FC = () => {
   });
 
   const onSubmit = async (data: PasswordResetParams) => {
+    setLoading(true);
     try {
       await axios.put(`${process.env.REACT_APP_BACKEND_API_URL}/auth/password`, {
         password: data.password,
@@ -49,11 +52,13 @@ const PasswordReset: FC = () => {
     } catch (e) {
       toast.error("パスワードの変更に失敗しました。");
     }
+    setLoading(false);
   };
 
   return (
     <>
       <PageHelmet title="パスワードリセット" />
+      {loading && <LoadingSpinner />}
       <div className="flex items-start justify-center mt-20">
         <div className="card w-96 bg-white">
           <div className="card-body">

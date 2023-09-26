@@ -110,7 +110,7 @@ const ShopDetail: FC = () => {
       <PageHelmet title={`${name}に関する詳細情報`} />
       <div className="flex flex-col overflow-auto lg:flex-row">
         <div className="flex flex-col p-4 w-full lg:w-1/3">
-          <div className="flex items-center justify-between px-4">
+          <div className="flex items-center justify-between px-4 overflow-auto">
             <Link to="/shop-search" className="flex items-center">
               <MdOutlineArrowBackIos size={24} />
               <button className="ml-2">戻る</button>
@@ -118,7 +118,7 @@ const ShopDetail: FC = () => {
             <div className="text-2xl font-bold text-center flex-grow">{name}</div>
             <div className="w-[40px]"></div>
           </div>
-          <div className="flex items-center justify-center flex-col lg:flex-row">
+          <div className="flex flex-col items-center overflow-auto lg:h-screen">
             <ShopInfoCard
               shopDetail={shopDetail}
               isBookmarked={isBookmarked}
@@ -126,7 +126,7 @@ const ShopDetail: FC = () => {
             />
           </div>
         </div>
-        <div className="p-4 h-[50vh] md:w-[80vh] md:mx-auto lg:p-0 lg:h-auto lg:w-2/3">
+        <div className="p-4 h-[50vh] md:w-[100vh] md:mx-auto lg:p-0 lg:h-auto lg:w-2/3">
           {<GoogleMap center={center} zoom={15} markers={shopDetail} infoWindow={true} />}
         </div>
       </div>

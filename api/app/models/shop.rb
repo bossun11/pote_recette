@@ -33,13 +33,4 @@ class Shop < ApplicationRecord
       shop.user_ratings_total = params[:user_ratings_total]
     end
   end
-
-  # 緯度経度または地名・店名を基にGoogle Places APIの検索クエリを生成
-  def self.generate_search_query(location)
-    if location.match?(/^\d+\.\d+,\d+\.\d+$/)
-      CGI.escape("さつまいも菓子専門店")
-    else
-      CGI.escape("さつまいも菓子専門店+in+#{location}")
-    end
-  end
 end

@@ -90,58 +90,55 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
               )}
             </div>
             {isSignedIn && (
-              <>
-                <div className="flex flex-col items-center mb-3">
-                  <NeutralButton
-                    buttonText="口コミを見る"
-                    onClick={() => {
-                      if (document)
-                        (document.getElementById("shop_reviews") as HTMLFormElement).showModal();
-                    }}
-                  />
-                  <ShopReviewsModal
-                    rating={rating}
-                    user_ratings_total={user_ratings_total}
-                    reviews={reviews}
-                  />
-                </div>
-
-                <div className="flex items-center justify-center">
-                  <details className="dropdown mb-7 z-10">
-                    <summary className="m-1 btn">SNSでシェア</summary>
-                    <ul className="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
-                      <li>
-                        <div className="text-gray-400 pointer-events-none">次でシェア：</div>
-                      </li>
-                      <li>
-                        <a
-                          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                            twitterShareText,
-                          )}&url=${window.location.href}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="link link-hover"
-                        >
-                          X（Twitter）
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(
-                            window.location.href,
-                          )}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="link link-hover"
-                        >
-                          LINE
-                        </a>
-                      </li>
-                    </ul>
-                  </details>
-                </div>
-              </>
+              <div className="flex flex-col items-center mb-3">
+                <NeutralButton
+                  buttonText="口コミを見る"
+                  onClick={() => {
+                    if (document)
+                      (document.getElementById("shop_reviews") as HTMLFormElement).showModal();
+                  }}
+                />
+                <ShopReviewsModal
+                  rating={rating}
+                  user_ratings_total={user_ratings_total}
+                  reviews={reviews}
+                />
+              </div>
             )}
+            <div className="flex items-center justify-center">
+              <details className="dropdown mb-7 z-10">
+                <summary className="m-1 btn">SNSでシェア</summary>
+                <ul className="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
+                  <li>
+                    <div className="text-gray-400 pointer-events-none">次でシェア：</div>
+                  </li>
+                  <li>
+                    <a
+                      href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                        twitterShareText,
+                      )}&url=${window.location.href}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link link-hover"
+                    >
+                      X（Twitter）
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(
+                        window.location.href,
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link link-hover"
+                    >
+                      LINE
+                    </a>
+                  </li>
+                </ul>
+              </details>
+            </div>
           </div>
         </div>
       </div>

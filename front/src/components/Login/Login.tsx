@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +11,7 @@ import { login } from "../../lib/api/auth";
 import { useAuthContext } from "../../context/AuthContext";
 import PageHelmet from "../PageHelmet";
 import { toast } from "react-toastify";
+import LoadingSpinner from "../Loadings/LoadingSpinner";
 
 const Login: FC = () => {
   const {
@@ -19,13 +20,14 @@ const Login: FC = () => {
     formState: { errors },
   } = useForm<LoginParams>({ resolver: zodResolver(loginValidationSchema) });
 
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const { setIsSignedIn, setCurrentUser } = useAuthContext();
 
   const onSubmit = async (data: LoginParams) => {
+    setLoading(true);
     try {
       const res = await login(data);
-      // ログイン成功時にはCookieに各種情報を格納する
       if (res.status === 200) {
         Cookies.set("_access_token", res.headers["access-token"]);
         Cookies.set("_client", res.headers.client);
@@ -39,6 +41,7 @@ const Login: FC = () => {
     } catch (e) {
       toast.error("ログインに失敗しました。");
     }
+    setLoading(false);
   };
 
   const buttonText = "ログイン";
@@ -46,6 +49,7 @@ const Login: FC = () => {
   return (
     <>
       <PageHelmet title="ログイン" />
+      {loading && <LoadingSpinner />}
       <div className="flex flex-col items-center h-screen mt-20">
         <div className="w-96 bg-white rounded p-6 shadow-xl">
           <h2 className="text-2xl text-center font-bold mb-5 text-gray-800">ログイン画面</h2>
