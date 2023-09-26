@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,10 +19,12 @@ const Register: FC = () => {
     formState: { errors },
   } = useForm<SignUpParams>({ resolver: zodResolver(registerValidationSchema) });
 
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const { setIsSignedIn, setCurrentUser } = useAuthContext();
 
   const onSubmit = async (data: SignUpParams) => {
+    setLoading(true);
     try {
       const res = await signUp(data);
       if (res.status === 200) {
@@ -38,6 +40,7 @@ const Register: FC = () => {
     } catch (e) {
       toast.error("ユーザー登録に失敗しました。");
     }
+    setLoading(false);
   };
 
   const buttonText = "登録する";
@@ -46,6 +49,11 @@ const Register: FC = () => {
     <>
       <PageHelmet title="ユーザー登録" />
       <div className="flex flex-col items-center mt-20">
+        {loading && (
+          <div className="absolute inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+            <span className="loading loading-spinner loading-lg"></span>
+          </div>
+        )}
         <div className="w-96 bg-white rounded p-6 shadow-xl">
           <h2 className="text-2xl text-center font-bold mb-5 text-gray-800">ユーザー登録画面</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
