@@ -107,7 +107,7 @@ const ShopSearch: FC = () => {
     <>
       <PageHelmet title="店舗検索" />
       {loading && <LoadingSpinner />}
-      <div className="flex flex-col h-hull lg:h-screen lg:flex-row">
+      <div className="flex flex-col lg:h-screen lg:flex-row">
         <div className="flex flex-col p-4 overflow-auto w-full lg:w-1/3">
           <div className="flex flex-col items-center justify-center mb-3">
             <SearchForm onSubmit={onSubmit} />
