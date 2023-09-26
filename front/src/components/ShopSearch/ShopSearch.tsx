@@ -107,11 +107,11 @@ const ShopSearch: FC = () => {
     <>
       <PageHelmet title="店舗検索" />
       {loading && <LoadingSpinner />}
-      <div className="flex flex-col h-screen lg:flex-row">
+      <div className="flex flex-col h-hull lg:h-screen lg:flex-row">
         <div className="flex flex-col p-4 overflow-auto w-full lg:w-1/3">
-          <div className="flex items-center justify-center mb-3 lg:flex-col">
+          <div className="flex flex-col items-center justify-center mb-3">
             <SearchForm onSubmit={onSubmit} />
-            <div className="divider">OR</div>
+            <div className="divider px-5 sm:px-20 md:px-28 lg:px-12">OR</div>
             <NeutralButton
               buttonText="現在地から検索"
               onClick={() => {
@@ -142,7 +142,7 @@ const ShopSearch: FC = () => {
             ))}
           </div>
         </div>
-        <div className="h-[40%] w-[84%] px-4 pb-4 mx-auto lg:h-auto xl:w-2/3 lg:pb-0 lg:px-0 md:w-[60%]">
+        <div className="p-4 h-[50vh] md:w-[100vh] md:mx-auto lg:p-0 lg:h-auto lg:w-2/3">
           {<GoogleMap center={center} zoom={10} markers={shops} />}
         </div>
       </div>
