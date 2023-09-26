@@ -11,6 +11,7 @@ import { login } from "../../lib/api/auth";
 import { useAuthContext } from "../../context/AuthContext";
 import PageHelmet from "../PageHelmet";
 import { toast } from "react-toastify";
+import LoadingSpinner from "../Loadings/LoadingSpinner";
 
 const Login: FC = () => {
   const {
@@ -48,12 +49,8 @@ const Login: FC = () => {
   return (
     <>
       <PageHelmet title="ログイン" />
+      {loading && <LoadingSpinner />}
       <div className="flex flex-col items-center h-screen mt-20">
-        {loading && (
-          <div className="absolute inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-            <span className="loading loading-spinner loading-lg"></span>
-          </div>
-        )}
         <div className="w-96 bg-white rounded p-6 shadow-xl">
           <h2 className="text-2xl text-center font-bold mb-5 text-gray-800">ログイン画面</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
