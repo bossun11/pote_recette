@@ -7,7 +7,7 @@ class GoogleMapsService
   LANGUAGE = 'ja'.freeze
 
   def self.search_shops_by_location(location)
-    query = Shop.generate_search_query(location)
+    query = CGI.escape("さつまいも菓子専門店+in+#{location}")
     uri = URI.parse("#{BASE_URL}/textsearch/json?query=#{query}&key=#{API_KEY}&language=#{LANGUAGE}")
     res = Net::HTTP.get_response(uri)
     res.body
