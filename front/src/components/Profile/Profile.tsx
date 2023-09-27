@@ -56,7 +56,6 @@ const Profile: FC = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        // reader.resultの型をチェック
         if (typeof reader.result === "string") setPreviewImage(reader.result);
       };
       reader.readAsDataURL(file);
@@ -68,8 +67,8 @@ const Profile: FC = () => {
       <PageHelmet title={`${name}さんのプロフィール`} />
       {loading && <LoadingSpinner />}
       <div className="flex items-center justify-center h-screen">
-        <div className="card bg-base-100 shadow-xl">
-          <div className="card-body mx-10">
+        <div className="card bg-base-100 shadow-xl mx-3 sm:mx-0">
+          <div className="card-body break-all md:mx-10">
             <div className="avatar flex justify-center">
               <div className="w-36 rounded-full">
                 <img src={image?.url} />
@@ -86,7 +85,7 @@ const Profile: FC = () => {
               <div className="text-lg mb-2">メールアドレス</div>
               <div className="flex items-center">
                 <MdMail size={36} />
-                <div className="text-2xl ml-3">{email}</div>
+                <div className="ml-3 text-2xl">{email}</div>
               </div>
             </div>
             <div className="flex justify-center">
