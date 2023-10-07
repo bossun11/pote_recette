@@ -12,13 +12,14 @@ type AuthContextType = {
 
 type AuthProviderProps = {
   children: React.ReactNode;
+  initialIsSignedIn?: boolean;
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
+export const AuthProvider = ({ children, initialIsSignedIn = false }: AuthProviderProps) => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
+  const [isSignedIn, setIsSignedIn] = useState<boolean>(initialIsSignedIn);
   const [currentUser, setCurrentUser] = useState<User | undefined>();
 
   const AuthContextValue = useMemo(

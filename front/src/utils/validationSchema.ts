@@ -15,7 +15,7 @@ export const password = z
 
 export const passwordConfirmation = z
   .string()
-  .nonempty("パスワード(確認)は必須です")
+  .nonempty("パスワード(確認用)は必須です")
   .min(8, "8文字以上で入力してください")
   .max(50, "50文字以下で入力してください");
 
