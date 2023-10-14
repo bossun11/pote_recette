@@ -59,6 +59,7 @@ const ShopDetail: FC = () => {
     geometry,
     rating,
     user_ratings_total,
+    reviews,
   } = shopDetail;
   const photoUrl = getPhotoUrl(photos[0].photo_reference, 400);
 
@@ -80,6 +81,7 @@ const ShopDetail: FC = () => {
         longitude: geometry.location.lng,
         rating: rating,
         user_ratings_total: user_ratings_total,
+        reviews: reviews,
       },
     };
     if (isBookmarked)
