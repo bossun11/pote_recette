@@ -33,7 +33,7 @@ class Shop < ApplicationRecord
       shop.rating = params[:rating]
       shop.user_ratings_total = params[:user_ratings_total]
       params[:reviews]&.each do |review|
-        shop.reviews.build(content: review[:text], time: review[:time], relative_time_description: review[:relative_time_description])
+        shop.reviews.build(text: review[:text], time: review[:time], relative_time_description: review[:relative_time_description])
       end
     end
   end
