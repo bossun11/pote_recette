@@ -9,6 +9,6 @@ class Api::V1::ShopsController < ApplicationController
 
   def rankings
     shops = Shop.ranked_by_bookmarks
-    render json: shops
+    render json: shops.as_json(include: :reviews)
   end
 end
