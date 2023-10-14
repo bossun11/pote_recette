@@ -5,7 +5,7 @@ import { ShopType } from "../../types";
 import { formatAddress, getPhotoUrl } from "../../utils/utils";
 import { useAuthContext } from "../../context/AuthContext";
 import NeutralButton from "../Buttons/NeutralButton";
-import ShopReviewsModal from "./ShopReviewsModal";
+import ShopReviewsModal from "../Modal/ShopReviewsModal";
 
 type ShopInfoCardProps = {
   shopDetail: ShopType;
