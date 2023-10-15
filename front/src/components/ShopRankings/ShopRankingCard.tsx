@@ -5,6 +5,7 @@ import { FaCrown } from "react-icons/fa";
 import { RailsShopType } from "../../types";
 import { formatAddress } from "../../utils/utils";
 import NeutralButton from "../Buttons/NeutralButton";
+import ShopReviewsModal from "../Modal/ShopReviewsModal";
 
 type ShopRankingCardProps = {
   shop: RailsShopType;
@@ -12,11 +13,12 @@ type ShopRankingCardProps = {
 };
 
 const ShopRankingCard: FC<ShopRankingCardProps> = ({ shop, index }) => {
-  const { place_id, photos, name, formatted_address, rating, user_ratings_total } = shop;
+  const { place_id, photos, name, formatted_address, rating, user_ratings_total, reviews } = shop;
   const navigate = useNavigate();
 
   const crownColors = ["text-yellow-400", "text-gray-400", "text-yellow-600"];
   const rank = index + 1;
+  const modalId = `shop_reviews_${place_id}`;
 
   const changeCrownIcon = (index: number) => {
     return <FaCrown className={`${crownColors[index]} mr-3`} />;
@@ -37,14 +39,25 @@ const ShopRankingCard: FC<ShopRankingCardProps> = ({ shop, index }) => {
         <img src={photos.url} alt="" className="w-80 h-44 rounded-xl" />
       </figure>
       <div className="card-body items-center text-center mb-3">
-        <div className="font-bold text-2xl mb-5">{name}</div>
+        <div className="font-bold text-2xl mt-2 mb-3">{name}</div>
         <div className="text-xl mb-2">{formatAddress(formatted_address)}</div>
-        <div className="mb-3 sm:flex sm:items-center sm:justify-start">
-          <div className="text-xl ">平均評価：{rating}</div>
-          <div className="text-xl ml-4">総評価数：{user_ratings_total}件</div>
+        <div className="flex flex-col items-center text-left">
+          <NeutralButton
+            buttonText="口コミを見る"
+            onClick={() => {
+              if (document) (document.getElementById(modalId) as HTMLFormElement).showModal();
+            }}
+          />
+          <ShopReviewsModal
+            id={modalId}
+            rating={rating}
+            user_ratings_total={user_ratings_total}
+            reviews={reviews}
+          />
         </div>
         <NeutralButton
           buttonText="詳細を見る"
+          width="6"
           onClick={() => navigate(`/shop-search/${place_id}`)}
         />
       </div>

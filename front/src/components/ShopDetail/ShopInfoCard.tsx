@@ -15,6 +15,7 @@ type ShopInfoCardProps = {
 
 const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleBookmark }) => {
   const {
+    place_id,
     name,
     formatted_address,
     website,
@@ -28,6 +29,7 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
   const { isSignedIn } = useAuthContext();
   const address = formatAddress(formatted_address);
   const photoUrl = getPhotoUrl(photos[0].photo_reference, 400);
+  const modalId = `shop_reviews_${place_id}`;
 
   const twitterShareText = `美味しいお芋を見つけたよ！\n「${name}」\n#PotaRecette #さつまいも`;
 
@@ -94,11 +96,11 @@ const ShopInfoCard: FC<ShopInfoCardProps> = ({ shopDetail, isBookmarked, handleB
                 <NeutralButton
                   buttonText="口コミを見る"
                   onClick={() => {
-                    if (document)
-                      (document.getElementById("shop_reviews") as HTMLFormElement).showModal();
+                    if (document) (document.getElementById(modalId) as HTMLFormElement).showModal();
                   }}
                 />
                 <ShopReviewsModal
+                  id={modalId}
                   rating={rating}
                   user_ratings_total={user_ratings_total}
                   reviews={reviews}
