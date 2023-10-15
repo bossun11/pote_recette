@@ -3,6 +3,7 @@ class Shop < ApplicationRecord
 
   has_many :bookmarks, dependent: :destroy
   has_many :bookmarked_by_users, through: :bookmarks, source: :user
+  has_many :reviews, dependent: :destroy
 
   validates :name, :formatted_address, :place_id, presence: true
   validates :place_id, uniqueness: true
@@ -14,6 +15,7 @@ class Shop < ApplicationRecord
   scope :ranked_by_bookmarks, lambda {
     select("shops.*, COUNT(bookmarks.id) AS bookmarks_count")
       .joins(:bookmarks)
+      .includes(:reviews)
       .where("shops.rating >= ?", 3.5)
       .group("shops.id")
       .order("bookmarks_count DESC")
@@ -31,6 +33,9 @@ class Shop < ApplicationRecord
       shop.longitude = params[:longitude]
       shop.rating = params[:rating]
       shop.user_ratings_total = params[:user_ratings_total]
+      params[:reviews]&.each do |review|
+        shop.reviews.build(text: review[:text], time: review[:time], relative_time_description: review[:relative_time_description])
+      end
     end
   end
 end

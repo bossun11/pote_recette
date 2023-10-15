@@ -23,6 +23,6 @@ class Api::V1::BookmarksController < ApplicationController
   end
 
   def bookmark_params
-    params.require(:shop).permit(:place_id, :name, :formatted_address, :photos, :website, :latitude, :longitude, :rating, :user_ratings_total)
+    params.require(:shop).permit(:place_id, :name, :formatted_address, :photos, :website, :latitude, :longitude, :rating, :user_ratings_total, reviews: [:text, :time, :relative_time_description])
   end
 end
