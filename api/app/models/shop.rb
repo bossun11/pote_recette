@@ -15,12 +15,17 @@ class Shop < ApplicationRecord
   scope :ranked_by_bookmarks, lambda {
     select("shops.*, COUNT(bookmarks.id) AS bookmarks_count")
       .joins(:bookmarks)
-      .includes(:reviews)
       .where("shops.rating >= ?", 3.5)
       .group("shops.id")
       .order("bookmarks_count DESC")
       .limit(3)
   }
+
+  def self.with_recent_reviews(shops, limit = 5)
+    shops.each do |shop|
+      shop.reviews = shop.reviews.order(created_at: :desc).limit(limit)
+    end
+  end
 
   # 与えられたplace_idで店舗を検索し、存在しなければ新たに作成。
   def self.find_or_create_by_place(params)
