@@ -1,6 +1,6 @@
 namespace :update_shops do
   desc "Google Place APIから店舗情報を更新"
-  task 店舗情報の更新: :environment do
+  task update: :environment do
     Shop.find_each do |shop|
       res_body = GoogleMapsService.get_shop_details(shop.place_id)
       result = JSON.parse(res_body)["result"]
