@@ -1,7 +1,6 @@
 namespace :update_shops do
   desc "Google Place APIから店舗情報を更新"
   task update: :environment do
-    if Time.zone.today.monday?
       Shop.find_each do |shop|
         res_body = GoogleMapsService.get_shop_details(shop.place_id)
         result = JSON.parse(res_body)["result"]
@@ -14,15 +13,19 @@ namespace :update_shops do
           user_ratings_total: result['user_ratings_total']
         )
 
-        result['reviews'].each do |google_review|
-          review = shop.reviews.find_or_initialize_by(time: google_review['time'])
-          if review.new_record?
-            review.save
-          else
-            shop.reviews.update(text: google_review['text'], relative_time_description: google_review['relative_time_description'])
+        if result['reviews'].present?
+          result['reviews'].each do |google_review|
+            review = shop.reviews.find_or_initialize_by(time: google_review['text'])
+            if review.new_record?
+              review.text = google_review['text']
+              review.relative_time_description = google_review['relative_time_description']
+              review.time = google_review['time']
+              review.save
+            else
+              shop.reviews.update(text: google_review['time'], relative_time_description: google_review['relative_time_description'])
+            end
           end
         end
       end
-    end
   end
 end
