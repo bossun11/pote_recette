@@ -8,7 +8,8 @@ class Api::V1::ShopsController < ApplicationController
   end
 
   def rankings
-    shops = Shop.ranked_by_bookmarks
+    shops = Shop.ranked_by_bookmarks.includes(:reviews)
+    shops = Shop.with_recent_reviews(shops)
     render json: shops.as_json(include: :reviews)
   end
 end
