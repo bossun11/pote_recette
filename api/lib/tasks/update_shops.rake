@@ -1,7 +1,7 @@
 namespace :update_shops do
   desc "Google Place APIから店舗情報を更新"
   task update: :environment do
-    if Date.today.monday?
+    if Time.zone.today.monday?
       Shop.find_each do |shop|
         res_body = GoogleMapsService.get_shop_details(shop.place_id)
         result = JSON.parse(res_body)["result"]
