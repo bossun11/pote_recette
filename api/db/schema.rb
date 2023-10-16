@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_16_145928) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_14_025552) do
   create_table "bookmarks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "shop_id", null: false
@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_16_145928) do
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
 
-  create_table "reviews", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+  create_table "reviews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "shop_id", null: false
     t.text "text"
     t.integer "time"
