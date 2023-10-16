@@ -16,6 +16,9 @@ namespace :update_shops do
         result['reviews'].each do |google_review|
           review = shop.reviews.find_or_initialize_by(time: google_review['time'])
           if review.new_record?
+            review.text = google_review['text']
+            review.relative_time_description = google_review['relative_time_description']
+            review.time = google_review['time']
             review.save
           else
             shop.reviews.update(text: google_review['text'], relative_time_description: google_review['relative_time_description'])
