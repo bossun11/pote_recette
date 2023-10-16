@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 2.weeks, at: '3:00 am' do
+every 1.weeks, at: '3:00 am' do
   rake 'update_shops:update'
 end
