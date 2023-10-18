@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
-  context "ユーザーモデルの作成" do
+RSpec.describe User do
+  context "正常系" do
     it "ユーザー登録ができること" do
       user = build(:user)
       expect(user).to be_valid

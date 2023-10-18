@@ -21,6 +21,8 @@ AllCops:
     - "vendor/**/*"
     - "lib/tasks/auto_annotate_models.rake"
     - "config/**/*"
+    - "spec/rails_helper.rb"
+    - "spec/spec_helper.rb"
 
 ### ルールのカスタマイズ
 
@@ -91,4 +93,7 @@ Rails/I18nLocaleTexts:
 
 # before_actionの際の未定義メソッドのチェック（deviseとの兼ね合いで一旦false）
 Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+RSpec/ContextWording:
   Enabled: false
