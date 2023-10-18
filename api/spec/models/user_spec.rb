@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe User do
   context "ユーザーモデルの作成" do
     it "ユーザー登録ができること" do
       user = build(:user)
