@@ -97,3 +97,9 @@ Rails/LexicallyScopedActionFilter:
 
 RSpec/ContextWording:
   Enabled: false
+
+RSpec/ExampleLength:
+  Max: 15
+
+RSpec/MultipleExpectations:
+  Max: 5
