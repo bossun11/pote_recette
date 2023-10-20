@@ -13,11 +13,10 @@ class Shop < ApplicationRecord
 
   # ブックマーク数の多い順にショップを3件取得
   scope :ranked_by_bookmarks, lambda {
-    select("shops.*, COUNT(bookmarks.id) AS bookmarks_count")
-      .joins(:bookmarks)
-      .where("shops.rating >= ?", 3.5)
-      .group("shops.id")
-      .order("bookmarks_count DESC")
+    joins(:bookmarks)
+      .where('shops.rating >= ?', 3.5)
+      .group(:id)
+      .order('count(bookmarks.id) desc')
       .limit(3)
   }
 
