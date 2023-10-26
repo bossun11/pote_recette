@@ -39,3 +39,6 @@
 
 # uploader
 /public/uploads/
+
+# rspec
+/spec/.DS_Store
