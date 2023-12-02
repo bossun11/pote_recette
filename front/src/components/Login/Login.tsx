@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Cookies from "js-cookie";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
 import { loginValidationSchema } from "../../utils/validationSchema";
 import NeutralButton from "../Buttons/NeutralButton";
@@ -21,6 +23,7 @@ const Login: FC = () => {
   } = useForm<LoginParams>({ resolver: zodResolver(loginValidationSchema) });
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [isRevealPassword, setIsRevealPassword] = useState<boolean>(false);
   const navigate = useNavigate();
   const { setIsSignedIn, setCurrentUser } = useAuthContext();
 
@@ -46,6 +49,10 @@ const Login: FC = () => {
 
   const buttonText = "ログイン";
 
+  const handleRevealPassword = () => {
+    setIsRevealPassword(!isRevealPassword);
+  };
+
   return (
     <>
       <PageHelmet title="ログイン" />
@@ -66,16 +73,22 @@ const Login: FC = () => {
               />
               {errors.email && <span className="text-error">{errors.email.message}</span>}
             </div>
-            <div className="mb-5">
+            <div className="mb-5 relative">
               <label className="mb-2 text-sm" htmlFor="password">
                 パスワード
               </label>
               <input
                 className="w-full px-3 py-2 border rounded-md outline-none"
                 id="password"
-                type="password"
+                type={isRevealPassword ? "text" : "password"}
                 {...register("password")}
               />
+              <span
+                onClick={handleRevealPassword}
+                className="absolute right-3 top-2/3 transform -translate-y-1/2"
+              >
+                {isRevealPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
               {errors.password && <span className="text-error">{errors.password.message}</span>}
             </div>
             <div className="flex justify-center">
