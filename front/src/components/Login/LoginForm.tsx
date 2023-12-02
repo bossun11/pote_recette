@@ -40,23 +40,27 @@ const LoginForm: FC<LoginFormProps> = ({ onSubmit }) => {
         />
         {errors.email && <span className="text-error">{errors.email.message}</span>}
       </div>
-      <div className="mb-5 relative">
+      <div className="mb-5">
         <label className="mb-2 text-sm" htmlFor="password">
           パスワード
         </label>
-        <input
-          className="w-full px-3 py-2 border rounded-md outline-none"
-          id="password"
-          type={isRevealPassword ? "text" : "password"}
-          {...register("password")}
-        />
-        <span
-          onClick={handleRevealPassword}
-          className="absolute right-3 top-2/3 transform -translate-y-1/2"
-        >
-          {isRevealPassword ? <FaEyeSlash /> : <FaEye />}
-        </span>
-        {errors.password && <span className="text-error">{errors.password.message}</span>}
+        <div className="relative">
+          <input
+            className="w-full px-3 py-2 border rounded-md outline-none"
+            id="password"
+            type={isRevealPassword ? "text" : "password"}
+            {...register("password")}
+          />
+          <span
+            onClick={handleRevealPassword}
+            className="absolute right-3 top-1/2 transform -translate-y-1/2"
+          >
+            {isRevealPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
+        </div>
+        <div className="h-5">
+          {errors.password && <span className="text-error">{errors.password.message}</span>}
+        </div>
       </div>
       <div className="flex justify-center">
         <NeutralButton buttonText={buttonText} />
