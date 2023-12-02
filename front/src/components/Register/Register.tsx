@@ -1,25 +1,16 @@
 import React, { FC, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import Cookies from "js-cookie";
 
-import { registerValidationSchema } from "../../utils/validationSchema";
-import NeutralButton from "../Buttons/NeutralButton";
 import { SignUpParams } from "../../types";
 import { signUp } from "../../lib/api/auth";
 import { useAuthContext } from "../../context/AuthContext";
 import PageHelmet from "../PageHelmet";
 import { toast } from "react-toastify";
 import LoadingSpinner from "../Loadings/LoadingSpinner";
+import RegisterForm from "./RegisterForm";
 
 const Register: FC = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignUpParams>({ resolver: zodResolver(registerValidationSchema) });
-
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const { setIsSignedIn, setCurrentUser } = useAuthContext();
@@ -44,8 +35,6 @@ const Register: FC = () => {
     setLoading(false);
   };
 
-  const buttonText = "登録する";
-
   return (
     <>
       <PageHelmet title="ユーザー登録" />
@@ -53,62 +42,7 @@ const Register: FC = () => {
       <div className="flex flex-col items-center mt-20">
         <div className="w-96 bg-white rounded p-6 shadow-xl">
           <h2 className="text-2xl text-center font-bold mb-5 text-gray-800">ユーザー登録画面</h2>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-2">
-              <label className="mb-2 text-sm" htmlFor="name">
-                ユーザー名
-              </label>
-              <input
-                className="w-full px-3 py-2 border rounded-md outline-none"
-                id="name"
-                type="text"
-                {...register("name")}
-              />
-              {errors.name && <span className="text-error">{errors.name.message}</span>}
-            </div>
-            <div className="mb-2">
-              <label className="mb-2 text-sm" htmlFor="email">
-                メールアドレス
-              </label>
-              <input
-                className="w-full px-3 py-2 border rounded-md outline-none"
-                id="email"
-                type="email"
-                {...register("email")}
-              />
-              {errors.email && <span className="text-error">{errors.email.message}</span>}
-            </div>
-            <div className="mb-2">
-              <label className="mb-2 text-sm" htmlFor="password">
-                パスワード
-              </label>
-              <input
-                className="w-full px-3 py-2 border rounded-md outline-none"
-                id="password"
-                type="password"
-                placeholder="8文字以上で入力してください"
-                {...register("password")}
-              />
-              {errors.password && <span className="text-error">{errors.password.message}</span>}
-            </div>
-            <div className="mb-5">
-              <label className="mb-2 text-sm" htmlFor="passwordConfirmation">
-                パスワード（確認用）
-              </label>
-              <input
-                className="w-full px-3 py-2 border rounded-md outline-none"
-                id="passwordConfirmation"
-                type="password"
-                {...register("passwordConfirmation")}
-              />
-              {errors.passwordConfirmation && (
-                <span className="text-error">{errors.passwordConfirmation.message}</span>
-              )}
-            </div>
-            <div className="flex justify-center">
-              <NeutralButton buttonText={buttonText} />
-            </div>
-          </form>
+          <RegisterForm onSubmit={onSubmit} />
         </div>
         <Link to="/login" className="mt-6 mb-10 link link-hover">
           すでにアカウントをお持ちの方はこちら
