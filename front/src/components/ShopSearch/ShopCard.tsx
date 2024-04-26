@@ -38,13 +38,13 @@ const ShopCard: FC<ShopCardProps> = ({ shop }) => {
       <div className="card-body">
         <div className="flex justify-between items-center">
           <div className="flex-col">
-            <h2 className="card-title">{name}</h2>
-            <div>{address}</div>
+            <h2 className="card-title text-lg">{name}</h2>
+            <div className="text-sm mt-2">{address}</div>
             <p className="text-sm mt-2">
               評価：{rating}（{user_ratings_total}件）
             </p>
           </div>
-          <div className="items-center">
+          <div className="items-center ml-1">
             <div className="w-20 h-20 flex-shrink-0">
               <img src={photoUrl} alt="" className="w-full h-full object-cover" />
             </div>
