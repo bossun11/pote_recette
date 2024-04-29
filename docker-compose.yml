@@ -1,9 +1,20 @@
 version: "3.7"
 
 services:
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    container_name: potarecette-front
+    command: npm run open
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./front:/app
+
   api:
     build:
-      context: ./api/
+      context: ./api
       dockerfile: Dockerfile
     container_name: potarecette-api
     image: rails
@@ -33,7 +44,6 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
     volumes:
       - mysql-data:/var/lib/mysql
-    command: --default-authentication-plugin=mysql_native_password
 
 volumes:
   mysql-data:
