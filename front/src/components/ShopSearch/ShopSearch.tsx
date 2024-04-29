@@ -101,10 +101,17 @@ const ShopSearch: FC = () => {
     }
   };
 
-  const shopCardList = () => {
-    return (tab === "all" ? shops : bookmarks).map((shop) => (
-      <ShopCard key={shop.place_id} shop={shop} />
-    ));
+  const shopsCard = () => {
+    switch (tab) {
+      case "all":
+        if (shops.length === 0)
+          return <p className="text-lg opacity-70 sm:text-xl">検索結果がありません</p>;
+        return shops.map((shop) => <ShopCard key={shop.place_id} shop={shop} />);
+      case "bookmarks":
+        if (bookmarks.length === 0)
+          return <p className="text-lg opacity-70 sm:text-xl">お気に入りがありません</p>;
+        return bookmarks.map((shop) => <ShopCard key={shop.place_id} shop={shop} />);
+    }
   };
 
   // タブが変更されたときにお気に入りのショップ情報を取得する
@@ -146,11 +153,7 @@ const ShopSearch: FC = () => {
             </div>
           )}
           <div className="flex flex-col items-center space-y-4 mt-4 overflow-auto h-[50vh] lg:h-auto">
-            {shops.length > 0 ? (
-              shopCardList()
-            ) : (
-              <p className="text-lg opacity-70 sm:text-xl">検索結果がありません</p>
-            )}
+            {shopsCard()}
           </div>
         </div>
         <div className="p-4 h-[50vh] md:w-[100vh] md:mx-auto lg:p-0 lg:h-auto lg:w-2/3">

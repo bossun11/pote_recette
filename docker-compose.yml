@@ -1,0 +1,49 @@
+version: "3.7"
+
+services:
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    container_name: potarecette-front
+    command: npm run open
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./front:/app
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: potarecette-api
+    image: rails
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./api:/app
+    environment:
+      TZ: Asia/Tokyo
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+    links:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: potarecette-db
+    ports:
+      - "3306:3306"
+    environment:
+      DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
