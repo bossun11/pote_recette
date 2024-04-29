@@ -71,7 +71,8 @@ const ShopSearch: FC = () => {
       const res = await axios.get(
         `${process.env.REACT_APP_GOOGLE_MAP_BASE_URL}/geocode/json?latlng=${latitude},${longitude}&key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}&language=ja`,
       );
-      return res.data.plus_code.compound_code;
+      const address = res.data.plus_code.compound_code.split(" ")[1];
+      return address;
     } catch (e) {
       toast.error("住所の取得に失敗しました");
       return null;
